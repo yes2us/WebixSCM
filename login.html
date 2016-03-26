@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="codebase/webix.css" type="text/css" media="screen" charset="utf-8">
+		<script src="codebase/webix.js" type="text/javascript" charset="utf-8"></script>
+		<title>登陆</title>
+	</head>
+	<body>
+
+	
+		<script type="text/javascript" charset="utf-8">
+			
+		   var _RawUserCode = webix.storage.local.get('_RawUserCode');
+		   var _UserCode = webix.storage.local.get('_UserCode');
+		   var _PWD = webix.storage.local.get('_PWD');
+		   var _LastLoginTime = webix.storage.local.get('_LastLoginTime');
+		   var dayGap = (new Date()-new Date(_LastLoginTime))/1000/3600/24;
+		   var urlstr = "http://"+window.location.host+"/POAAdmin/index.php/Home";
+
+		   
+		var form1 = [
+			{ view: "text", label: '帐号', name: "usercode",id:"usercode",required:true},
+		    { view: "text", label: '密码',type:"password", name: "password" ,id:"password",required:true},
+			{ 
+				margin:5,
+				cols:[
+				      { view: "button", value: "登陆",name: "loginButton" ,id:"loginButton",click:fnClickLogin},
+		      		  { view:"checkbox",name:"savelogininfo",id:"checkbox",label:"记住我",align:"right", margin:10,width:120,labelWidth:100}
+			]}
+		];
+
+
+		webix.ui({
+				view:"window",
+				height:350,
+			    width:400,
+			    head:"登陆",
+			    id:"loginwin",
+			    position:"center",
+				body:{
+				rows:[{ view:"form", scroll:false, width:350, elements: form1 }]
+				}
+			}).show();
+			
+   
+    		$$("usercode").focus();
+ 			$$("usercode").setValue(_RawUserCode);
+ 			if(dayGap<=7) $$("password").setValue(_PWD);
+ 		
+			function fnClickLogin(){
+  		
+  			
+			if(!this.getFormView().validate()) {
+				webix.message("请填充带红色*的内容,并且帐号必须是email格式");
+				return;
+			}
+			
+ 			_RawUserCode = $$("usercode").getValue();
+			_PWD = $$("password").getValue();
+			
+
+			_UserCode = _RawUserCode.substring(0, _RawUserCode.indexOf('@', 0));
+			_DSSuffix = _RawUserCode.substring(_UserCode.length + 1, _RawUserCode.length);
+			_UserCode = _UserCode.toLowerCase();
+			_DSSuffix = _DSSuffix.toLowerCase();
+			
+			
+			checkUser(_DSSuffix,_UserCode,_PWD);	
+  	}
+  		
+  		function checkUser(_DSSuffix,_UserCode,_PWD)
+  		{
+  			webix.ajax().post(urlstr+"/WBStaffMng/getRawUrl", {DSSuffix: _DSSuffix},
+  			function(text, xml,xhr) {
+  							
+				if (text) {
+//					var _DS = response.replace('g6ENa2Kd6XRU8UAgng', 'Admi');
+//					webix.storage.local.put('_DS', _DS);
+//					_DS = urlstr;
+//					webix.storage.local.put('_DSSuffix',_DSSuffix);
+					
+					webix.ajax().post(urlstr + "/WBStaffMng/checkUserPWD", {DSSuffix: _DSSuffix,UserID: _UserCode,PWD: _PWD},
+						function(text1, xml1,xhr1) {
+							if (text1.indexOf("OK")>0) {	
+								
+								webix.message('登陆成功');
+								
+								webix.storage.local.clear();
+ 								webix.storage.local.put('_UserCode',_UserCode);
+   								webix.storage.local.put('_LastLoginTime',new Date());
+   								
+   								if(($$("checkbox").getValue()))
+ 								{
+ 									webix.storage.local.put('_RawUserCode',_RawUserCode);
+ 									webix.storage.local.put('_PWD',_PWD);
+ 								}
+ 								else
+ 								{
+  									webix.storage.local.remove('_RawUserCode');
+ 									webix.storage.local.put('_PWD');									
+ 								}
+ 								
+ 								getUserInfo(_UserCode);
+ 								loadWBMenu(_DSSuffix,_UserCode);
+ 								
+							} else {
+								webix.message('帐号或密码错误');
+							}
+						});
+
+				}
+			});
+  		}
+  		
+  		  function loadWBMenu(_DSSuffix,_UserCode)
+  		  {
+  		  	 var premizObj = webix.ajax().post(urlstr+"/WBParaMng/getWBMenu",{DSSuffix:_DSSuffix,UserCode:_UserCode});
+  		  	  $$("app:menu").clearAll();
+			  $$("app:menu").parse(premizObj);
+  		  }
+  		  
+  		  function getUserInfo(_UserCode)
+  		{
+  					webix.ajax().post(urlstr + "/WBStaffMng/getUserInfo", {DSSuffix:_DSSuffix,StaffCode: _UserCode},
+						function(text, xml,xhr) {							
+//							webix.storage.local.clear();
+ 							webix.storage.local.put('UserObject',text); 
+ 							if(text)
+ 							{
+   								 webix.storage.local.put('_DSSuffix',JSON.parse(text)['mybasic'][0]['dssuffix']); 								
+ 							}
+ 							window.location.href= "http://"+window.location.host+"/webixpoa/index.html#!/app/mng_mytask";
+						});
+  		}
+			
+			
+		</script>
+	</body>
+</html>
