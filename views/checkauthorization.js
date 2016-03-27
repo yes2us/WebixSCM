@@ -17,7 +17,7 @@
 
    if(forceLogin || !_UserCode || dayGap>7)
   {   
-		window.location.href= "http://"+window.location.host+"/webixpoa/login.html";
+		window.location.href= "http://"+window.location.host+"/WebixSCM/login.html";
 //		window.location.href= homestr+"/login.html";
   };
 

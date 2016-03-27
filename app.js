@@ -88,9 +88,10 @@ webix.i18n.setLocale("zh-CN");
 	_BelongDeptCode = JSON.parse(webix.storage.local.get('UserObject'))['mybasic'][0]['belongdeptcode'];
 	_DSSuffix = webix.storage.local.get('_DSSuffix');
 	
-	urlstr = "http://"+window.location.host+"/POAAdmin/index.php/Home";
+     //urlstr = "http://"+window.location.host+"/POAAdmin/index.php/Home";
+	urlstr = "http://bmte.cn/POAAdmin/index.php/Home";
 	
-	homestr = "http://"+window.location.host+"/Webixpoa";
+	homestr = "http://"+window.location.host+"/WebixSCM";
 //	homestr = "http://"+window.location.host;
 	
 	localhost = "http://"+window.location.host;

@@ -16,7 +16,8 @@
 		   var _PWD = webix.storage.local.get('_PWD');
 		   var _LastLoginTime = webix.storage.local.get('_LastLoginTime');
 		   var dayGap = (new Date()-new Date(_LastLoginTime))/1000/3600/24;
-		   var urlstr = "http://"+window.location.host+"/POAAdmin/index.php/Home";
+		  // var urlstr = "http://"+window.location.host+"/POAAdmin/index.php/Home";
+		   var urlstr = "http://bmte.cn/POAAdmin/index.php/Home";
 
 		   
 		var form1 = [
@@ -130,7 +131,7 @@
  							{
    								 webix.storage.local.put('_DSSuffix',JSON.parse(text)['mybasic'][0]['dssuffix']); 								
  							}
- 							window.location.href= "http://"+window.location.host+"/webixpoa/index.html#!/app/mng_mytask";
+ 							window.location.href= "http://"+window.location.host+"/webixscm/index.html#!/app/mng_mytask";
 						});
   		}
 			
