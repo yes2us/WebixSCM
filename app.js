@@ -33,11 +33,11 @@ define([
 	//configuration
 	var app = core.create({
 		id:			"admin-demo",
-		name:		"人本会计",
+		name:		"TOC供应链管理",
 		version:	"0.1",
 		debug:		true,
 //		debug:		false,
-		start:		"/app/mng_mytask"		
+		start:		"/app/mng_para"		
 	});
 
 	app.use(menu);
@@ -83,14 +83,15 @@ webix.i18n.locales["zh-CN"]={   //"es-ES" - the locale name, the same as the fil
 };
 webix.i18n.setLocale("zh-CN");
 
-	_UserCode = webix.storage.local.get('_UserCode');
-	_UserName = JSON.parse(webix.storage.local.get('UserObject'))['mybasic'][0]['staffname'];
-	_BelongDeptCode = JSON.parse(webix.storage.local.get('UserObject'))['mybasic'][0]['belongdeptcode'];
-	_DSSuffix = webix.storage.local.get('_DSSuffix');
+//	_UserCode = webix.storage.local.get('_UserCode');
+//	_UserName = JSON.parse(webix.storage.local.get('UserObject'))['mybasic'][0]['staffname'];
+//	_BelongDeptCode = JSON.parse(webix.storage.local.get('UserObject'))['mybasic'][0]['belongdeptcode'];
+//	_DSSuffix = webix.storage.local.get('_DSSuffix');
 	
-     //urlstr = "http://"+window.location.host+"/POAAdmin/index.php/Home";
-	urlstr = "http://bmte.cn/POAAdmin/index.php/Home";
-	
+       urlstr = "http://"+window.location.host+"/SCMAdmin/index.php/Home";
+//	urlstr = "http://bmte.cn/POAAdmin/index.php/Home";
+
+    
 	homestr = "http://"+window.location.host+"/WebixSCM";
 //	homestr = "http://"+window.location.host;
 	

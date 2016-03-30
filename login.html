@@ -16,8 +16,8 @@
 		   var _PWD = webix.storage.local.get('_PWD');
 		   var _LastLoginTime = webix.storage.local.get('_LastLoginTime');
 		   var dayGap = (new Date()-new Date(_LastLoginTime))/1000/3600/24;
-		  // var urlstr = "http://"+window.location.host+"/POAAdmin/index.php/Home";
-		   var urlstr = "http://bmte.cn/POAAdmin/index.php/Home";
+		   var urlstr = "http://"+window.location.host+"/SCMAdmin/index.php/Home";
+
 
 		   
 		var form1 = [
@@ -76,11 +76,7 @@
   			function(text, xml,xhr) {
   							
 				if (text) {
-//					var _DS = response.replace('g6ENa2Kd6XRU8UAgng', 'Admi');
-//					webix.storage.local.put('_DS', _DS);
-//					_DS = urlstr;
-//					webix.storage.local.put('_DSSuffix',_DSSuffix);
-					
+
 					webix.ajax().post(urlstr + "/WBStaffMng/checkUserPWD", {DSSuffix: _DSSuffix,UserID: _UserCode,PWD: _PWD},
 						function(text1, xml1,xhr1) {
 							if (text1.indexOf("OK")>0) {	
@@ -102,8 +98,10 @@
  									webix.storage.local.put('_PWD');									
  								}
  								
- 								getUserInfo(_UserCode);
+// 								getUserInfo(_UserCode);
  								loadWBMenu(_DSSuffix,_UserCode);
+  			 					window.location.href= "http://"+window.location.host+"/WebixSCM/index.html#!/app/mng_para";
+
  								
 							} else {
 								webix.message('帐号或密码错误');
@@ -116,22 +114,22 @@
   		
   		  function loadWBMenu(_DSSuffix,_UserCode)
   		  {
-  		  	 var premizObj = webix.ajax().post(urlstr+"/WBParaMng/getWBMenu",{DSSuffix:_DSSuffix,UserCode:_UserCode});
-  		  	  $$("app:menu").clearAll();
-			  $$("app:menu").parse(premizObj);
+  //		  	 var premizObj = webix.ajax().post(urlstr+"/WBParaMng/getWBMenu",{DSSuffix:_DSSuffix,UserCode:_UserCode});
+//		  	  $$("app:menu").clearAll();
+//			  $$("app:menu").parse(premizObj);
   		  }
   		  
   		  function getUserInfo(_UserCode)
   		{
-  					webix.ajax().post(urlstr + "/WBStaffMng/getUserInfo", {DSSuffix:_DSSuffix,StaffCode: _UserCode},
+
+					webix.ajax().post(urlstr + "/WBStaffMng/getUserInfo", {DSSuffix:_DSSuffix,StaffCode: _UserCode},
 						function(text, xml,xhr) {							
-//							webix.storage.local.clear();
- 							webix.storage.local.put('UserObject',text); 
- 							if(text)
- 							{
+   							webix.storage.local.put('UserObject',text); 
+   							if(text)
+   							{
    								 webix.storage.local.put('_DSSuffix',JSON.parse(text)['mybasic'][0]['dssuffix']); 								
- 							}
- 							window.location.href= "http://"+window.location.host+"/webixscm/index.html#!/app/mng_mytask";
+   							}
+   							window.location.href= "http://"+window.location.host+"/WebixSCM/index.html#!/app/mng_para";
 						});
   		}
 			

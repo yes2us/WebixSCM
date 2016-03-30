@@ -9,7 +9,7 @@ define([
 	"views/modules/mng_mytask/task_annidaylist"
 ], function(scoreobject,vipobject,auditlist,appeallist,invitelist,maintainlist,annidaylist){
 	
-	//checkauthorization(false);
+	checkauthorization(false);
 	
 var layout = {
 	type: "clean",
