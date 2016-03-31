@@ -3,7 +3,7 @@ define(function(){
 	var gridTree = {
 		view:"treetable",
 		headerRowHeight:35,
-		id:"tabletree_buyrecord",
+		id:"tabletree_storetodayadjrec",
 		dragColumn:true,
 				headermenu:{
 				    width:250,
@@ -67,16 +67,9 @@ define(function(){
 
 	var layout = {
 		type: "clean",
-		id: "vipBuyRecordView",
+		id: "storeTodayAdjRecView",
 		cols:[
 			gridTree,
-//			{	
-//				width:400,
-//				rows:[
-//						{template:"照片", type:"section"},
-//						{ view:"textarea", name:"picturepath"},
-//					]
-//			}
 		]
 	};
 

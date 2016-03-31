@@ -2,7 +2,7 @@ define([], function(){
 
 	var form = {
 		view: "form",
-		id: "vipBuyHabitView",
+		id: "storeStockStructView",
 		type:"clean",
 
 		paddingX:25,

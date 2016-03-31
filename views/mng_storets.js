@@ -1,15 +1,12 @@
 define([
-	"data/vipobject",
-
-	"views/modules/mng_storets/viplist_emotionplan",
-	"views/modules/mng_storets/vip_emotionplan",
-		
-	"views/modules/mng_storets/vip_emotionbasic",
-	"views/modules/mng_storets/vip_buyhabit",
-	"views/modules/mng_storets/vip_buyrecord",
-	"views/modules/mng_storets/vip_contrecord",
-	"views/modules/mng_storets/vip_privateconsultant"
-], function(vipobject,viplist,emotionplan,basicinfo,buyhabit,buyrecord,contrecord,privateconsultant){
+	"data/storeobject",
+	"views/modules/mng_storets/storeListView",
+	"views/modules/mng_storets/storeStockStructView",	
+	"views/modules/mng_storets/storeTSView",
+	"views/modules/mng_storets/storeSugRepPlanView",
+	"views/modules/mng_storets/storeSugRetPlanView",
+	"views/modules/mng_storets/storeTodayAdjReView"
+], function(storeobject,storeListView,storeStockStructView,storeTSView,storeSugRepPlanView,storeSugRetPlanView,storeTodayAdjRecView){
 
 checkauthorization(false);
 
@@ -27,22 +24,20 @@ var layout = {
 						rows:[
 							{view: "tabbar", multiview: true,optionWidth: 130,
 								options:[
-									{id: "vipBasicView", value: "库存结构"},
-									{id: "vipEmotionPlanView", value: "目标库存"},
-									{id: "vipBuyHabitView", value: "建议补货"},
-									{id: "vipBuyRecordView", value: "建议退货"},
-									{id: "vipContRecordView", value: "调整记录"},
-//									{id: "vipPrivateConsultantView", value: "私人顾问"}
+									{id: "storeStockStructView", value: "库存结构"},
+									{id: "storeTSView", value: "目标库存"},
+									{id: "storeSugRepPlanView", value: "建议补货"},
+									{id: "storeSugRetPlanView", value: "建议退货"},
+									{id: "storeTodayAdjRecView", value: "调整记录"}
 								]
 							},
 							{
 								cells:[
-									basicinfo,
-								    emotionplan,
-									buyhabit,	
-									buyrecord,
-									contrecord,
-//									privateconsultant
+									storeStockStructView,
+								    storeTSView,
+									storeSugRepPlanView,	
+									storeSugRetPlanView,
+									storeTodayAdjRecView
 								]
 							}
 						]
@@ -61,12 +56,6 @@ var layout = {
 return {
 	$ui:layout,
 	$oninit:function(){
-		
-		var elements = $$("vipbasicinfo").elements;
-		for(var att in elements)
-		{
-			if(att != 'uploader')	$$(att).disable();
-		}
 		
 		emotionplan.$invoke("");
 
