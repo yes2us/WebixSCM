@@ -37,7 +37,7 @@ define([], function(){
 								{template:"消费宽度", type:"section"},
 								{ 
 								  view:"datatable",
-								  id:"buyspan_list",
+								  id:"table_stockstruct",
 								  select: true,
 								  headerRowHeight:35,
 								  dragColumn:true,

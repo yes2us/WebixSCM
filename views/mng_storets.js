@@ -1,12 +1,12 @@
 define([
-	"data/storeobject",
+	"data/stockobject",
 	"views/modules/mng_storets/storeListView",
 	"views/modules/mng_storets/storeStockStructView",	
 	"views/modules/mng_storets/storeTSView",
 	"views/modules/mng_storets/storeSugRepPlanView",
 	"views/modules/mng_storets/storeSugRetPlanView",
-	"views/modules/mng_storets/storeTodayAdjReView"
-], function(storeobject,storeListView,storeStockStructView,storeTSView,storeSugRepPlanView,storeSugRetPlanView,storeTodayAdjRecView){
+	"views/modules/mng_storets/storeTodayAdjRecView"
+], function(stockobject,storeListView,storeStockStructView,storeTSView,storeSugRepPlanView,storeSugRetPlanView,storeTodayAdjRecView){
 
 checkauthorization(false);
 
@@ -17,7 +17,7 @@ var layout = {
 		{
 				type: "wide",
 				cols:[
-					viplist,
+					storeListView,
 					{view:"resizer"},
 					{
 						gravity: 2.2,
@@ -57,38 +57,38 @@ return {
 	$ui:layout,
 	$oninit:function(){
 		
-		emotionplan.$invoke("");
-
-		$$("lt_emotionplan").attachEvent("onSelectChange",function(id){
+		$$("lt_stores").attachEvent("onSelectChange",function(id){
 			if(id==1 || !this.getItem(id)) return;	
 			
-			var vipcode = this.getItem(id).customercode;
+			var storecode = this.getItem(id).partycode;
+			var prezStoreTSStructData = stockobject.getStoreTSInfo(storecode);
 			
-			var prezVIPBasicInfo = vipobject.getSingleVIPBasicDetail(vipcode);	
+			//显示库存结构-总体信息
+			$$("storeStockStructView").clear();
+			$$("storeStockStructView").refresh();
+			$$("storeStockStructView").parse(prezStoreTSStructData);
 			
-			emotionplan.$invoke(vipcode);
+			//显示库存结构-大类
+			$$("table_stockstruct").clearAll();
+			$$("table_stockstruct").parse(prezStoreTSStructData);	
 			
-			$$("emotionPlanForm").clear();
-			$$("emotionPlanForm").refresh();
-			$$("emotionPlanForm").parse(prezVIPBasicInfo);
 			
-			$$("vipbasicinfo").clear();
-			$$("vipbasicinfo").refresh();
-			$$("vipbasicinfo").parse(prezVIPBasicInfo);
+			//显示目标库存
+			$$("table_storets").clearAll();
+			$$("table_storets").parse(prezStoreTSStructData);
 			
-			$$("vipBuyHabitView").clear();
-			$$("vipBuyHabitView").refresh();
-			$$("vipBuyHabitView").parse(prezVIPBasicInfo);
+			//显示建议补货量
+			$$("table_sugrepplan").clearAll();
+			$$("table_sugrepplan").parse(prezStoreTSStructData);
+			
+			//显示建议退货量
+			$$("table_sugretplan").clearAll();
+			$$("table_sugretplan").parse(prezStoreTSStructData);
 
-			
-			$$("buyspan_list").clearAll();
-			$$("buyspan_list").parse(vipobject.getSaleSpan(vipcode));
-			
-			$$("chatlist_contrecord").clearAll();
-			$$("chatlist_contrecord").parse(vipobject.getContRecord(vipcode));
-
-			$$("tabletree_buyrecord").clearAll();
-			$$("tabletree_buyrecord").parse(vipobject.getSaleRecord(vipcode));
+			//显示最近调整记录
+			var prezAdjRecData = stockobject.getPartyAdjRec({WHCode:storecode,RecordDate:'2016-01-01'});
+			$$("table_storetodayadjrec").clearAll();
+			$$("table_storetodayadjrec").parse(prezAdjRecData);
 			
 			});
 	}

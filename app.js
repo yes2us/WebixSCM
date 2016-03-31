@@ -37,7 +37,7 @@ define([
 		version:	"0.1",
 		debug:		true,
 //		debug:		false,
-		start:		"/app/mng_para"		
+		start:		"/app/mng_storets"		
 	});
 
 	app.use(menu);
