@@ -10,11 +10,7 @@ define([], function() {
 		return webix.ajax().post(urlstr+"/WBPartyMng/getStoreList",postData);
 	}
 
-	storeObject.getStoreIndicator = function(StoreCode){
-		var postData={
-			StoreCode:StoreCode,
-			Page:"1,20"
-		};
+	storeObject.getStoreIndicator = function(postData){
 		return webix.ajax().post(urlstr+"/WBPartyMng/getStoreIndicator",postData);
 	}
 

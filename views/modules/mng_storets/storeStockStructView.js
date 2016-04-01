@@ -39,7 +39,9 @@ define([], function(){
 								  view:"datatable",
 								  id:"table_stockstruct",
 								  select: true,
-								  headerRowHeight:35,
+								  headerRowHeight:30,
+								  leftSplit:3,
+								  rowHeight:15,
 								  dragColumn:true,
 									headermenu:{
 									    width:250,

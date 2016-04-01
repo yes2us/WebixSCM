@@ -2,7 +2,9 @@ define(function(){
 
 	var gridTree = {
 		view:"treetable",
-		headerRowHeight:35,
+		headerRowHeight:30,
+		leftSplit:3,
+		rowHeight:15,
 		id:"table_storetodayadjrec",
 		dragColumn:true,
 				headermenu:{

@@ -14,12 +14,12 @@ define([], function() {
 		return webix.ajax().post(urlstr+"/WBStockMng/getPartyAdjRec",postData);
 	}
 
-	stockObject.getReplenishBill = function(postData){
-		return webix.ajax().post(urlstr+"/WBStockMng/getReplenishBill",postData);
+	stockObject.getRepRetOrder = function(postData){
+		return webix.ajax().post(urlstr+"/WBStockMng/getRepRetOrder",postData);
 	}
 
-     stockObject.getReturnBill = function(postData){
-     	return webix.ajax().post(urlstr+"/WBStockMng/getReturnBill",postData);
+     stockObject.getRepRetOrderItem = function(postData){
+     	return webix.ajax().post(urlstr+"/WBStockMng/getRepRetOrderItem",postData);
      }
      
       stockObject.getProdHSStock = function(WHCode,SKUCode){

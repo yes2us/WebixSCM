@@ -1,5 +1,5 @@
 define(
-["data/storeobject",],
+["data/storeobject"],
 function(storeobject){
 	var _UserCode = webix.storage.local.get('_UserCode');
 

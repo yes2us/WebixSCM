@@ -18,9 +18,9 @@ var layout = {
 				type: "wide",
 				cols:[
 					storeListView,
-					{view:"resizer"},
+					{view:"resizer",width:1},
 					{
-						gravity: 2.2,
+//						gravity: 2.2,
 						rows:[
 							{view: "tabbar", multiview: true,optionWidth: 130,
 								options:[
@@ -80,13 +80,18 @@ return {
 			//显示建议补货量
 			$$("table_sugrepplan").clearAll();
 			$$("table_sugrepplan").parse(prezStoreTSStructData);
+//			$$("table_sugrepplan").filter(function(obj){
+//				console.log(obj.repretqty);
+//  				return parseInt(obj.repretqty)==1;
+//			});
+//			$$("table_sugrepplan").refresh();
 			
 			//显示建议退货量
 			$$("table_sugretplan").clearAll();
 			$$("table_sugretplan").parse(prezStoreTSStructData);
 
 			//显示最近调整记录
-			var prezAdjRecData = stockobject.getPartyAdjRec({WHCode:storecode,RecordDate:'2016-01-01'});
+			var prezAdjRecData = stockobject.getPartyAdjRec({WHCode:storecode,EndDate:'2016-01-01'});
 			$$("table_storetodayadjrec").clearAll();
 			$$("table_storetodayadjrec").parse(prezAdjRecData);
 			

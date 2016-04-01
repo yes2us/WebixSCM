@@ -1,10 +1,12 @@
 define(function(){
 
 	var gridTree = {
-		view:"treetable",
-		headerRowHeight:35,
+		view:"datatable",
+		headerRowHeight:30,
 		id:"table_sugrepplan",
 		dragColumn:true,
+		leftSplit:3,
+		rowHeight:15,
 				headermenu:{
 				    width:250,
 				    autoheight:false,

@@ -1,59 +1,13 @@
 define([
 	"data/stockobject",
+	"views/modules/qry_storeadj/searchconditionview"
 	],
-function(stockobject){
+function(stockobject,searchconditionview){
 	
 	checkauthorization(false);
 	
 		var enddate = new Date();
 		enddate.setDate(enddate.getDate()-7);
-	
-	var titleBar = {
-			view:"toolbar",
-			css: "highlighted_header header5",
-			paddingX:5,
-			paddingY:5,
-			height:35,
-			cols:[
-			    {view:"datepicker", 	name:"enddate",width:250,align: "left", label: '结束日期',	labelWidth:100,value:new Date(), stringResult:true, format:"%Y-%m-%d"},
-				{view:"select",name:"regioncode", 	width:250,align: "left", label: '区域',	labelWidth:100,
-				options:urlstr+"/WBPartyMng/getRegionList",
-				on:{
-					onChange:function(newv,oldv){
-						if(newv)
-						{
-							webix.ajax().post(urlstr+"/WBPartyMng/getStoreList",{RegionCode:newv},function(response){
-									var optionarray = [{id:'all',value:"所有"}];
-									JSON.parse(response).forEach(function(item){
-										optionarray.push({id:item.partycode,value:item.partyname});
-									});
-									
-									$$("storecode").define('options',optionarray);
-									$$("storecode").refresh();
-								});
-						}
-					}
-				}
-				},
-			    {view:"select", name:"storecode",width:250,align: "left", label: '门店',	labelWidth:100,options:[]},
-			    { view: "button", type: "iconButton", icon: "search", label: "查询", width: 70, 
-				    click: function(){
-				    	var values =this.getParentView().getValues();
-						if(values.storecode == 'all')
-						{
-							var postData = {RecordDate:values.enddate.substr(0,10)};
-						}
-						else
-						{
-							var postData = {RecordDate:values.enddate.substr(0,10),WHCode:values.storecode};
-						}
-						$$("data_storeadjrecord").clearAll();
-						$$("data_storeadjrecord").parse(stockobject.getPartyAdjRec(postData));
-				 }},
-			    {},
-
-		    ]
-	};
 
 	
 	var grid = {
@@ -64,6 +18,8 @@ function(stockobject){
 				view:"datatable", 
 				editable:true,
 				select:true,
+				leftSplit:3,
+				rowHeight:15,
 				headerRowHeight:35,
 					dragColumn:true,
 					headermenu:{
@@ -93,8 +49,9 @@ function(stockobject){
 
 	var layout = {
 		type: "clean",
-		rows:[
-			titleBar,
+		cols:[
+			searchconditionview,
+			{view:"resizer"},
 			{
 				rows:[
 					grid,
@@ -121,9 +78,6 @@ function(stockobject){
 
 	return {
 		$ui: layout,
-		$oninit:function(){
-
-		}
 	};
 
 });
