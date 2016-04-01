@@ -14,5 +14,6 @@ define([], function() {
 		return webix.ajax().post(urlstr+"/WBPartyMng/getStoreIndicator",postData);
 	}
 
+
 	return storeObject;
 });

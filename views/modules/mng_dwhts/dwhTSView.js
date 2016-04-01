@@ -5,7 +5,7 @@ define(function(){
 		headerRowHeight:30,
 		leftSplit:3,
 		rowHeight:_RowHeight,
-		id:"table_storets",
+		id:"table_dwhts",
 		leftSplit:1,
 		headerRowHeight:_HeaderRowHeight,
 				headermenu:{
@@ -34,7 +34,7 @@ define(function(){
 
 	var layout = {
 		type: "clean",
-		id: "storeTSView",
+		id: "dwhTSView",
 		cols:[
 			gridTree,
 		]

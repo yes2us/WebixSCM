@@ -1,8 +1,8 @@
 define([
 	"data/stockobject",
-	"views/modules/qry_storerepretbill/rep_conditionview"
+	"views/modules/qry_storerepretorder/repretconditionview"
 	],
-function(stockobject,rep_conditionview){
+function(stockobject,repretconditionview){
 	
 	checkauthorization(false);
 	
@@ -14,13 +14,13 @@ function(stockobject,rep_conditionview){
 		margin:10,
 		rows:[
 			{
-				id:"datatable_reporder",
+				id:"datatable_repretorder",
 				view:"datatable", 
 				editable:false,
 				select:true,
 				leftSplit:3,
-				rowHeight:15,
-				headerRowHeight:30,
+				rowHeight:_RowHeight,
+				headerRowHeight:_HeaderRowHeight,
 					headermenu:{
 					    width:250,
 					    autoheight:false,
@@ -43,26 +43,27 @@ function(stockobject,rep_conditionview){
 						var selRow = this.getSelectedItem();
 						if(selRow)
 						{
-						var prezRepItemData = stockobject.getRepRetOrderItem({Type:"Rep",OrderCode:selRow.ordercode});
-						$$("datatable_reporderitem").clearAll();
-						$$("datatable_reporderitem").parse(prezRepItemData);
+						var ordertype = repretconditionview.getOrderType();
+						var prezRepItemData = stockobject.getRepRetOrderItem({OrderType:ordertype,OrderCode:selRow.ordercode});
+						$$("datatable_repretorderitem").clearAll();
+						$$("datatable_repretorderitem").parse(prezRepItemData);
 						}
 					}
 				},
-				pager:"storerep_pagerA"
+				pager:"storerepret_pagerA"
 			}
 		]
 
 	};
 	
 	var grid_orderitem={
-				id:"datatable_reporderitem",
+				id:"datatable_repretorderitem",
 				view:"datatable", 
 				editable:false,
 				select:true,
 				leftSplit:3,
-				rowHeight:15,
-				headerRowHeight:30,
+				rowHeight:_RowHeight,
+				headerRowHeight:_HeaderRowHeight,
 					headermenu:{
 					    width:250,
 					    autoheight:false,
@@ -82,13 +83,13 @@ function(stockobject,rep_conditionview){
 					{ id:"orderqty",	header:"数量",align:"right", fillspace:1}
 				],
 				export: true,
-				pager:"storerepitem_pagerA"
+				pager:"storerepretitem_pagerA"
 	};
 	
 	var layout = {
 		type: "clean",
 		cols:[
-			rep_conditionview,
+			repretconditionview,
 			{view:"resizer"},
 			{
 				rows:[
@@ -100,7 +101,7 @@ function(stockobject,rep_conditionview){
 						paddingY:2,
 						height:30,
 						cols:[{
-							view:"pager", id:"storerep_pagerA",
+							view:"pager", id:"storerepret_pagerA",
 							template:"{common.first()}{common.prev()}&nbsp; {common.pages()}&nbsp; {common.next()}{common.last()}",
 							autosize:true,
 							height: 30,
@@ -116,7 +117,7 @@ function(stockobject,rep_conditionview){
 						paddingY:2,
 						height:30,
 						cols:[{
-							view:"pager", id:"storerepitem_pagerA",
+							view:"pager", id:"storerepretitem_pagerA",
 							template:"{common.first()}{common.prev()}&nbsp; {common.pages()}&nbsp; {common.next()}{common.last()}",
 							autosize:true,
 							height: 30,

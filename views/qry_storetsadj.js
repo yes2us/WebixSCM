@@ -19,10 +19,9 @@ function(stockobject,searchconditionview){
 				editable:true,
 				select:true,
 				leftSplit:3,
-				rowHeight:15,
-				headerRowHeight:35,
-					dragColumn:true,
-					headermenu:{
+				rowHeight:_RowHeight,
+				headerRowHeight:_HeaderRowHeight,
+				headermenu:{
 					    width:250,
 					    autoheight:false,
 					    scroll:true

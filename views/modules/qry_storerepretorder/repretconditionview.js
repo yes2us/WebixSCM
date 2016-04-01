@@ -6,15 +6,20 @@ function(storeobject,stockobject){
 	var _UserCode = webix.storage.local.get('_UserCode');
     var regioncode = null;
     var startdate,enddate;
+    var ordertype="Rep";
     
     function loadData(_postData){
-    		_postData.Type = "Rep";
-    	  	var prezRepRetData = stockobject.getRepRetOrder(_postData);
-		$$("datatable_reporder").clearAll();
-		$$("datatable_reporder").parse(prezRepRetData);
+    		_postData.OrderType = ordertype;
+    		_postData.WHType="门店";
+
+		$$("datatable_repretorder").clearAll();
+		$$("datatable_repretorderitem").clearAll();
+		var prezRepRetData = stockobject.getRepRetOrder(_postData);
+		$$("datatable_repretorder").parse(prezRepRetData);
     };
     
 	return {
+		getOrderType:function(){return ordertype;},
 		$ui:{
 			width:260,
 			type: "clean",
@@ -26,6 +31,22 @@ function(storeobject,stockobject){
                 view:"toolbar",
                 elements:[
 					{rows:[
+								 { view:"segmented", value:"Rep", label:"",inputWidth:250, 
+										options:[
+											{ id:"Rep", value:"补货单"},
+											{ id:"Ret", value:"退货单"}],
+											click:function(){
+												ordertype = this.getValue();
+											var postData = 
+											{
+												RegionCode:regioncode,
+											}
+											
+					                  	if(startdate) postData.StartDate = startdate;
+					                  	if(enddate) postData.EndDate = enddate;
+					                	     loadData(postData);
+									 }
+									},
 								{view: "combo",label: "选择区域",//css:"fltr",
 									options:urlstr+'/WBPartyMng/getRegionList',
 									on:{
@@ -43,17 +64,7 @@ function(storeobject,stockobject){
 					                  	if(enddate) postData.EndDate = enddate;
 					                	     loadData(postData);
 										}
-									}},
-									
-//					                {view:"text", id:"store_input",label:"查询门店",placeholder:"请输入门店编号，名称进行查询",
-//					                  on:{onTimedKeyPress:function(){
-//					                  	var value = this.getValue();
-//					                  	 	$$("lt_stores").filter(function(obj){
-//								            	return (obj.partycode && obj.partycode.indexOf(value)>=0) || (obj.partyname && obj.partyname.indexOf(value)>=0);
-//					                });
-//					                  }
-//					                  }},
-					                
+									}},					                
 					                	{view:"datepicker", id:"startdate_input",label:"开始日期",
 					                  on:{onChange:function(newdate,olddate){
 					                  	startdate = newdate;
@@ -78,29 +89,7 @@ function(storeobject,stockobject){
 					                  
 									]}
                 ]
-            },
-//				{					
-//					view: "list",
-//					id: "lt_stores",
-//					select: true,
-//				    template:"#partycode# - #partyname#",
-//				    
-//					on: {
-//						onAfterLoad: function(){this.select(1);},
-//						onSelectChange: function () {
-//                       var selItem = $$("lt_stores").getSelectedItem();
-//				       	if(selItem)
-//				       	{
-//				       		selectedStoreCode =selItem.partycode;
-//											
-//						var postData={WHCode:selectedStoreCode};
-//						if(startdate) postData.StartDate = startdate;
-//						if(enddate) postData.EndDate = enddate;
-//						loadData(postData);
-//				       	}
-//				     }
-//					}
-//				}
+            }
 			]
 			}
 		}

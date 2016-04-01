@@ -3,10 +3,9 @@ define(function(){
 	var gridTree = {
 		view:"datatable",
 		headerRowHeight:30,
+		id:"table_dwhsugretplan",
 		leftSplit:3,
 		rowHeight:_RowHeight,
-		id:"table_storets",
-		leftSplit:1,
 		headerRowHeight:_HeaderRowHeight,
 				headermenu:{
 				    width:250,
@@ -26,15 +25,23 @@ define(function(){
 			{ id:"maintypename",	header:"大类", sort:"string",fillspace:1.5},
 			{ id:"subtypename",	header:"小类", sort:"string",fillspace:1.5},
 			
-			{ id:"targetqty",	header:"目标库存",sort:"int",align:"right", fillspace:1},
-			{ id:"stockqty",	header:"实际库存", sort:"int",fillspace:1},
+			{ id:"targetqty",	header:"目标库存",sort:"int", fillspace:1},
+			{ id:"stockqty",	header:"实际库存",sort:"int", fillspace:1},
+			{ id:"repretqty",	header:"建议退货",sort:"int",align:"right", fillspace:1}
 		],
-		select: true
+		select: true,
+		on:{
+			onAfterLoad:function(){
+			$$("table_dwhsugretplan").filter(function(obj){
+    				return parseInt(obj.repretqty)<0;
+			});
+			$$("table_dwhsugretplan").refresh();
+		}}
 	};
 
 	var layout = {
 		type: "clean",
-		id: "storeTSView",
+		id: "dwhSugRetPlanView",
 		cols:[
 			gridTree,
 		]

@@ -1,8 +1,8 @@
 define([
 	"data/stockobject",
-	"views/modules/qry_storerepretbill/ret_conditionview"
+	"views/modules/qry_dwhrepretorder/repretconditionview"
 	],
-function(stockobject,ret_conditionview){
+function(stockobject,repretconditionview){
 	
 	checkauthorization(false);
 	
@@ -14,22 +14,22 @@ function(stockobject,ret_conditionview){
 		margin:10,
 		rows:[
 			{
-				id:"datatable_retorder",
+				id:"datatable_dwhrepretorder",
 				view:"datatable", 
 				editable:false,
 				select:true,
-				headerRowHeight:30,
 				leftSplit:3,
-				rowHeight:15,
+				rowHeight:_RowHeight,
+				headerRowHeight:_HeaderRowHeight,
 					headermenu:{
 					    width:250,
 					    autoheight:false,
 					    scroll:true
 					},
 				columns:[
-					{ id:"partyname",	header:["门店 ",{content:"selectFilter"}], sort:"string",fillspace:1.5},
-					{ id:"parentname",	header:["上级区域 ",{content:"selectFilter"}], sort:"string",fillspace:1.5},
 					{id:"ordercode", header:"单号", fillspace:1.5},
+					{ id:"partyname",	header:["分仓",{content:"selectFilter"}], sort:"string",fillspace:1.5},
+					{ id:"parentname",	header:"中央仓", sort:"string",fillspace:1.5},
 					{ id:"makedate",	header:"日期", sort:"string",fillspace:1.5},
 					{ id:"orderqty",	header:"数量",fillspace:1},
 				],
@@ -43,26 +43,27 @@ function(stockobject,ret_conditionview){
 						var selRow = this.getSelectedItem();
 						if(selRow)
 						{
-						var prezRetItemData = stockobject.getRepRetOrderItem({Type:"Ret",OrderCode:selRow.ordercode});
-						$$("datatable_retorderitem").clearAll();
-						$$("datatable_retorderitem").parse(prezRetItemData);
+						var ordertype = repretconditionview.getOrderType();
+						var prezRepItemData = stockobject.getRepRetOrderItem({OrderType:ordertype,OrderCode:selRow.ordercode});
+						$$("datatable_dwhrepretorderitem").clearAll();
+						$$("datatable_dwhrepretorderitem").parse(prezRepItemData);
 						}
 					}
 				},
-				pager:"storeret_pagerA"
+				pager:"dwhrepret_pagerA"
 			}
 		]
 
 	};
 	
 	var grid_orderitem={
-				id:"datatable_retorderitem",
+				id:"datatable_dwhrepretorderitem",
 				view:"datatable", 
 				editable:false,
 				select:true,
 				leftSplit:3,
-				rowHeight:15,
-				headerRowHeight:30,
+				rowHeight:_RowHeight,
+				headerRowHeight:_HeaderRowHeight,
 					headermenu:{
 					    width:250,
 					    autoheight:false,
@@ -82,13 +83,13 @@ function(stockobject,ret_conditionview){
 					{ id:"orderqty",	header:"数量",align:"right", fillspace:1}
 				],
 				export: true,
-				pager:"storeretitem_pagerA"
+				pager:"dwhrepretitem_pagerA"
 	};
 	
 	var layout = {
 		type: "clean",
 		cols:[
-			ret_conditionview,
+			repretconditionview,
 			{view:"resizer"},
 			{
 				rows:[
@@ -100,7 +101,7 @@ function(stockobject,ret_conditionview){
 						paddingY:2,
 						height:30,
 						cols:[{
-							view:"pager", id:"storeret_pagerA",
+							view:"pager", id:"dwhrepret_pagerA",
 							template:"{common.first()}{common.prev()}&nbsp; {common.pages()}&nbsp; {common.next()}{common.last()}",
 							autosize:true,
 							height: 30,
@@ -116,7 +117,7 @@ function(stockobject,ret_conditionview){
 						paddingY:2,
 						height:30,
 						cols:[{
-							view:"pager", id:"storeretitem_pagerA",
+							view:"pager", id:"dwhrepretitem_pagerA",
 							template:"{common.first()}{common.prev()}&nbsp; {common.pages()}&nbsp; {common.next()}{common.last()}",
 							autosize:true,
 							height: 30,

@@ -5,7 +5,7 @@ define(function(){
 		headerRowHeight:_HeaderRowHeight,
 		leftSplit:3,
 		rowHeight:_RowHeight,
-		id:"table_storetodayadjrec",
+		id:"table_dwhtodayadjrec",
 		dragColumn:true,
 				headermenu:{
 				    width:250,
@@ -27,7 +27,7 @@ define(function(){
 
 	var layout = {
 		type: "clean",
-		id: "storeTodayAdjRecView",
+		id: "dwhTodayAdjRecView",
 		cols:[
 			gridTree,
 		]

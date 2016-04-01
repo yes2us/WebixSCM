@@ -1,68 +1,39 @@
 define([], function(){
 
-	var form = {
-		view: "form",
+	var gridTree = { 
+			  view:"datatable",
+			  id:"table_stockstruct",
+			  select: true,
+			  headerRowHeight:_HeaderRowHeight,
+			  leftSplit:3,
+			  rowHeight:_RowHeight,
+				headermenu:{
+				    width:250,
+				    autoheight:false,
+				    scroll:true
+				},
+			  columns:[
+					{ id:"yearname",name:"yearname",	header:"年份", css:"rank", fillspace:1},
+					{ id:"seasonname",name:"seasonname",	header:"季节", css:"rank", fillspace:1},
+					{ id:"seriesname",name:"series",	header:"系列",width:200, fillspace:2},
+					{ id:"skcnum",name:"skcnum",header:"款色数" ,fillspace:1},
+					{ id:"targetqty",name:"targetqty",header:"目标库存" ,fillspace:1},
+					{ id:"totalqty",name:"totalqty",header:"总库存" ,fillspace:1},
+					{ id:"overstockqty",name:"overstockqty",header:"超额库存" ,fillspace:1},
+					{ id:"shortstockqty",name:"shortstockqty",	header:"库存缺口",fillspace:1},		
+					{ id:"deadskcnum",name:"deadskcnum",	header:"死货款色",fillspace:1},		
+					{ id:"fastrunnerskcnum",name:"fastrunnerskcnum",header:"畅销款色",fillspace:1}
+			  ]
+							};
+	
+	var layout = {
+		type: "clean",
 		id: "storeStockStructView",
-		type:"clean",
-
-		paddingX:25,
-		paddingY:25,
-		elementsConfig:{
-			labelWidth: 100
-		},
-		scroll: true,
-		elements:[
-			{	
-				margin:10,
-				cols:[
-				{rows:[
-								{ template:"消费强度", type:"section"},
-								{view: "text", name: "anzqtypersale", label: "单次件数",disabled:true},
-								{view: "text", name: "anzmoneypersale", label: "单次金额",disabled:true},
-								{view: "text", name: "anztotalbuymoney", label: "消费总额",disabled:true}
-				]},
-				{
-					rows:[
-								{ template:"消费频度", type:"section"},
-								{view: "text", name: "anztotalbuyfreq", label: "消费次数",disabled:true},
-								{view: "text", name: "anzbuygapdays", label: "消费间隔",disabled:true},
-								{view: "text", name: "anzbuynearity", label: "消费近度",disabled:true}
-					]
-				}
-			]
-		 },
-			{	
-				margin:10,
-				rows:[
-								{template:"消费宽度", type:"section"},
-								{ 
-								  view:"datatable",
-								  id:"table_stockstruct",
-								  select: true,
-								  headerRowHeight:30,
-								  leftSplit:3,
-								  rowHeight:15,
-								  dragColumn:true,
-									headermenu:{
-									    width:250,
-									    autoheight:false,
-									    scroll:true
-									},
-								  columns:[
-										{ id:"waveband",name:"waveband",	header:"波段", css:"rank", fillspace:1},
-										{ id:"series",name:"series",	header:"系列",width:200, fillspace:2},
-										{ id:"salemoney",name:"salemoney",header:"金额" ,fillspace:1},
-										{ id:"saleqty",name:"saleqty",	header:"件数",fillspace:1}								  
-								  ]
-								 }
-						]
-		 },
-//			{},
+		cols:[
+			gridTree,
 		]
 	};
-
-	var layout = form;
-
+					
 	return {
 		$ui:layout
 	};

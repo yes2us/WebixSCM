@@ -2,12 +2,8 @@ define([], function() {
 	var _UserCode = webix.storage.local.get('_UserCode');
 	var stockObject = new Object();
 	
-	stockObject.getStoreTSInfo = function(StoreCode){
-		return webix.ajax().post(urlstr+"/WBStockMng/getStoreTSInfo",{StoreCode:StoreCode});
-	}
-
-	stockObject.getCWHTSInfo = function(CWHCode){
-		return webix.ajax().post(urlstr+"/WBStockMng/getCWHTSInfo",{CWHCode:CWHCode});
+	stockObject.getFGWarehouseTSInfo = function(WHCode){
+		return webix.ajax().post(urlstr+"/WBStockMng/getFGWarehouseTSInfo",{WHCode:WHCode});
 	}
 	
 	stockObject.getPartyAdjRec = function(postData) {
@@ -22,6 +18,11 @@ define([], function() {
      	return webix.ajax().post(urlstr+"/WBStockMng/getRepRetOrderItem",postData);
      }
      
+     
+    stockObject.getStoreStockStruct = function(storecode){
+    	   return webix.ajax().post(urlstr+"/WBStockMng/getStoreStockStruct",{StoreCode:storecode});
+    }
+         
       stockObject.getProdHSStock = function(WHCode,SKUCode){
       	var postData={WHCode:WHCode,SKUCode:SKUCode};
      	return webix.ajax().post(urlstr+"/WBStockMng/getProdHSStock",postData);

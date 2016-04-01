@@ -5,8 +5,16 @@ define([
 	"views/modules/mng_storets/storeTSView",
 	"views/modules/mng_storets/storeSugRepPlanView",
 	"views/modules/mng_storets/storeSugRetPlanView",
-	"views/modules/mng_storets/storeTodayAdjRecView"
-], function(stockobject,storeListView,storeStockStructView,storeTSView,storeSugRepPlanView,storeSugRetPlanView,storeTodayAdjRecView){
+	"views/modules/mng_storets/storeTodayAdjRecView",
+	"views/modules/mng_storets/storeImpTSDataView"
+], function(stockobject,
+	storeListView,
+	storeStockStructView,
+	storeTSView,
+	storeSugRepPlanView,
+	storeSugRetPlanView,
+	storeTodayAdjRecView,
+	storeImpTSDataView){
 
 checkauthorization(false);
 
@@ -28,7 +36,8 @@ var layout = {
 									{id: "storeTSView", value: "目标库存"},
 									{id: "storeSugRepPlanView", value: "建议补货"},
 									{id: "storeSugRetPlanView", value: "建议退货"},
-									{id: "storeTodayAdjRecView", value: "调整记录"}
+									{id: "storeTodayAdjRecView", value: "缓冲调整"},
+									{id: "storeImpTSDataView", value: "导入目标库存"}
 								]
 							},
 							{
@@ -37,7 +46,8 @@ var layout = {
 								    storeTSView,
 									storeSugRepPlanView,	
 									storeSugRetPlanView,
-									storeTodayAdjRecView
+									storeTodayAdjRecView,
+									storeImpTSDataView
 								]
 							}
 						]
@@ -61,34 +71,24 @@ return {
 			if(id==1 || !this.getItem(id)) return;	
 			
 			var storecode = this.getItem(id).partycode;
-			var prezStoreTSStructData = stockobject.getStoreTSInfo(storecode);
-			
-			//显示库存结构-总体信息
-			$$("storeStockStructView").clear();
-			$$("storeStockStructView").refresh();
-			$$("storeStockStructView").parse(prezStoreTSStructData);
+			var promzStoreTSStructData = stockobject.getFGWarehouseTSInfo(storecode);
 			
 			//显示库存结构-大类
 			$$("table_stockstruct").clearAll();
-			$$("table_stockstruct").parse(prezStoreTSStructData);	
+			$$("table_stockstruct").parse(stockobject.getStoreStockStruct(storecode));	
 			
 			
 			//显示目标库存
 			$$("table_storets").clearAll();
-			$$("table_storets").parse(prezStoreTSStructData);
+			$$("table_storets").parse(promzStoreTSStructData);
 			
 			//显示建议补货量
 			$$("table_sugrepplan").clearAll();
-			$$("table_sugrepplan").parse(prezStoreTSStructData);
-//			$$("table_sugrepplan").filter(function(obj){
-//				console.log(obj.repretqty);
-//  				return parseInt(obj.repretqty)==1;
-//			});
-//			$$("table_sugrepplan").refresh();
+			$$("table_sugrepplan").parse(promzStoreTSStructData);
 			
 			//显示建议退货量
 			$$("table_sugretplan").clearAll();
-			$$("table_sugretplan").parse(prezStoreTSStructData);
+			$$("table_sugretplan").parse(promzStoreTSStructData);
 
 			//显示最近调整记录
 			var prezAdjRecData = stockobject.getPartyAdjRec({WHCode:storecode,EndDate:'2016-01-01'});

@@ -5,7 +5,7 @@ define(function(){
 		headerRowHeight:_HeaderRowHeight,
 		leftSplit:3,
 		rowHeight:_RowHeight,
-		id:"table_storetodayadjrec",
+		id:"table_cwhtodayadjrec",
 		dragColumn:true,
 				headermenu:{
 				    width:250,
@@ -13,8 +13,8 @@ define(function(){
 				    scroll:true
 		},
 		columns:[
+			{id:"checked", header:"#",fillspace:0.5,template:"{common.checkbox()}"},
 			{ id:"skucode",	header:"SKU", sort:"string",fillspace:2},
-			
 			{ id:"recorddate",	header:"调整日期", sort:"string",fillspace:1.5},
 			{ id:"oldtargetqty",	header:"原目标库存", sort:"string",fillspace:1},
 			{ id:"sugtargetqty",	header:"建议目标库存", sort:"string",fillspace:1},
@@ -27,7 +27,7 @@ define(function(){
 
 	var layout = {
 		type: "clean",
-		id: "storeTodayAdjRecView",
+		id: "cwhTodayAdjRecView",
 		cols:[
 			gridTree,
 		]
