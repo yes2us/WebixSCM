@@ -3,7 +3,7 @@ define(function(){
 	var gridTree = {
 		view:"datatable",
 		headerRowHeight:_HeaderRowHeight,
-		id:"table_cwhsugrepplan",
+		id:"dt_cwhsugrepplan",
 		dragColumn:true,
 		leftSplit:3,
 		rowHeight:_RowHeight,
@@ -32,10 +32,10 @@ define(function(){
 		select: true,
 		on:{
 			onAfterLoad:function(){
-			$$("table_cwhsugrepplan").filter(function(obj){
+			$$("dt_cwhsugrepplan").filter(function(obj){
     				return parseInt(obj.repretqty)>0;
 			});
-			$$("table_cwhsugrepplan").refresh();
+			$$("dt_cwhsugrepplan").refresh();
 		}}
 	};
 

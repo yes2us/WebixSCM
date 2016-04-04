@@ -3,7 +3,7 @@ define(function(){
 	var gridTree = {
 		view:"datatable",
 		headerRowHeight:_HeaderRowHeight,
-		id:"table_sugrepplan",
+		id:"dt_sugrepplan",
 		dragColumn:true,
 		leftSplit:3,
 		rowHeight:_RowHeight,
@@ -27,17 +27,17 @@ define(function(){
 			
 			{ id:"targetqty",	header:"目标库存",sort:"int", fillspace:1},
 			{ id:"stockqty",	header:"实际库存",sort:"int", fillspace:1},
-			{ id:"repretqty",	header:"建议补货",sort:"int",align:"right", fillspace:1}
+			{ id:"repretqty",	header:["理论补退",{content:"numberFilter"}],sort:"int",align:"right", fillspace:1}
 		],
 		select: true,
 		on:{
 			onAfterLoad:function(){
 //			webix.message("Data loaded");
-			$$("table_sugrepplan").filter(function(obj){
+			$$("dt_sugrepplan").filter(function(obj){
 //				console.log(obj.repretqty);
-    				return parseInt(obj.repretqty)>0;
+    				return parseInt(obj.repretqty) != 0;
 			});
-			$$("table_sugrepplan").refresh();
+			$$("dt_sugrepplan").refresh();
 		}}
 	};
 

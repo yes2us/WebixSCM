@@ -14,7 +14,7 @@ function(stockobject,repretconditionview){
 		margin:10,
 		rows:[
 			{
-				id:"datatable_repretorder",
+				id:"dt_repretorder",
 				view:"datatable", 
 				editable:false,
 				select:true,
@@ -45,8 +45,8 @@ function(stockobject,repretconditionview){
 						{
 						var ordertype = repretconditionview.getOrderType();
 						var prezRepItemData = stockobject.getRepRetOrderItem({OrderType:ordertype,OrderCode:selRow.ordercode});
-						$$("datatable_repretorderitem").clearAll();
-						$$("datatable_repretorderitem").parse(prezRepItemData);
+						$$("dt_repretorderitem").clearAll();
+						$$("dt_repretorderitem").parse(prezRepItemData);
 						}
 					}
 				},
@@ -57,7 +57,7 @@ function(stockobject,repretconditionview){
 	};
 	
 	var grid_orderitem={
-				id:"datatable_repretorderitem",
+				id:"dt_repretorderitem",
 				view:"datatable", 
 				editable:false,
 				select:true,

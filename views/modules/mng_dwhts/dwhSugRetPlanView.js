@@ -3,7 +3,7 @@ define(function(){
 	var gridTree = {
 		view:"datatable",
 		headerRowHeight:30,
-		id:"table_dwhsugretplan",
+		id:"dt_dwhsugretplan",
 		leftSplit:3,
 		rowHeight:_RowHeight,
 		headerRowHeight:_HeaderRowHeight,
@@ -32,10 +32,10 @@ define(function(){
 		select: true,
 		on:{
 			onAfterLoad:function(){
-			$$("table_dwhsugretplan").filter(function(obj){
+			$$("dt_dwhsugretplan").filter(function(obj){
     				return parseInt(obj.repretqty)<0;
 			});
-			$$("table_dwhsugretplan").refresh();
+			$$("dt_dwhsugretplan").refresh();
 		}}
 	};
 

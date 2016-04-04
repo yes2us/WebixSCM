@@ -38,17 +38,18 @@ function(storeobject){
 					}
 				}
 				},
-			    {view:"select", id:"storecode",width:250,align: "left", label: '门店',	labelWidth:60,options:[]},
+			    {view:"select", id:"storecode",name:"storecode",width:250,align: "left", label: '门店',	labelWidth:60,options:[]},
 			    { view: "button", type: "iconButton", icon: "search", label: "查询", width: 70, 
 				    click: function(){
 				    	var values =this.getParentView().getValues();
+//				    	console.log(JSON.stringify(values));
 				    	   var postData = {RegionCode:regioncode};
 						if(values.storecode && values.storecode != 'all')
 						{
 							postData.StoreCode=values.storecode;
 						}
-						$$("data_storeindicator").clearAll();
-						$$("data_storeindicator").parse(storeobject.getStoreIndicator(postData));
+						$$("dt_storeindicator").clearAll();
+						$$("dt_storeindicator").parse(storeobject.getStoreIndicator(postData));
 				 }},
 			    {},
 
@@ -60,7 +61,7 @@ function(storeobject){
 		margin:10,
 		rows:[
 			{
-				id:"data_storeindicator",
+				id:"dt_storeindicator",
 				view:"datatable", 
 				editable:false,
 				select:true,

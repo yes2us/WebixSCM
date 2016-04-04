@@ -11,11 +11,11 @@ function(dwhobject,stockobject){
     		_postData.OrderType = ordertype;
     		_postData.WHType = "分仓";
     		
-    		$$("datatable_dwhrepretorderitem").clearAll();
-		$$("datatable_dwhrepretorder").clearAll();
+    		$$("dt_dwhrepretorderitem").clearAll();
+		$$("dt_dwhrepretorder").clearAll();
 		
 		var prezRepRetData = stockobject.getRepRetOrder(_postData);
-		$$("datatable_dwhrepretorder").parse(prezRepRetData);
+		$$("dt_dwhrepretorder").parse(prezRepRetData);
     };
     
 	return {

@@ -6,6 +6,10 @@ define([], function() {
 		return webix.ajax().post(urlstr+"/WBStockMng/getFGWarehouseTSInfo",{WHCode:WHCode});
 	}
 	
+	stockObject.getRetTargetWHSubWHTSInfo = function(postData){
+		return webix.ajax().post(urlstr+"/WBStockMng/getRetTargetWHSubWHTSInfo",postData);
+	}
+	
 	stockObject.getPartyAdjRec = function(postData) {
 		return webix.ajax().post(urlstr+"/WBStockMng/getPartyAdjRec",postData);
 	}
@@ -18,9 +22,12 @@ define([], function() {
      	return webix.ajax().post(urlstr+"/WBStockMng/getRepRetOrderItem",postData);
      }
      
+     stockObject.getRetPlanOrder = function(postData){
+     	return webix.ajax().post(urlstr+"/WBStockMng/getRetPlanOrder",postData);
+     }
      
-    stockObject.getStoreStockStruct = function(storecode){
-    	   return webix.ajax().post(urlstr+"/WBStockMng/getStoreStockStruct",{StoreCode:storecode});
+    stockObject.getStoreStockStruct = function(postData){
+    	   return webix.ajax().post(urlstr+"/WBStockMng/getStoreStockStruct",postData);
     }
          
       stockObject.getProdHSStock = function(WHCode,SKUCode){

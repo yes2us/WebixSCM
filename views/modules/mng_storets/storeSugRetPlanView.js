@@ -3,7 +3,7 @@ define(function(){
 	var gridTree = {
 		view:"datatable",
 		headerRowHeight:30,
-		id:"table_sugretplan",
+		id:"dt_sugretplan",
 		leftSplit:3,
 		rowHeight:_RowHeight,
 		headerRowHeight:_HeaderRowHeight,
@@ -33,11 +33,11 @@ define(function(){
 		on:{
 			onAfterLoad:function(){
 //			webix.message("Data loaded");
-			$$("table_sugretplan").filter(function(obj){
+			$$("dt_sugretplan").filter(function(obj){
 //				console.log(obj.repretqty);
     				return parseInt(obj.repretqty)<0;
 			});
-			$$("table_sugretplan").refresh();
+			$$("dt_sugretplan").refresh();
 		}}
 	};
 

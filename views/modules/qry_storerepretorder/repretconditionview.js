@@ -12,10 +12,10 @@ function(storeobject,stockobject){
     		_postData.OrderType = ordertype;
     		_postData.WHType="门店";
 
-		$$("datatable_repretorder").clearAll();
-		$$("datatable_repretorderitem").clearAll();
+		$$("dt_repretorder").clearAll();
+		$$("dt_repretorderitem").clearAll();
 		var prezRepRetData = stockobject.getRepRetOrder(_postData);
-		$$("datatable_repretorder").parse(prezRepRetData);
+		$$("dt_repretorder").parse(prezRepRetData);
     };
     
 	return {

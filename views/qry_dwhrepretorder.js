@@ -14,7 +14,7 @@ function(stockobject,repretconditionview){
 		margin:10,
 		rows:[
 			{
-				id:"datatable_dwhrepretorder",
+				id:"dt_dwhrepretorder",
 				view:"datatable", 
 				editable:false,
 				select:true,
@@ -27,11 +27,11 @@ function(stockobject,repretconditionview){
 					    scroll:true
 					},
 				columns:[
-					{id:"ordercode", header:"单号", fillspace:1.5},
+					{id:"ordercode", header:"单号", sort:"string",fillspace:1.5},
 					{ id:"partyname",	header:["分仓",{content:"selectFilter"}], sort:"string",fillspace:1.5},
 					{ id:"parentname",	header:"中央仓", sort:"string",fillspace:1.5},
 					{ id:"makedate",	header:"日期", sort:"string",fillspace:1.5},
-					{ id:"orderqty",	header:"数量",fillspace:1},
+					{ id:"orderqty",	header:"数量",sort:"int",fillspace:1},
 				],
 				export: true,
 				on: {
@@ -45,8 +45,8 @@ function(stockobject,repretconditionview){
 						{
 						var ordertype = repretconditionview.getOrderType();
 						var prezRepItemData = stockobject.getRepRetOrderItem({OrderType:ordertype,OrderCode:selRow.ordercode});
-						$$("datatable_dwhrepretorderitem").clearAll();
-						$$("datatable_dwhrepretorderitem").parse(prezRepItemData);
+						$$("dt_dwhrepretorderitem").clearAll();
+						$$("dt_dwhrepretorderitem").parse(prezRepItemData);
 						}
 					}
 				},
@@ -57,7 +57,7 @@ function(stockobject,repretconditionview){
 	};
 	
 	var grid_orderitem={
-				id:"datatable_dwhrepretorderitem",
+				id:"dt_dwhrepretorderitem",
 				view:"datatable", 
 				editable:false,
 				select:true,

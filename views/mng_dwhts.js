@@ -2,16 +2,16 @@ define([
 	"data/stockobject",
 	"views/modules/mng_dwhts/dwhListView",
 	"views/modules/mng_dwhts/dwhTSView",
-	"views/modules/mng_dwhts/dwhSugRepPlanView",
-	"views/modules/mng_dwhts/dwhSugRetPlanView",
+//	"views/modules/mng_dwhts/dwhSugRepPlanView",
+//	"views/modules/mng_dwhts/dwhSugRetPlanView",
 	"views/modules/mng_dwhts/dwhTodayAdjRecView",
 	"views/modules/mng_dwhts/dwhImpTSDataView"
 ], function(
 	stockobject,
 	dwhListView,
 	dwhTSView,
-	dwhSugRepPlanView,
-	dwhSugRetPlanView,
+//	dwhSugRepPlanView,
+//	dwhSugRetPlanView,
 	dwhTodayAdjRecView,
 	dwhImpTSDataView){
 
@@ -32,8 +32,8 @@ var layout = {
 							{view: "tabbar", multiview: true,optionWidth: 130,
 								options:[
 									{id: "dwhTSView", value: "目标库存"},
-									{id: "dwhSugRepPlanView", value: "建议补货"},
-									{id: "dwhSugRetPlanView", value: "建议退货"},
+//									{id: "dwhSugRepPlanView", value: "理论补退"},
+//									{id: "dwhSugRetPlanView", value: "理论退货"},
 									{id: "dwhTodayAdjRecView", value: "缓冲调整"},
 									{id: "dwhImpTSDataView", value: "导入目标库存"}
 								]
@@ -41,8 +41,8 @@ var layout = {
 							{
 								cells:[
 								    dwhTSView,
-									dwhSugRepPlanView,	
-									dwhSugRetPlanView,
+//									dwhSugRepPlanView,	
+//									dwhSugRetPlanView,
 									dwhTodayAdjRecView,
 									dwhImpTSDataView
 								]
@@ -71,21 +71,21 @@ return {
 			var promzTSData = stockobject.getFGWarehouseTSInfo(dwhcode);
 
 			//显示目标库存
-			$$("table_dwhts").clearAll();
-			$$("table_dwhts").parse(promzTSData);
+			$$("dt_dwhts").clearAll();
+			$$("dt_dwhts").parse(promzTSData);
 			
-			//显示建议补货量
-			$$("table_dwhsugrepplan").clearAll();
-			$$("table_dwhsugrepplan").parse(promzTSData);
-			
-			//显示建议退货量
-			$$("table_dwhsugretplan").clearAll();
-			$$("table_dwhsugretplan").parse(promzTSData);
+//			//显示建议补货量
+//			$$("table_dwhsugrepplan").clearAll();
+//			$$("table_dwhsugrepplan").parse(promzTSData);
+//			
+//			//显示建议退货量
+//			$$("table_dwhsugretplan").clearAll();
+//			$$("table_dwhsugretplan").parse(promzTSData);
 
 			//显示最近调整记录
 			var promzAdjRecData = stockobject.getPartyAdjRec({WHCode:dwhcode,EndDate:'2016-01-01'});
-			$$("table_dwhtodayadjrec").clearAll();
-			$$("table_dwhtodayadjrec").parse(promzAdjRecData);
+			$$("dt_dwhtodayadjrec").clearAll();
+			$$("dt_dwhtodayadjrec").parse(promzAdjRecData);
 			
 			});
 	}

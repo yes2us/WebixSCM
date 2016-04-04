@@ -5,7 +5,7 @@ define(function(){
 		headerRowHeight:_HeaderRowHeight,
 		leftSplit:3,
 		rowHeight:_RowHeight,
-		id:"table_storetodayadjrec",
+		id:"dt_storetodayadjrec",
 		dragColumn:true,
 				headermenu:{
 				    width:250,
