@@ -70,7 +70,7 @@ define([
 			{ id:"partyname",header:"门店",width:35,hidden:true},
 			{ id:"skucode",header:"SKU", sort:"string",fillspace:2},
 			
-//			{ id:"productcolorcode",	header:"款色", sort:"string",fillspace:1.5},
+//			{ id:"skccode",	header:"款色", sort:"string",fillspace:1.5},
 //			{ id:"colorname",	header:"颜色", sort:"string",fillspace:1},
 //			{ id:"sizename",	header:"尺码", sort:"string",fillspace:1},
 			
@@ -81,10 +81,10 @@ define([
 			
 			{ id:"saletype",	header:"销售分类", sort:"string",fillspace:1},
 			{ id:"isdeadskc",	header:"死货", sort:"int",fillspace:1},
-			{ id:"targetqty",	header:"目标库存",sort:"int", fillspace:1,editor:"text",invalidMessage:"必须输入数字"},
+			{ id:"targetqty",	header:"目标库存",sort:"int", fillspace:1,editor:"text",invalidMessage:"必须输入数字",css:'bgcolor1'},
 			{ id:"stockqty",	header:"实际库存",sort:"int", fillspace:1},
 			{ id:"sugretqty",	header:"超额库存",sort:"int",align:"right", fillspace:1,template:function(obj){return (obj.stockqty>obj.targetqty)? obj.stockqty-obj.targetqty:"";}},
-			{ id:"operateret",	header:"退货",sort:"int",align:"right", fillspace:1,editor:"text",invalidMessage:"必须输入数字"}
+			{ id:"operateret",	header:"退货",sort:"int",align:"right", fillspace:1,editor:"text",invalidMessage:"必须输入数字",css:'bgcolor1'}
 		],
 	};
 	

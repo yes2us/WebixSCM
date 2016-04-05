@@ -1,8 +1,6 @@
 define(
 ["data/storeobject"],
 function(storeobject){
-	var _UserCode = webix.storage.local.get('_UserCode');
-
 	return {
 		$ui:{
 			width:_ListWidth,
@@ -13,7 +11,7 @@ function(storeobject){
 			rows:[	
 				{					
 					view: "list",
-					id: "lt_dwhs",
+					id: "lt_dwhmov",
 					select: true,
 				    template:"#id# - #value#",
 				    url:urlstr+'/WBPartyMng/getRegionList',

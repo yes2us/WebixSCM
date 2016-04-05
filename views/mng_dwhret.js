@@ -6,7 +6,7 @@ define([
 	"views/modules/mng_dwhret/dwhRetPlanOrderView"
 ], function(
 	stockobject,
-	dwhListView,
+	dwhRetListView,
 	dwhRetBySKCView,
 	dwhRetByStoreView,
 	dwhRetPlanOrderView
@@ -20,7 +20,7 @@ var layout = {
 		{
 				type: "wide",
 				cols:[
-					dwhListView,
+					dwhRetListView,
 					{view:"resizer",width:1},
 					{
 						rows:[
@@ -39,9 +39,6 @@ var layout = {
 								]
 							}
 						]
-
-
-
 			}
 		]}
 
@@ -62,15 +59,15 @@ return {
 			var promzTSData = stockobject.getFGWarehouseTSInfo(dwhcode);
 			var promzStockStructData = stockobject.getStoreStockStruct({RetTargetWHCode:dwhcode});
 
-			//显示目标库存
+			//显示分仓目标库存
 			$$("dt_dwhskc").clearAll();
 			$$("dt_dwhskc").parse(promzTSData);
 			
-			//显示建议补货量
+			//显示门店库存结构
 			$$("dt_storestockstruct").clearAll();
 			$$("dt_storestockstruct").parse(promzStockStructData);
 			
-			//显示建议退货量
+			//显示区域退货计划
 			$$("dt_dwhRetPlanOrder").clearAll();
 			$$("dt_dwhRetPlanOrder").parse(stockobject.getRetPlanOrder({RetTargetWHCode:dwhcode}));
 			

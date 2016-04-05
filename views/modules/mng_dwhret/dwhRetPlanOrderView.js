@@ -17,7 +17,7 @@ define(function(){
 			{ id:"partycode",	header:"SKU", sort:"string",hidden:true,fillspace:1},
 			{ id:"partyname",header:["门店",{content:"selectFilter"}], sort:"string",width:120},
 			{ id:"skucode",header:"SKU", sort:"string",hidden:true,width:100},
-			{ id:"productcolorcode",header:["款色",{content:"textFilter"}], sort:"string",width:120},
+			{ id:"skccode",header:["款色",{content:"textFilter"}], sort:"string",width:120},
 			{ id:"sizename",	header:["尺码",{content:"selectFilter"}], sort:"string",width:60},
 			{ id:"yearname",	header:["年份",{content:"selectFilter"}], sort:"string",fillspace:0.5,hidden:true},
 			{ id:"seasonname",	header:["季节",{content:"selectFilter"}], sort:"string",width:60},

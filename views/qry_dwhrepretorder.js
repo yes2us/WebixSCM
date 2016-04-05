@@ -72,7 +72,7 @@ function(stockobject,repretconditionview){
 				columns:[
 //					{ id:"ordercode",	header:"#", sort:"string",fillspace:2},			
 					{ id:"skucode",	header:"SKU", sort:"string",fillspace:2},			
-					{ id:"productcolorcode",	header:"款色", sort:"string",fillspace:1.5},
+					{ id:"skccode",	header:"款色", sort:"string",fillspace:1.5},
 					{ id:"colorname",	header:"颜色", sort:"string",fillspace:1},
 					{ id:"sizename",	header:"尺码", sort:"string",fillspace:1},				
 					{ id:"yearname",	header:"年份", sort:"string",fillspace:1,hidden:true},

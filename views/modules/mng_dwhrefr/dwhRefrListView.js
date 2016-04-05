@@ -2,8 +2,10 @@ define(
 ["data/storeobject"],
 function(storeobject){
 	var _UserCode = webix.storage.local.get('_UserCode');
-
+    var regionCode;
+    
 	return {
+		getRegionCode:function(){return regionCode;},
 		$ui:{
 			width:_ListWidth,
 			type: "clean",
@@ -19,24 +21,25 @@ function(storeobject){
 									options:urlstr+'/WBPartyMng/getRegionList',
 									on:{
 										onChange:function(newregioncode, oldregioncode){
+											regionCode = newregioncode;
 											if(newregioncode!=oldregioncode)
 											{
-												 $$("lt_stores").clearAll();
-												 $$("lt_stores").refresh();
+												 $$("lt_refrstores").clearAll();
+												 $$("lt_refrstores").refresh();
 											}
 											var postData = 
 											{
 												RegionCode:newregioncode,
 												FieldStr:"PartyCode,PartyName"
 											}
-											$$("lt_stores").parse(storeobject.getStoreList(postData));
+											$$("lt_refrstores").parse(storeobject.getStoreList(postData));
 										}
 									}},
 									
 					                {view:"text", id:"grouplist_input",label:"查询门店",placeholder:"请输入门店编号，名称进行查询",
 					                  on:{onTimedKeyPress:function(){
 					                	        var value = this.getValue();
-								       	 		$$("lt_stores").filter(function(obj){
+								       	 		$$("lt_refrstores").filter(function(obj){
 								            	return (obj.partycode && obj.partycode.indexOf(value)>=0) || (obj.partyname && obj.partyname.indexOf(value)>=0);
 					                });
 					                  }}},
@@ -46,7 +49,7 @@ function(storeobject){
             },
 				{					
 					view: "list",
-					id: "lt_stores",
+					id: "lt_refrstores",
 					select: true,
 				    template:"#partycode# - #partyname#",
 					scheme:{

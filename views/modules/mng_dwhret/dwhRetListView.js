@@ -3,7 +3,7 @@ define(
 function(storeobject){
 	return {
 		$ui:{
-			width:260,
+			width:_ListWidth,
 			type: "clean",
 			css: "highlighted_header header5",
 			header:"分仓列表",

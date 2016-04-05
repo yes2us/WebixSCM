@@ -21,7 +21,7 @@ function(dwhobject,stockobject){
 	return {
 		getOrderType:function(){return ordertype;},
 		$ui:{
-			width:260,
+			width:_ListWidth,
 			type: "clean",
 			css: "highlighted_header header5",
 			header:"查询条件",
@@ -31,7 +31,7 @@ function(dwhobject,stockobject){
                 view:"toolbar",
                 elements:[
 					{rows:[
-								 { view:"segmented", value:"Rep", label:"",inputWidth:250, 
+								 { view:"segmented", value:"Rep", label:"",inputWidth:_ListWidth-10, 
 										options:[
 											{ id:"Rep", value:"补货单"},
 											{ id:"Ret", value:"退货单"}],

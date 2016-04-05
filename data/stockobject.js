@@ -26,10 +26,26 @@ define([], function() {
      	return webix.ajax().post(urlstr+"/WBStockMng/getRetPlanOrder",postData);
      }
      
+     stockObject.getRefrSKCPlan = function(postData){
+     	return webix.ajax().post(urlstr+"/WBStockMng/getRefrSKCPlan",postData);
+     }
+     
+     stockObject.getMovSKCPlan = function(postData){
+        return webix.ajax().post(urlstr+"/WBStockMng/getMovSKCPlan",postData);	
+     }
+     
     stockObject.getStoreStockStruct = function(postData){
     	   return webix.ajax().post(urlstr+"/WBStockMng/getStoreStockStruct",postData);
     }
          
+     stockObject.getWHSKCInfo = function(postData){
+       return webix.ajax().post(urlstr+"/WBStockMng/getWHSKCInfo",postData);
+     }
+  
+      stockObject.getWHSKCInfoNewSKC = function(postData){
+       return webix.ajax().post(urlstr+"/WBStockMng/getWHSKCInfoNewSKC",postData);
+     }
+       
       stockObject.getProdHSStock = function(WHCode,SKUCode){
       	var postData={WHCode:WHCode,SKUCode:SKUCode};
      	return webix.ajax().post(urlstr+"/WBStockMng/getProdHSStock",postData);
