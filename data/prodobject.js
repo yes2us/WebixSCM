@@ -1,9 +1,9 @@
 define([], function() {
-	var _UserCode = webix.storage.local.get('_UserCode');
+
 	var prodObject = new Object();
 	
-	prodObject.getProductList = function(PostData){
-		return webix.ajax().post(urlstr+"/WBProdMng/getProductList",PostData);
+	prodObject.getProductList = function(postData){
+		return webix.ajax().post(urlstr+"/WBProdMng/getProductList",postData);
 	}
 	
 	prodObject.getProdSale = function(PartyCode,SKUCode) {
@@ -11,12 +11,12 @@ define([], function() {
 		return webix.ajax().post(urlstr+"/WBProdMng/getProdSale",postData);
 	}
 
-	prodObject.getProdIndicator = function(PostData){
-		return webix.ajax().post(urlstr+"/WBProdMng/getProdIndicator",postData);
+	prodObject.getSKCIndex = function(postData){
+		return webix.ajax().post(urlstr+"/WBProdMng/getSKCIndex",postData);
 	}
 
-     prodObject.getProdIndicatorItem = function(ProductColorCode){
-     	return webix.ajax().post(urlstr+"/WBProdMng/getProdIndicatorItem",{ProductColorCode:ProductColorCode});
+     prodObject.getSKCIndexItem = function(postData){
+     	return webix.ajax().post(urlstr+"/WBProdMng/getSKCIndexItem",postData);
      }
 	return prodObject;
 });

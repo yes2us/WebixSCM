@@ -1,5 +1,7 @@
-define(function(){
-
+define(
+[],
+function(){
+			
 	var gridTree = {
 		view:"datatable",
 		id:"dt_storets",

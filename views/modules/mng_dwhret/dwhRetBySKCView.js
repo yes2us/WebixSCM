@@ -3,13 +3,6 @@ define([
 ],
 	function(stockobject){
 		
-     function custom_checkbox(obj, common, value){
-				if (value)
-					return "<div class='webix_table_checkbox checked'> 删除 </div>";
-				else
-					return "<div class='webix_table_checkbox notchecked'> 删除 </div>";
-			}
-     
 	var grid_skc = {
 		view:"datatable",
 		id:"dt_dwhskc",
@@ -94,13 +87,26 @@ define([
 		},
 		columns:[
 			{ id:"_identify",header:"#",width:35,hidden:true},
-			{ id:"delete",header:"",template:custom_checkbox,width:60, editor:"inline-checkbox"},
+			{ id:"delete",header:"&nbsp;", width:35,template:"<span  style='color:#777777; cursor:pointer;' class='webix_icon fa-trash-o'></span>"},
 			{ id:"partycode",	header:"门店编号", sort:"string",hidden:true,fillspace:2},
 			{ id:"partyname",	header:"退货门店",sort:"int", fillspace:1},
 			{ id:"skucode",	header:"SKU", sort:"string",hidden:true,fillspace:2},
 			{ id:"repretqty",	header:"退货量",sort:"int",align:"right", fillspace:1}
 		],
-		on:{onAfterEditStop:function(){console.log("test1");}}
+		on:{
+					onClick:{
+					webix_icon:function(e,id,node){
+						webix.confirm({
+							text:"你将删除本条记录.<br/>确定吗?", ok:"确定", cancel:"取消",
+							callback:function(res){
+								if(res){
+									webix.$$("dt_retPlanOrder").remove(id);
+								}
+							}
+						});
+					}
+				},
+		}
 	};
 	
 	var layout = {

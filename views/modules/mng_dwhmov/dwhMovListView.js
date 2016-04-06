@@ -1,6 +1,6 @@
 define(
-["data/storeobject"],
-function(storeobject){
+[],
+function(){
 	return {
 		$ui:{
 			width:_ListWidth,

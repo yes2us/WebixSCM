@@ -53,7 +53,7 @@ if(_UserObject>"")
 	var layout = {
 //		type:"line",
 		rows:[
-			mainToolbar,
+//			mainToolbar,
 			{
 				cols:[
 					menu,

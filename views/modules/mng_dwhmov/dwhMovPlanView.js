@@ -3,7 +3,7 @@ define(function(){
 	var gridTree = {
 		view:"datatable",
 		id:"dt_dwhMovPlan",
-		leftSplit:5,
+		leftSplit:4,
 		rowHeight:_RowHeight,
 		headerRowHeight:_HeaderRowHeight,
 		headermenu:{

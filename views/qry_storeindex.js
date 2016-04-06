@@ -1,7 +1,7 @@
 define([
-	"data/storeobject",
+	"data/partyobject",
 	],
-function(storeobject){
+function(partyobject){
 	 
 	checkauthorization(false);
 	
@@ -23,7 +23,7 @@ function(storeobject){
 						if(newv)
 						{
 							regioncode = newv;
-							webix.ajax().post(urlstr+"/WBPartyMng/getStoreList",{RegionCode:newv},function(response){
+							webix.ajax().post(urlstr+"/WBPartyMng/getRelPartyList",{RegionCode:newv},function(response){
 								   if(response){
 									var optionarray = [{id:'all',value:"所有"}];
 									JSON.parse(response).forEach(function(item){
@@ -49,7 +49,7 @@ function(storeobject){
 							postData.StoreCode=values.storecode;
 						}
 						$$("dt_storeindicator").clearAll();
-						$$("dt_storeindicator").parse(storeobject.getStoreIndicator(postData));
+						$$("dt_storeindicator").parse(partyobject.getPartyIndex(postData));
 				 }},
 			    {},
 

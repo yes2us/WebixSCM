@@ -1,6 +1,6 @@
 define(
-["data/storeobject"],
-function(storeobject){
+["data/partyobject"],
+function(partyobject){
 	var _UserCode = webix.storage.local.get('_UserCode');
     var regionCode;
     
@@ -32,7 +32,7 @@ function(storeobject){
 												RegionCode:newregioncode,
 												FieldStr:"PartyCode,PartyName"
 											}
-											$$("lt_refrstores").parse(storeobject.getStoreList(postData));
+											$$("lt_refrstores").parse(partyobject.getRelPartyList(postData));
 										}
 									}},
 									

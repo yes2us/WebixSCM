@@ -3,18 +3,12 @@ define([
 ],
 	function(stockobject){
 	    
-     function custom_checkbox(obj, common, value){
-				if (value)
-					return "<div class='webix_table_checkbox checked'> 删 </div>";
-				else
-					return "<div class='webix_table_checkbox notchecked'> 删 </div>";
-		}
      
 	var grid_storeexistsskc = {
 		view:"datatable",
 		id:"dt_dwhrefrstoreskc",
 		leftSplit:3,
-		rowHeight:_RowHeight,
+		rowHeight:_RowHeight+5,
 		headerRowHeight:_HeaderRowHeight,
 		headermenu:{
 			  width:250,
@@ -37,7 +31,7 @@ define([
 			{ id:"stockqty",	header:"实际库存",sort:"int", fillspace:1},
 			{ id:"sale30qty",header:"30天销量",sort:"int", fillspace:1},
 			{ id:"saletotalqty",header:"累计销量",sort:"int", fillspace:1},
-			{ id:"outcheckbox",header:"退出",sort:"int",width:60,editor:"checkbox",value:0}
+			{ id:"outcheckbox",header:"退出",sort:"int",width:60,template:"{common.checkbox()}",value:0}
 		],
 		select: true,
 	};
@@ -73,7 +67,7 @@ define([
 			{ id:"stockqty",header:"实际库存",sort:"int", fillspace:1},
 			{ id:"sale30qty",header:"30天销量",sort:"int", fillspace:1},
 			{ id:"saletotalqty",header:"累计销量",sort:"int", fillspace:1},
-			{ id:"incheckbox",header:"补入",sort:"int", width:60,editor:"checkbox",value:0}
+			{ id:"incheckbox",header:"补入",sort:"int", width:60,template:"{common.checkbox()}",value:0}
 		],
 	};
 	
@@ -90,14 +84,28 @@ define([
 		},
 		columns:[
 			{ id:"_identify",header:"#",width:35,hidden:true},
-			{ id:"delete",header:"",template:custom_checkbox,width:40, editor:"inline-checkbox"},
+			{ id:"delete",header:"&nbsp;", width:35,template:"<span  style='color:#777777; cursor:pointer;' class='webix_icon fa-trash-o'></span>"},
 			{ id:"srcpartycode",	header:"调出门店编号",hidden:true,fillspace:2},
 			{ id:"srcpartyname",header:"调出门店",hidden:true, fillspace:1},
 			{ id:"trgpartycode",	header:"调入门店编号",hidden:true,hidden:true,fillspace:2},
 			{ id:"trgpartyname",header:"调入门店",hidden:true, fillspace:1},
 			{ id:"skccode",header:"退出款色", sort:"string",fillspace:2},
 			{ id:"movqty",header:"退出数量",sort:"int",fillspace:1}
-		]
+		],
+		on:{
+				onClick:{
+					webix_icon:function(e,id,node){
+						webix.confirm({
+							text:"你将删除本条记录.<br/>确定吗?", ok:"确定", cancel:"取消",
+							callback:function(res){
+								if(res){
+									webix.$$("dt_refrplan_outskc").remove(id);
+								}
+							}
+						});
+					}
+				},
+		}
 	};
 	
 	var grid_refrplan_inskc = {
@@ -113,14 +121,28 @@ define([
 		},
 		columns:[
 			{ id:"_identify",header:"#",width:35,hidden:true},
-			{ id:"delete",header:"",template:custom_checkbox,width:40, editor:"inline-checkbox"},
+			{ id:"delete",header:"&nbsp;", width:35,template:"<span  style='color:#777777; cursor:pointer;' class='webix_icon fa-trash-o'></span>"},
 			{ id:"srcpartycode",	header:"调出门店编号",hidden:true,fillspace:2},
 			{ id:"srcpartyname",header:"调出门店",hidden:true, fillspace:1},
 			{ id:"trgpartycode",	header:"调入门店编号",hidden:true,hidden:true,fillspace:2},
 			{ id:"trgpartyname",header:"调入门店",hidden:true, fillspace:1},
 			{ id:"skccode",header:"补入款色", sort:"string",fillspace:2},
 			{ id:"movqty",header:"补入数量",sort:"int",fillspace:1}
-		]
+		],
+		on:{
+				onClick:{
+					webix_icon:function(e,id,node){
+						webix.confirm({
+							text:"你将删除本条记录.<br/>确定吗?", ok:"确定", cancel:"取消",
+							callback:function(res){
+								if(res){
+									webix.$$("dt_refrplan_inskc").remove(id);
+								}
+							}
+						});
+					}
+				},
+		}
 	};
 	
 	var grid_storeoutskc={ 

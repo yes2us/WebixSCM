@@ -1,20 +1,20 @@
-define(
-[],
+define([],
 function(){
+
 	return {
 		$ui:{
 			width:_ListWidth,
 			type: "clean",
 			css: "highlighted_header header5",
-			header:"分仓列表",
+			header:"总仓列表",
 			body:{
 			rows:[	
 				{					
 					view: "list",
-					id: "lt_dwhs",
+					id: "lt_cwhs",
 					select: true,
 				    template:"#id# - #value#",
-				    url:urlstr+'/WBPartyMng/getRegionList',
+				    url:urlstr+'/WBPartyMng/getCWHList',
 					scheme:{
 					$init:function(obj){
 					}

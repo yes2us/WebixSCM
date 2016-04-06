@@ -1,19 +1,17 @@
 define([
 	"data/stockobject",
+	"libs/pivot",
 	"views/modules/mng_storets/storeListView",
 	"views/modules/mng_storets/storeStockStructView",	
 	"views/modules/mng_storets/storeTSView",
-//	"views/modules/mng_storets/storeSugRepPlanView",
-//	"views/modules/mng_storets/storeSugRetPlanView",
-	"views/modules/mng_storets/storeTodayAdjRecView",
+	"views/modules/mng_storets/storeAdjRecView",
 	"views/modules/mng_storets/storeImpTSDataView"
 ], function(stockobject,
+	pivot,
 	storeListView,
 	storeStockStructView,
 	storeTSView,
-//	storeSugRepPlanView,
-//	storeSugRetPlanView,
-	storeTodayAdjRecView,
+	storeAdjRecView,
 	storeImpTSDataView){
 
 checkauthorization(false);
@@ -33,9 +31,7 @@ var layout = {
 								options:[
 									{id: "storeStockStructView", value: "库存结构"},
 									{id: "storeTSView", value: "目标库存"},
-//									{id: "storeSugRepPlanView", value: "理论补退"},
-//									{id: "storeSugRetPlanView", value: "理论退货"},
-									{id: "storeTodayAdjRecView", value: "缓冲调整"},
+									{id: "storeAdjRecView", value: "缓冲调整"},
 									{id: "storeImpTSDataView", value: "导入目标库存"}
 								]
 							},
@@ -43,9 +39,7 @@ var layout = {
 								cells:[
 									storeStockStructView,
 								    storeTSView,
-//									storeSugRepPlanView,	
-//									storeSugRetPlanView,
-									storeTodayAdjRecView,
+									storeAdjRecView,
 									storeImpTSDataView
 								]
 							}
@@ -73,19 +67,18 @@ return {
 			var promzStoreTSStructData = stockobject.getFGWarehouseTSInfo(storecode);
 			
 			//显示库存结构-大类
+			$$("dt_stockstruct").parse(stockobject.getStoreStockStruct({StoreCode:storecode}));
 			$$("dt_stockstruct").clearAll();
-			$$("dt_stockstruct").parse(stockobject.getStoreStockStruct({StoreCode:storecode}));	
 			
 			
 			//显示目标库存
 			$$("dt_storets").clearAll();
-			$$("dt_storets").parse(promzStoreTSStructData);
-			
+			$$("dt_storets").parse(promzStoreTSStructData);	
 
 			//显示最近调整记录
 			var prezAdjRecData = stockobject.getPartyAdjRec({WHCode:storecode,EndDate:'2016-01-01'});
-			$$("dt_storetodayadjrec").clearAll();
-			$$("dt_storetodayadjrec").parse(prezAdjRecData);
+			$$("dt_storeadjrec").clearAll();
+			$$("dt_storeadjrec").parse(prezAdjRecData);
 			
 			});
 	}

@@ -1,16 +1,13 @@
 define([
-	"data/paraobject",
+	"data/storeobject",
 	"views/modules/mng_para/modaladd_para",
 	"views/menus/export"
 	],
-function(paraobject,modaladd,exports){
+function(storeobject,modaladd,exports){
 	
 	checkauthorization(false);
 	
-	
-var grid;
-
-	var titleBar = {
+  var titleBar = {
 		view: "toolbar",
 		id:"toolbar",
 		css: "highlighted_header header5",
@@ -20,47 +17,50 @@ var grid;
 		cols:[
 			{  view: "button", type: "iconButton", icon: "refresh", label: "刷新",hidden:false, width: 80, 
 			click: function(){
-				$$("dt_para").clearAll();
-				$$("dt_para").parse(paraobject.getSysPara());
+				$$("dt_party").clearAll();
+				$$("dt_party").parse(paraobject.getSysPara());
 				}},
 			{},
 			{ view: "button", type: "iconButton", icon: "pencil-square-o", label: "编辑", width: 80,
 			click:function(){
-				$$('dt_para').define('editable',true);	
+				$$('dt_party').define('editable',true);	
 				$$('deletebutton').show();	
 				$$('addbutton').show();
 				$$('addbutton').refresh();	
 				
-				$$('bool').define('disabled',false);	
 				$$('toolbar').config.css="highlighted_header header4";
 				$$('toolbar').reconstruct();
 			}},
 			{ view: "button", type: "iconButton", icon: "plus",id:"addbutton", label: "增加",hidden:false, width: 80, click: function(){this.$scope.ui(modaladd.$ui).show();}},
-			{ view: "button", type: "iconButton", icon: "external-link", label: "导出", width: 70, popup: exports.print("dt_para")},
+			{ view: "button", type: "iconButton", icon: "external-link", label: "导出", width: 70, popup: exports.print("dt_party")},
 		]
 	};
 	
-	grid = {
+	var grid_party = {
 		margin:10,
 		rows:[
 			{
-				id:"dt_para",
+				id:"dt_party",
 				view:"datatable", 
 				editable:true,
 				select:"row",
-				headerRowHeight:35,
-					dragColumn:true,
-					headermenu:{
+				rowHeight:_RowHeight,
+				headerRowHeight:_HeaderRowHeight,
+				headermenu:{
 					    width:250,
 					    autoheight:false,
 					    scroll:true
 					},
 				updateFromResponse:true,
-				save:urlstr+"/WBCURDMng/saveParameter/DSSuffix/"+_DSSuffix,
+				save:urlstr+"/WBCURDMng/saveParameter",
 				columns:[
 					{id:"deletebutton", header:"&nbsp;",hidden:false, width:35, template:"<span  style='color:#777777; cursor:pointer;' class='webix_icon fa-trash-o'></span>"},
 					{id:"_identify", header:"#", width:30},
-					{id:"name", header:"参数名", editor:"text", sort:"string",width:150},
+					{id:"partycode", header:"仓库编号", editor:"text", sort:"string",width:150},
+					{id:"partyname", header:"仓库名", editor:"text", sort:"string",width:150},
+					{id:"partycode", header:"参数名", editor:"text", sort:"string",width:150},
+					{id:"partycode", header:"参数名", editor:"text", sort:"string",width:150},
+					{id:"partycode", header:"参数名", editor:"text", sort:"string",width:150},
 					{id:"type", header:"参数类型", editor:"combo",sort:"string",
 					collection:['VInteger','VFloat','VDate',"VBool","VString","VText"],fillspace:0.7},
 					
@@ -112,42 +112,13 @@ var pager = 	{
 						}]
 					};
 					
-	var detailform = {
-		view:"form",
-		id:"vtextform",	
-		maxWidth:300,
-		elements:[	
-			{view:"textarea",name:"vtext",id:"vtext",paddingX:5,	paddingY:5, }
-		]
-
-	};
-	
-	var savebar={
-		css: "highlighted_header header6",
-		paddingX:5,
-		paddingY:5,
-		cols:[
-				{ view: "button", type: "form", icon: "plus", label: "保存", width: 90,
-				click:function(){
-					var selid = $$("dt_para").getSelectedId();
-					var item = $$("dt_para").getSelectedItem();
-					var vtext = $$("vtext").getValue();
-					item["vtext"] = vtext;
-					$$("dt_para").updateItem(selid, item);
-					webix.message('保存成功');
-					}},
-					{}
-					]
-		};
 							
 	var layout = {
 		type: "clean",
 		rows:[
 			titleBar,
 			{
-				cols:[{rows:[grid,	pager]},
-				{view:"resizer"},
-				{rows:[detailform,savebar]}]
+				cols:[{rows:[grid_party,pager]},{view:"resizer"}
 			}
 		]
 
@@ -158,14 +129,10 @@ var pager = 	{
 		$ui: layout,
 		$oninit:function(){
 			$$("dt_para").parse(paraobject.getSysPara());
-			$$("vtextform").bind($$("dt_para"));
+
 			
 			webix.dp.$$("dt_para").attachEvent('onBeforeDataSend', function(obj){obj.data.DSSuffix = _DSSuffix;});
-			
-//			$$('dt_para').attachEvent('onSelectChange',function(id){
-//				if(id==1 || !this.getItem(id)) return;	
-//				var vipcode = this.getItem(id).customercode;
-//			});
+
 		}
 	};
 

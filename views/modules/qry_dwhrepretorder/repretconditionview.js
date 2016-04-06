@@ -1,9 +1,7 @@
 define(
-["data/storeobject",
-"data/stockobject"
-],
-function(dwhobject,stockobject){
-	var _UserCode = webix.storage.local.get('_UserCode');
+["data/stockobject"],
+function(stockobject){
+
     var startdate,enddate;
     var ordertype="Rep";
     

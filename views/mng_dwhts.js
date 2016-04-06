@@ -2,17 +2,13 @@ define([
 	"data/stockobject",
 	"views/modules/mng_dwhts/dwhListView",
 	"views/modules/mng_dwhts/dwhTSView",
-//	"views/modules/mng_dwhts/dwhSugRepPlanView",
-//	"views/modules/mng_dwhts/dwhSugRetPlanView",
-	"views/modules/mng_dwhts/dwhTodayAdjRecView",
+	"views/modules/mng_dwhts/dwhAdjRecView",
 	"views/modules/mng_dwhts/dwhImpTSDataView"
 ], function(
 	stockobject,
 	dwhListView,
 	dwhTSView,
-//	dwhSugRepPlanView,
-//	dwhSugRetPlanView,
-	dwhTodayAdjRecView,
+	dwhAdjRecView,
 	dwhImpTSDataView){
 
 checkauthorization(false);
@@ -34,7 +30,7 @@ var layout = {
 									{id: "dwhTSView", value: "目标库存"},
 //									{id: "dwhSugRepPlanView", value: "理论补退"},
 //									{id: "dwhSugRetPlanView", value: "理论退货"},
-									{id: "dwhTodayAdjRecView", value: "缓冲调整"},
+									{id: "dwhAdjRecView", value: "缓冲调整"},
 									{id: "dwhImpTSDataView", value: "导入目标库存"}
 								]
 							},
@@ -43,7 +39,7 @@ var layout = {
 								    dwhTSView,
 //									dwhSugRepPlanView,	
 //									dwhSugRetPlanView,
-									dwhTodayAdjRecView,
+									dwhAdjRecView,
 									dwhImpTSDataView
 								]
 							}
@@ -84,8 +80,8 @@ return {
 
 			//显示最近调整记录
 			var promzAdjRecData = stockobject.getPartyAdjRec({WHCode:dwhcode,EndDate:'2016-01-01'});
-			$$("dt_dwhtodayadjrec").clearAll();
-			$$("dt_dwhtodayadjrec").parse(promzAdjRecData);
+			$$("dt_dwhadjrec").clearAll();
+			$$("dt_dwhadjrec").parse(promzAdjRecData);
 			
 			});
 	}

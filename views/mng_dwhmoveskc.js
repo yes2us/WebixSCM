@@ -1,13 +1,13 @@
 define([
 	"data/stockobject",
-	"data/storeobject",
+	"data/partyobject",
 	"views/modules/mng_dwhmov/dwhMovListView",
 	"views/modules/mng_dwhmov/dwhMovBySKCView",
 	"views/modules/mng_dwhmov/dwhMovByStoreView",
 	"views/modules/mng_dwhmov/dwhMovPlanView"
 ], function(
 	stockobject,
-	storeobject,
+	partyobject,
 	dwhMovListView,
 	dwhMovBySKCView,
 	dwhMovByStoreView,
@@ -72,10 +72,20 @@ return {
 			$$("dt_dwhmovstorestockstruct").clearAll();
 			$$("dt_dwhmovstorestockstruct").parse(promzStockStructData);
 			$$("popupid2").clearAll();
-			$$("popupid2").parse(storeobject.getStoreList({
+			$$("popupid2").parse(partyobject.getRelPartyList({
 				RegionCode:dwhcode,RelationType:"补货关系",
 				FieldStr:"PartyCode as id,PartyCode,PartyName,PartyLevel"}));
 			
+			//
+			partyobject.getRelPartyList({
+				RegionCode:dwhcode,
+				RelationType:"补货关系",
+				FieldStr:"PartyCode,PartyName,PartyLevel"
+				}).then(function(rsData){
+				  var rsJson = rsData.json();
+				  dwhMovBySKCView.setRegionStores(rsJson);
+				  dwhMovByStoreView.setRegionStores(rsJson);
+			});
 			//显示调拨计划
 			$$("dt_dwhMovPlan").clearAll();
 			$$("dt_dwhMovPlan").parse(stockobject.getMovSKCPlan({ParentCode:dwhcode}));

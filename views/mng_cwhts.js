@@ -1,14 +1,14 @@
 define([
 	"data/stockobject",
+	"views/modules/mng_cwhts/cwhListView",
 	"views/modules/mng_cwhts/cwhTSView",
-//	"views/modules/mng_cwhts/cwhSugRepPlanView",
-	"views/modules/mng_cwhts/cwhTodayAdjRecView",
+	"views/modules/mng_cwhts/cwhAdjRecView",
 	"views/modules/mng_cwhts/cwhImpTSDataView"
 ], function(
 	stockobject,
+	cwhListView,
 	cwhTSView,
-	cwhSugRepPlanView,
-	cwhTodayAdjRecView,
+	cwhAdjRecView,
 	cwhImpTSDataView){
 
 checkauthorization(false);
@@ -16,23 +16,25 @@ checkauthorization(false);
 
 var layout = {
 	type: "clean",
-	rows:[
-		{view: "tabbar", multiview: true,optionWidth: 130,
+	cols:
+	[cwhListView,{view:"resizer"},
+	{rows:[
+		{view: "tabbar", multiview: true,optionWidth: 130,type: "wide",
 			options:[
 				{id: "cwhTSView", value: "目标库存"},
 //				{id: "cwhSugRepPlanView", value: "理论补货"},
-				{id: "cwhTodayAdjRecView", value: "缓冲调整"},
+				{id: "cwhAdjRecView", value: "缓冲调整"},
 				{id: "cwhImpTSDataView", value: "导入目标库存"}
 			]
 		},
 		{
 			cells:[
 			    cwhTSView,
-				cwhSugRepPlanView,	
-				cwhTodayAdjRecView,
+				cwhAdjRecView,
 				cwhImpTSDataView
 			]
 		}
+	]}
 	]
 };
 
@@ -45,18 +47,14 @@ return {
 			var promzTSData = stockobject.getFGWarehouseTSInfo(cwhcode);
 
 			//显示目标库存
-			$$("table_cwhts").clearAll();
-			$$("table_cwhts").parse(promzTSData);
-			
-//			//显示建议补货量
-//			$$("table_cwhsugrepplan").clearAll();
-//			$$("table_cwhsugrepplan").parse(promzTSData);
-			
+			$$("dt_cwhts").clearAll();
+			$$("dt_cwhts").parse(promzTSData);
+
 
 			//显示最近调整记录
 			var promzAdjRecData = stockobject.getPartyAdjRec({WHCode:cwhcode,EndDate:'2016-01-01'});
-			$$("table_cwhtodayadjrec").clearAll();
-			$$("table_cwhtodayadjrec").parse(promzAdjRecData);
+			$$("dt_cwhadjrec").clearAll();
+			$$("dt_cwhadjrec").parse(promzAdjRecData);
 			
 	}
 };

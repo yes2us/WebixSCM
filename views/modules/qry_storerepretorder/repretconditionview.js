@@ -1,9 +1,9 @@
 define(
-["data/storeobject",
+[
 "data/stockobject"
 ],
-function(storeobject,stockobject){
-	var _UserCode = webix.storage.local.get('_UserCode');
+function(stockobject){
+
     var regioncode = null;
     var startdate,enddate;
     var ordertype="Rep";
