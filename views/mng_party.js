@@ -1,9 +1,9 @@
 define([
-	"data/storeobject",
-	"views/modules/mng_para/modaladd_para",
+	"data/partyobject",
+	"views/modules/modaladd/addparty",
 	"views/menus/export"
 	],
-function(storeobject,modaladd,exports){
+function(partyobject,modaladd,exports){
 	
 	checkauthorization(false);
 	
@@ -18,7 +18,7 @@ function(storeobject,modaladd,exports){
 			{  view: "button", type: "iconButton", icon: "refresh", label: "刷新",hidden:false, width: 80, 
 			click: function(){
 				$$("dt_party").clearAll();
-				$$("dt_party").parse(paraobject.getSysPara());
+				$$("dt_party").parse(partyobject.getPartyList());
 				}},
 			{},
 			{ view: "button", type: "iconButton", icon: "pencil-square-o", label: "编辑", width: 80,
@@ -43,8 +43,8 @@ function(storeobject,modaladd,exports){
 				id:"dt_party",
 				view:"datatable", 
 				editable:true,
-				select:"row",
-				rowHeight:_RowHeight,
+				select:true,
+				rowHeight:_RowHeight+5,
 				headerRowHeight:_HeaderRowHeight,
 				headermenu:{
 					    width:250,
@@ -52,30 +52,50 @@ function(storeobject,modaladd,exports){
 					    scroll:true
 					},
 				updateFromResponse:true,
-				save:urlstr+"/WBCURDMng/saveParameter",
+				save:urlstr+"/WBCURDMng/saveParty",
 				columns:[
 					{id:"deletebutton", header:"&nbsp;",hidden:false, width:35, template:"<span  style='color:#777777; cursor:pointer;' class='webix_icon fa-trash-o'></span>"},
-					{id:"_identify", header:"#", width:30},
-					{id:"partycode", header:"仓库编号", editor:"text", sort:"string",width:150},
+					{id:"partyenabled", header:"启用", template:"{common.checkbox()}", sort:"string",width:60},
+					{id:"partycode", header:"仓库编号", sort:"string",width:100},
 					{id:"partyname", header:"仓库名", editor:"text", sort:"string",width:150},
-					{id:"partycode", header:"参数名", editor:"text", sort:"string",width:150},
-					{id:"partycode", header:"参数名", editor:"text", sort:"string",width:150},
-					{id:"partycode", header:"参数名", editor:"text", sort:"string",width:150},
-					{id:"type", header:"参数类型", editor:"combo",sort:"string",
-					collection:['VInteger','VFloat','VDate',"VBool","VString","VText"],fillspace:0.7},
+					{id:"partretylevel", header:"级别", editor:"text", sort:"string",width:60},
 					
-					{id:"vinteger", header:"整型值",editor:"text", sort:"string",fillspace:0.5},
-					{id:"vfloat", header:"浮点值", editor:"text",sort:"string", format:webix.i18n.numberFormat,fillspace:0.5},
-					{id:"vdate", header:"日期值", editor:"date",sort:"string",stringResult:true, format:"%Y-%m-%d",fillspace:0.7},
-					{id:"vbool", header:"布尔值", template:"{common.checkbox()}",fillspace:0.5,disabled:true,sort:"string",format:webix.i18n.numberFormat},
-
-					{id:"vstring", header:"字符串",editor:"popup", sort:"string", fillspace:1.5},
-					{id:"vtext", header:"文本值", editor:"popup",sort:"string" ,fillspace:1.5,hidden:true},					
-					{id:"desc", header:"备注", editor:"popup", sort:"string",fillspace:1}
+					{id:"isreplenish", header:"拉补",template:"{common.checkbox()}", sort:"int",width:60},
+					{id:"reppriority", header:"优先级", editor:"text", sort:"string",width:70},
+					{id:"repbatchzize", header:"补货批量", editor:"text", sort:"int",width:85},
+					{id:"repnextdate", header:"补货日期", editor:"date", sort:"string",width:100},
+					{id:"repordercycle", header:"下单间隔", editor:"text", sort:"int",width:85},
+					{id:"repsupplytime", header:"供应时间", editor:"text", sort:"int",width:85},
+					{id:"reprollspan", header:"滚动步长", editor:"text", sort:"int",width:85},					
+					
+					{id:"isreturnstock", header:"退货", template:"{common.checkbox()}", sort:"int",width:60},
+					{id:"retbatchsize", header:"退货批量", editor:"text", sort:"int",width:85},
+					{id:"isretoverstock", header:"退超量", template:"{common.checkbox()}", sort:"int",width:100},
+					{id:"retoverstocknextdate", header:"退超日期", editor:"date", sort:"string",width:85},
+					{id:"retoverstockcycle", header:"退超间隔", editor:"text", sort:"int",width:85},
+					{id:"isretdeadstock", header:"退死货", template:"{common.checkbox()}", sort:"int",width:70},							
+					{id:"retdeadstocknextdate", header:"退死日期", editor:"date", sort:"string",width:100},
+					{id:"adjdeadstockcycle", header:"退死间隔", editor:"text", sort:"int",width:85},							
+					
+					{id:"isadjusttarget", header:"调整目标库存", template:"{common.checkbox()}", sort:"int",width:100},
+					{id:"isUseskuadjpara", header:"按SKU调整", template:"{common.checkbox()}", sort:"int",width:100},
+					
+					{id:"adjupchkperiod", header:"上调周期", editor:"text", sort:"int",width:85},							
+					{id:"adjupfreezeperiod", header:"冻结周期", editor:"text", sort:"int",width:85},
+					{id:"adjuperodelmt", header:"浸入量", editor:"text", sort:"int",width:85},		
+											
+					{id:"adjdnchkperiod", header:"下调周期", editor:"text", sort:"int",width:85},							
+					{id:"adjdnfreezeperiod", header:"冻结周期", editor:"text", sort:"int",width:85},
+					{id:"adjdnerodelmt", header:"浸入次数", editor:"text", sort:"int",width:85},
 				],
 				on: {
-					onAfterLoad: function(){
-						this.select(1);		
+					onSelectChange:function(){
+						var selRow = this.getSelectedItem();
+						if(selRow){
+						var PremzRelData = partyobject.getPartyRelation(selRow.partycode);
+						$$("dt_partyrelation").clearAll();
+						$$("dt_partyrelation").parse(PremzRelData);
+						}
 					}
 				},
 				onClick:{
@@ -84,7 +104,7 @@ function(storeobject,modaladd,exports){
 							text:"你将删除本条记录.<br/>确定吗?", ok:"确定", cancel:"取消",
 							callback:function(res){
 								if(res){
-									webix.$$("dt_para").remove(id);
+									webix.$$("dt_party").remove(id);
 								}
 							}
 						});
@@ -112,14 +132,46 @@ var pager = 	{
 						}]
 					};
 					
-							
+var grid_relation ={
+	 view:"datatable",
+	 id:"dt_partyrelation",
+	 editable:true,
+	 select:"row",
+	 rowHeight:_RowHeight+5,
+	 headRowHeight:_HeaderRowHeight,
+	 headermenu:{
+					    width:250,
+					    autoheight:false,
+					    scroll:true
+					},
+	 columns:[
+	    	{id:"deletebutton", header:"&nbsp;",hidden:false, width:60, template:"<span  style='color:#777777; cursor:pointer;' class='webix_icon fa-trash-o'></span>"},
+	    {id:"parentcode",header:"上级编号",hidden:true,width:30},
+	    {id:"parentname",header:"上级",fillspace:1},
+	    {id:"relationtype",header:"关系类型",fillspace:1},
+	    {id:"relationorder",header:"关系次序",fillspace:1}
+	 ],
+	 onClick:{
+					webix_icon:function(e,id,node){
+						webix.confirm({
+							text:"你将删除本条记录.<br/>确定吗?", ok:"确定", cancel:"取消",
+							callback:function(res){
+								if(res){
+									webix.$$("dt_para").remove(id);
+								}
+							}
+						});
+					}
+				},
+}
 	var layout = {
 		type: "clean",
 		rows:[
 			titleBar,
-			{
-				cols:[{rows:[grid_party,pager]},{view:"resizer"}
-			}
+			grid_party,
+			pager,
+			{view:"resizer"},
+			grid_relation
 		]
 
 	};
@@ -128,10 +180,11 @@ var pager = 	{
 	return {
 		$ui: layout,
 		$oninit:function(){
-			$$("dt_para").parse(paraobject.getSysPara());
+			$$("dt_party").clearAll();
+			$$("dt_party").parse(partyobject.getPartyList());//			$$("dt_party").parse(partyobject.getSysPara());
 
 			
-			webix.dp.$$("dt_para").attachEvent('onBeforeDataSend', function(obj){obj.data.DSSuffix = _DSSuffix;});
+//			webix.dp.$$("dt_party").attachEvent('onBeforeDataSend', function(obj){obj.data.DSSuffix = _DSSuffix;});
 
 		}
 	};

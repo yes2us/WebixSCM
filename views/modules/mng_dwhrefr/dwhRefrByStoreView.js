@@ -82,6 +82,8 @@ define([
 			autoheight:false,
 			scroll:true
 		},
+		editable:true,
+		save:urlstr+"/WBCURDMng/saveMovSKCPlan",
 		columns:[
 			{ id:"_identify",header:"#",width:35,hidden:true},
 			{ id:"delete",header:"&nbsp;", width:35,template:"<span  style='color:#777777; cursor:pointer;' class='webix_icon fa-trash-o'></span>"},
@@ -119,6 +121,8 @@ define([
 			autoheight:false,
 			scroll:true
 		},
+		editable:true,
+		save:urlstr+"/WBCURDMng/saveMovSKCPlan",
 		columns:[
 			{ id:"_identify",header:"#",width:35,hidden:true},
 			{ id:"delete",header:"&nbsp;", width:35,template:"<span  style='color:#777777; cursor:pointer;' class='webix_icon fa-trash-o'></span>"},

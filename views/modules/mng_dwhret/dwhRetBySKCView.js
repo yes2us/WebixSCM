@@ -2,7 +2,7 @@ define([
 	"data/stockobject"
 ],
 	function(stockobject){
-		
+		var retTargetWHCode;
 	var grid_skc = {
 		view:"datatable",
 		id:"dt_dwhskc",
@@ -30,7 +30,7 @@ define([
 			
 			{ id:"targetqty",	header:"目标库存",sort:"int", fillspace:1},
 			{ id:"stockqty",	header:"实际库存",sort:"int", fillspace:1},
-			{ id:"repretqty",	header:"库存缺口",sort:"int",align:"right", fillspace:1}
+			{ id:"orderqty",	header:"库存缺口",sort:"int",align:"right", fillspace:1}
 		],
 		select: true,
 		on:{
@@ -38,6 +38,7 @@ define([
 						var selRow = this.getSelectedItem();
 						if(selRow)
 						{
+						 retTargetWHCode = selRow.partycode;
 						var postData={RetTargetWHCode:selRow.partycode,SKUCode:selRow.skucode};
 						var presRetTargetSubWHTSData = stockobject.getRetTargetWHSubWHTSInfo(postData);
 						$$("dt_dwhRetBySKC").clearAll();
@@ -85,13 +86,16 @@ define([
 			autoheight:false,
 			scroll:true
 		},
+		editable:true,
+		save:urlstr+"/WBCURDMng/saveRetOrder",
 		columns:[
 			{ id:"_identify",header:"#",width:35,hidden:true},
 			{ id:"delete",header:"&nbsp;", width:35,template:"<span  style='color:#777777; cursor:pointer;' class='webix_icon fa-trash-o'></span>"},
+			{ id:"parentcode",	header:"上级编号", sort:"string",hidden:true,fillspace:2},
 			{ id:"partycode",	header:"门店编号", sort:"string",hidden:true,fillspace:2},
 			{ id:"partyname",	header:"退货门店",sort:"int", fillspace:1},
 			{ id:"skucode",	header:"SKU", sort:"string",hidden:true,fillspace:2},
-			{ id:"repretqty",	header:"退货量",sort:"int",align:"right", fillspace:1}
+			{ id:"orderqty",	header:"退货量",sort:"int",align:"right", fillspace:1}
 		],
 		on:{
 					onClick:{
@@ -134,10 +138,11 @@ define([
 								
 								if(sameArray.length<1)
 								$$("dt_retPlanOrder").add({
+									parentcode:retTargetWHCode,
 									partycode:row.partycode,
 									partyname:row.partyname,
 									skucode:row.skucode,
-									repretqty:row.operateret});
+									orderqty:row.operateret});
 							}
 						});
 					}},
@@ -149,6 +154,17 @@ define([
 	};
 
 
-	return { $ui: layout };
+	return {
+		$ui: layout,
+	    $oninit:function(){
+	    		webix.dp.$$("dt_retPlanOrder").attachEvent('onBeforeDataSend', function(obj){
+	    			obj.data.MakeDate = (new Date()).toString('yyyy/MM/dd');
+	    			obj.data.OrderCode = obj.data.partycode+"@"+(new Date()).toString('yyyy-MM-dd');
+	    			obj.data.OrderType = "人工退货";
+	    			obj.data.Operator = _UserCode+'@'+_UserName;
+	    			obj.data.DealState = -1;
+	    		});
+	    }
+	};
 
 });

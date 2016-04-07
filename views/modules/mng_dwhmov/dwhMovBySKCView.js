@@ -141,6 +141,8 @@ define([
 			autoheight:false,
 			scroll:true
 		},
+		editable:true,
+		save:urlstr+"/WBCURDMng/saveMovSKCPlan",
 		columns:[
 			{ id:"_identify",header:"#",width:35,hidden:true},
 			{ id:"delete",header:"&nbsp;", width:35,template:"<span  style='color:#777777; cursor:pointer;' class='webix_icon fa-trash-o'></span>"},
@@ -211,7 +213,15 @@ define([
    
 	return {
 		setRegionStores:function(jsonarray){regionStores=jsonarray;},
-		$ui: layout 
+		$ui: layout,
+		 	$oninit:function(){
+	    		webix.dp.$$("dt_movPlanOrder").attachEvent('onBeforeDataSend', function(obj){
+	    			obj.data.MakeDate = new Date((new Date()).toString('yyyy/MM/dd'));
+	    			obj.data.PlanType = "人工调拨";
+	    			obj.data.Operator = _UserCode+'@'+_UserName;
+	    			obj.data.DealState = -1;
+	    		});
+	    }
 	};
 
 });

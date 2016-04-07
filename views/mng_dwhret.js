@@ -57,13 +57,14 @@ return {
 			
 			var dwhcode = this.getItem(id).id;
 			var promzTSData = stockobject.getFGWarehouseTSInfo(dwhcode);
-			var promzStockStructData = stockobject.getStoreStockStruct({RetTargetWHCode:dwhcode});
+			var promzStockStructData = stockobject.getPartyIndex({ParentCode:dwhcode,RelationType:"退货关系"});
 
 			//显示分仓目标库存
 			$$("dt_dwhskc").clearAll();
 			$$("dt_dwhskc").parse(promzTSData);
 			
 			//显示门店库存结构
+			dwhRetByStoreView.setRetTargetWH(dwhcode);
 			$$("dt_storestockstruct").clearAll();
 			$$("dt_storestockstruct").parse(promzStockStructData);
 			

@@ -65,7 +65,7 @@ function(prodobject){
 					{ id:"sale7days",header:[null,"7天销量"],sort:"int",width:85},
 					{ id:"saleyesterday",header:[null,"昨天销量"],sort:"int",width:85},
 					{ id:"saledailytdd",header:[null,"日均TDD"],sort:"int",width:85},
-					{ id:"salediscount",header:[null,"折扣"],sort:"int",width:60},
+					{ id:"salediscount",header:[null,"折扣"],sort:"int",width:60,format:function(value){return parseInt(100*value)+"%";}},
 					
 					{ id:"salenumeverin",header:[{text:"门店铺货",colspan:4},"曾铺店"],sort:"int",width:70},
 					{ id:"storenumcurin",header:[null,"现铺数"],sort:"int",width:70},
@@ -84,12 +84,12 @@ function(prodobject){
 					{ id:"stockincwhqty",header:[null,"总仓库存"],sort:"int",width:85},
 					
 					{ id:"stadayofinventory",header:[{text:"分析数据",colspan:7},"库存天数"],sort:"int",width:85},
-					{ id:"stastoressellper",header:[null,"动销率"],sort:"int",width:70},
-					{ id:"stastorescoverper",header:[null,"铺货率"],sort:"int",width:70},
-					{ id:"stasellcompleteper",header:[null,"售罄率"],sort:"int",width:70},	
-					{ id:"stashortsizeper",header:[null,"断码率"],sort:"int",width:70},
-					{ id:"starepsuccessper",header:[null,"补货率"],sort:"int",width:70},
-					{ id:"stasalewowper",header:[null,"周环比"],sort:"int",width:70}
+					{ id:"stastoressellper",header:[null,"动销率"],sort:"int",width:70,format:function(value){return parseInt(100*value)+"%";}},
+					{ id:"stastorescoverper",header:[null,"铺货率"],sort:"int",width:70,format:function(value){return parseInt(100*value)+"%";}},
+					{ id:"stasellcompleteper",header:[null,"售罄率"],sort:"int",width:70,format:function(value){return parseInt(100*value)+"%";}},	
+					{ id:"stashortsizeper",header:[null,"断码率"],sort:"int",width:70,format:function(value){return parseInt(100*value)+"%";}},
+					{ id:"starepsuccessper",header:[null,"补货率"],sort:"int",width:70,format:function(value){return parseInt(100*value)+"%";}},
+					{ id:"stasalewowper",header:[null,"周环比"],sort:"int",width:70,format:function(value){return parseInt(100*value)+"%";}}
 					
 				],
 				export: true,
@@ -135,7 +135,7 @@ function(prodobject){
 								{ id:"sale7days",header:[null,"7天销量"],sort:"int",width:85},
 								{ id:"saleyesterday",header:[null,"昨天销量"],sort:"int",width:85},
 								{ id:"saledailytdd",header:[null,"日均TDD"],sort:"int",width:85},
-								{ id:"salediscount",header:[null,"折扣"],sort:"int",width:70},
+								{ id:"salediscount",header:[null,"折扣"],sort:"int",width:70,format:function(value){return parseInt(100*value)+"%";}},
 								
 								{ id:"salenumeverin",header:[{text:"门店铺货",colspan:4},"曾铺店"],sort:"int",width:85},
 								{ id:"storenumcurin",header:[null,"现铺数"],sort:"int",width:70},
@@ -153,12 +153,12 @@ function(prodobject){
 								{ id:"stockincwhqty",header:[null,"总仓库存"],sort:"int",width:85},
 								
 								{ id:"stadayofinventory",header:[{text:"分析数据",colspan:7},"库存天数"],sort:"int",width:85},
-								{ id:"stastoressellper",header:[null,"动销率"],sort:"int",width:70},
-								{ id:"stastorescoverper",header:[null,"铺货率"],sort:"int",width:70},
-								{ id:"stasellcompleteper",header:[null,"售罄率"],sort:"int",width:70},	
-								{ id:"stashortsizeper",header:[null,"断码率"],sort:"int",width:70},
-								{ id:"starepsuccessper",header:[null,"补货率"],sort:"int",width:70},
-								{ id:"stasalewowper",header:[null,"周环比"],sort:"int",width:70}
+								{ id:"stastoressellper",header:[null,"动销率"],sort:"int",width:70,format:function(value){return parseInt(100*value)+"%";}},
+								{ id:"stastorescoverper",header:[null,"铺货率"],sort:"int",width:70,format:function(value){return parseInt(100*value)+"%";}},
+								{ id:"stasellcompleteper",header:[null,"售罄率"],sort:"int",width:70,format:function(value){return parseInt(100*value)+"%";}},	
+								{ id:"stashortsizeper",header:[null,"断码率"],sort:"int",width:70,format:function(value){return parseInt(100*value)+"%";}},
+								{ id:"starepsuccessper",header:[null,"补货率"],sort:"int",width:70,format:function(value){return parseInt(100*value)+"%";}},
+								{ id:"stasalewowper",header:[null,"周环比"],sort:"int",width:70,format:function(value){return parseInt(100*value)+"%";}}
 				],
 				export: true,
 //				pager:"skcregion_pagerA"

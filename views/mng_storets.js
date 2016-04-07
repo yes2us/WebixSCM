@@ -67,7 +67,7 @@ return {
 			var promzStoreTSStructData = stockobject.getFGWarehouseTSInfo(storecode);
 			
 			//显示库存结构-大类
-			$$("dt_stockstruct").parse(stockobject.getStoreStockStruct({StoreCode:storecode}));
+			$$("dt_stockstruct").parse(stockobject.getPartyIndex({StoreCode:storecode}));
 			$$("dt_stockstruct").clearAll();
 			
 			

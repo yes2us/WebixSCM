@@ -44,7 +44,7 @@ define(function(){
 				var rtObject = repsonse.json();
 				var yValueLimit = rtObject.yValueLimit[0].yValueLimit;
 				
-				console.log(JSON.stringify(rtObject))
+//				console.log(JSON.stringify(rtObject))
 				
 				$$("chartid").clearAll();
 				$$("chartid").define("yAxis",{ start:0, step:1, end: yValueLimit});

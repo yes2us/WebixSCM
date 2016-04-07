@@ -34,8 +34,8 @@ define([], function() {
         return webix.ajax().post(urlstr+"/WBStockMng/getMovSKCPlan",postData);	
      }
      
-    stockObject.getStoreStockStruct = function(postData){
-    	   return webix.ajax().post(urlstr+"/WBStockMng/getStoreStockStruct",postData);
+    stockObject.getPartyIndex = function(postData){
+    	   return webix.ajax().post(urlstr+"/WBStockMng/getPartyIndex",postData);
     }
          
      stockObject.getWHSKCInfo = function(postData){

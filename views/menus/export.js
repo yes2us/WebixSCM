@@ -15,10 +15,10 @@ define(function(){
 						on:{
 							onItemClick:function(id){
 								if(id==1){
-									$$(printAreaId).exportToExcel("http://"+window.location.host+"/POAAdmin/grid-excel-php/generate.php");
+									$$(printAreaId).exportToExcel("http://"+window.location.host+"/SCMAdmin/grid-excel-php/generate.php");
 								}
 								else if(id==2)
-									$$(printAreaId).exportToPDF("http://"+window.location.host+"/POAAdmin/grid-pdf-php/generate.php");
+									$$(printAreaId).exportToPDF("http://"+window.location.host+"/SCMAdmin/grid-pdf-php/generate.php");
 							}
 						}
 		}

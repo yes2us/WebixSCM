@@ -1,16 +1,16 @@
 define([], function() {
 	var roleObject = new Object();
 	
-	roleObject.getAllRole= function() {
-		return webix.ajax().post(urlstr+"/WBRoleMng/getAllRole",{DSSuffix:_DSSuffix});
+	roleObject.getRoleList= function() {
+		return webix.ajax().post(urlstr+"/WBRoleMng/getRoleList");
 	}
 
-	roleObject.getRoleStaff = function(rolename) {
-			return webix.ajax().post(urlstr+"/WBRoleMng/getRoleStaff",{RoleName:rolename,DSSuffix:_DSSuffix});
+	roleObject.getRoleUserList = function(rolename) {
+			return webix.ajax().post(urlstr+"/WBRoleMng/getRoleUserList",{RoleName:rolename});
 	}
 
-	roleObject.getRoleAuthTask = function(rolename) {
-			return webix.ajax().post(urlstr+"/WBRoleMng/getRoleAuthTask",{RoleName:rolename,DSSuffix:_DSSuffix});
+	roleObject.getRolePrevilege = function(rolename) {
+			return webix.ajax().post(urlstr+"/WBRoleMng/getRolePrevilege",{RoleName:rolename});
 	}
 	
 	return roleObject;

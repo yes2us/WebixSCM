@@ -1,7 +1,7 @@
 define([
-	"data/partyobject",
+	"data/stockobject",
 	],
-function(partyobject){
+function(stockobject){
 	 
 	checkauthorization(false);
 	
@@ -43,13 +43,13 @@ function(partyobject){
 				    click: function(){
 				    	var values =this.getParentView().getValues();
 //				    	console.log(JSON.stringify(values));
-				    	   var postData = {RegionCode:regioncode};
+				    	   var postData = {ParentCode:regioncode,FieldStr:null};
 						if(values.storecode && values.storecode != 'all')
 						{
 							postData.StoreCode=values.storecode;
 						}
 						$$("dt_storeindicator").clearAll();
-						$$("dt_storeindicator").parse(partyobject.getPartyIndex(postData));
+						$$("dt_storeindicator").parse(stockobject.getPartyIndex(postData));
 				 }},
 			    {},
 
@@ -82,13 +82,15 @@ function(partyobject){
 					{ id:"seasonstagename", header:["波段",{content:"selectFilter"}], width:60},
 					{ id:"seriesname", header:["系列",{content:"selectFilter"}], sort:"string",width:60},
 					{ id:"middlesizenum",	header:[{text:"断码", colspan:3},"核心码"], sort:"int",width:70},
-					{ id:"shortnum",	header:[null,"断码数"], sort:"int",width:70},
-					{ id:"shortratio",	header:[null,"断码率"], sort:"float",width:70,format:function(value){return parseInt(100*value)+"%";}},
+					{ id:"shortmiddlesizenum",	header:[null,"断码数"], sort:"int",width:70},
+					{ id:"shortmiddlesizeratio",	header:[null,"断码率"], sort:"float",width:70,format:function(value){return parseInt(100*value)+"%";}},
 //					{ id:"replenishratio",	header:"补货率", sort:"float",width:70},
-					{ id:"hotskcnuminparent",header:[{text:"畅销款", colspan:3},"区域畅款"], sort:"int",width:85},
-					{ id:"hotskcnuminparty",	header:[null,"本店畅款"], sort:"int",width:85},
-					{ id:"hotskcratiopartycover",	header:[null,"畅款比例"], sort:"float",width:85,format:function(value){return parseInt(100*value)+"%";}},
-					{ id:"stockonhandqty",	header:[{text:"库存分析", colspan:8},"在手库存"],sort:"int",width:85},
+					{ id:"frskcnuminparent",header:[{text:"畅销款", colspan:3},"区域畅款"], sort:"int",width:85},
+					{ id:"frskcnuminparty",	header:[null,"本店畅款"], sort:"int",width:85},
+					{ id:"frskcratiopartycover",	header:[null,"畅款比例"], sort:"float",width:85,format:function(value){return parseInt(100*value)+"%";}},
+					
+					{ id:"stockonhandqty",	header:[{text:"库存分析", colspan:9},"目标库存"],sort:"int",width:85},
+					{ id:"stockonhandqty",	header:[null,"在手库存"],sort:"int",width:85},
 					{ id:"stockonroadqty",	header:[null,"在途库存"], sort:"int",width:85},
 					{ id:"stocktotalqty",	header:[null,"总库存"], sort:"int",width:60},
 					{ id:"stockdayofinventory",header:[null,"库存天"], sort:"int",width:70},
@@ -96,6 +98,7 @@ function(partyobject){
 					{ id:"stockoverinstores",	header:[null,"超额库存"], sort:"int",width:85},
 					{ id:"stockshortinstores",	header:[null,"库存缺口"], sort:"int",width:85},
 					{ id:"stockdailyidd",	header:[null,"日均IDD"], sort:"int",width:90},
+					
 					{ id:"saleyesterday",header:[{text:"销售分析", colspan:5},"昨日销量"], sort:"int",width:85},
 					{ id:"sale14days",	header:[null,"14天销量"], sort:"int",width:85},
 					{ id:"saletotal",	header:[null,"总销量"], sort:"int",width:70},

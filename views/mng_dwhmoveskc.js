@@ -62,7 +62,7 @@ return {
 			
 			var dwhcode = this.getItem(id).id;
 			var promzTSData = stockobject.getWHSKCInfo({WHCode:dwhcode});
-			var promzStockStructData = stockobject.getStoreStockStruct({RetTargetWHCode:dwhcode});
+			var promzStockStructData = stockobject.getPartyIndex({ParentCode:dwhcode});
 
 			//显示分仓目标库存
 			$$("dt_dwhmovskc").clearAll();

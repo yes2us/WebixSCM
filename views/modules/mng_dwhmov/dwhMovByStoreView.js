@@ -67,19 +67,19 @@ define([
 			 scroll:true
 		},
 		columns:[
-				    { id:"partycode",name:"yearname",	header:"门店编号", hidden:true,css:"rank", fillspace:1},
-				    { id:"partyname",name:"yearname",	header:"门店", css:"rank", width:100},
+				    { id:"partycode",name:"partycode",	header:"门店编号", hidden:true,css:"rank", fillspace:1},
+				    { id:"partyname",name:"partyname",	header:"门店", css:"rank", width:100},
 				    { id:"yearname",name:"yearname",	header:"年份", css:"rank", width:60},
 					{ id:"seasonname",name:"seasonname",	header:"季节", css:"rank",width:60},
-					{ id:"seriesname",name:"series",	header:"系列",width:200,width:100},
+					{ id:"seriesname",name:"seriesname",	header:"系列",width:200,width:100},
 					{ id:"skcnum",name:"skcnum",header:[{text:"款色结构", colspan:3},"款色数"] ,width:70},
-					{ id:"fastrunnerskcnum",name:"fastrunnerskcnum",header:[null,"畅销款色"],width:85},
+					{ id:"frskcnuminparty",name:"frskcnuminparty",header:[null,"畅销款色"],width:85},
 					{ id:"deadskcnum",name:"deadskcnum",header:[null,"死货款色"],width:85},		
-					{ id:"targetqty",name:"targetqty",header:[{text:"库存结构", colspan:5},"目标库存"] ,width:85},
-					{ id:"totalqty",name:"totalqty",header:[null,"总库存"] ,width:70},
-					{ id:"shortstockqty",name:"shortstockqty",	header:[null,"库存缺口"],width:85},		
-					{ id:"overstockqty",name:"overstockqty",header:[null,"超额库存"] ,width:85},
-					{ id:"deadstockqty",name:"deadstockqty",header:[null,"死货库存"] ,width:85}
+					{ id:"stocktargetqty",name:"stocktargetqty",header:[{text:"库存结构", colspan:5},"目标库存"] ,width:85},
+					{ id:"stocktotalqty",name:"stocktotalqty",header:[null,"总库存"] ,width:70},
+					{ id:"stockshortinstores",name:"stockshortinstores",	header:[null,"库存缺口"],width:85},		
+					{ id:"stockoverinstores",name:"stockoverinstores",header:[null,"超额库存"] ,width:85},
+					{ id:"stockdeadqty",name:"stockdeadqty",header:[null,"死货库存"] ,width:85}
 		],
 		select: true,
 		on:{
@@ -145,6 +145,8 @@ define([
 			autoheight:false,
 			scroll:true
 		},
+		editable:true,
+		save:urlstr+"/WBCURDMng/saveMovSKCPlan",
 		columns:[
 			{ id:"_identify",header:"#",width:35,hidden:true},
 			{ id:"delete",header:"&nbsp;", width:35,template:"<span  style='color:#777777; cursor:pointer;' class='webix_icon fa-trash-o'></span>"},
@@ -206,24 +208,21 @@ define([
 		  grid_storestockstruct,
 		  {view:"resizer"},
 		  {cols:[grid_dwhMovStoreTSInfo,{view:"resizer"},form_movplan]}
-//			{container:"data_container",
-//			    cols:[
-//				grid_storestockstruct,
-//				{view:"resizer"},
-//				form_movplan,
-//			]},
-//			{view:"resizer"},
-//			{rows:[grid_dwhMovStoreTSInfo]}
 		]
 	};
 
 
 	return { 
-		setRegionStores:function(jsonarray){
-			regionStores=jsonarray;
-//			console.log(JSON.stringify(regionStores));
-		},
-		$ui: layout 
+		setRegionStores:function(jsonarray){regionStores=jsonarray;},
+		$ui: layout,
+		$oninit:function(){
+	    		webix.dp.$$("dt_movPlanOrder2").attachEvent('onBeforeDataSend', function(obj){
+	    			obj.data.MakeDate = new Date((new Date()).toString('yyyy/MM/dd'));
+	    			obj.data.PlanType = "人工调拨";
+	    			obj.data.Operator = _UserCode+'@'+_UserName;
+	    			obj.data.DealState = -1;
+	    		});
+	    }
 	};
 
 });

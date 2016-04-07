@@ -1,9 +1,9 @@
 define([
-	"data/roleobject",
-	"views/modules/modaladd/addrole",
+	"data/userobject",
+	"views/modules/modaladd/adduser",
 	"views/menus/export"
 	],
-function(roleobject,modaladd,exports){
+function(userobject,modaladd,exports){
 	
 	checkauthorization(false);
 	
@@ -17,13 +17,13 @@ function(roleobject,modaladd,exports){
 		cols:[
 			{  view: "button", type: "iconButton", icon: "refresh", label: "刷新",hidden:false, width: 80, 
 			click: function(){
-				$$("dt_role").clearAll();
-				$$("dt_role").parse(roleobject.getRoleList());
+				$$("dt_user").clearAll();
+				$$("dt_user").parse(userobject.getUserList());
 				}},
 			{},
 			{ view: "button", type: "iconButton", icon: "pencil-square-o", label: "编辑", width: 80,
 			click:function(){
-				$$('dt_role').define('editable',true);	
+				$$('dt_user').define('editable',true);	
 				$$('deletebutton').show();	
 				$$('addbutton').show();
 				$$('addbutton').refresh();	
@@ -32,43 +32,42 @@ function(roleobject,modaladd,exports){
 				$$('toolbar').reconstruct();
 			}},
 			{ view: "button", type: "iconButton", icon: "plus",id:"addbutton", label: "增加",hidden:false, width: 80, click: function(){this.$scope.ui(modaladd.$ui).show();}},
-			{ view: "button", type: "iconButton", icon: "external-link", label: "导出", width: 70, popup: exports.print("dt_role")},
+			{ view: "button", type: "iconButton", icon: "external-link", label: "导出", width: 70, popup: exports.print("dt_user")},
 		]
 	};
 	
-	var grid_role = {
+	var grid_party = {
 		margin:10,
 		rows:[
 			{
-				id:"dt_role",
+				id:"dt_user",
 				view:"datatable", 
 				editable:true,
 				select:true,
-				maxHeight:250,
 				rowHeight:_RowHeight+5,
 				headerRowHeight:_HeaderRowHeight,
+				save:urlstr+"/WBCURDMng/saveUser",
 				headermenu:{
 					    width:250,
 					    autoheight:false,
 					    scroll:true
 					},
 				updateFromResponse:true,
-				save:urlstr+"/WBCURDMng/saveRole",
+//				save:urlstr+"/WBCURDMng/saveParameter",
 				columns:[
 
 					{id:"deletebutton", header:"&nbsp;",hidden:false, width:35, template:"<span  style='color:#777777; cursor:pointer;' class='webix_icon fa-trash-o'></span>"},
-					{id:"roleenabled", header:"启用", template:"{common.checkbox()}", sort:"string",fillspace:1},
-					{id:"rolename", header:"角色", sort:"string",fillspace:1},
-					{id:"roletype", header:"类型", editor:"text", sort:"string",fillspace:1},
-					{id:"roledesc", header:"描述", editor:"text", sort:"string",fillspace:1},
+					{id:"userenabled", header:"启用", template:"{common.checkbox()}", sort:"string",fillspace:1},
+					{id:"usercode", header:"用户编号", sort:"string",fillspace:1},
+					{id:"usertruename", header:"用户真名", editor:"text", sort:"string",fillspace:1},
 				],
 				on: {
 					onSelectChange:function(){
 						var selRow = this.getSelectedItem();
 						if(selRow){
-						var PremzRelData = roleobject.getRoleUserList(selRow.rolename);
-						$$("dt_roleuser").clearAll();
-						$$("dt_roleuser").parse(PremzRelData);
+						var PremzRelData = userobject.getUserRole(selRow.usercode);
+						$$("dt_userrole").clearAll();
+						$$("dt_userrole").parse(PremzRelData);
 						}
 					}
 				},
@@ -78,12 +77,13 @@ function(roleobject,modaladd,exports){
 							text:"你将删除本条记录.<br/>确定吗?", ok:"确定", cancel:"取消",
 							callback:function(res){
 								if(res){
-									webix.$$("dt_role").remove(id);
+									webix.$$("dt_user").remove(id);
 								}
 							}
 						});
 					}
 				},
+				pager:"para_pagerA"
 			}
 		]
 
@@ -105,14 +105,14 @@ var pager = 	{
 						}]
 					};
 					
-var grid_roleuser ={
+var grid_relation ={
 	 view:"datatable",
-	 id:"dt_roleuser",
-	editable:true,
-	select:true,
-	rowHeight:_RowHeight+5,
-	headerRowHeight:_HeaderRowHeight,
-	headermenu:{
+	 id:"dt_userrole",
+	 editable:true,
+	 select:"row",
+	 rowHeight:_RowHeight+5,
+	 headRowHeight:_HeaderRowHeight,
+	 headermenu:{
 					    width:250,
 					    autoheight:false,
 					    scroll:true
@@ -120,9 +120,9 @@ var grid_roleuser ={
 	 columns:[
 	    	{id:"deletebutton", header:"&nbsp;",hidden:false, width:60, template:"<span  style='color:#777777; cursor:pointer;' class='webix_icon fa-trash-o'></span>"},
 	    {id:"_identify",header:"",hidden:true,width:30},
-	    {id:"usercode",header:"用户编号",fillspace:1},
-	    {id:"usertruename",header:"用户名",fillspace:1},
-	    {id:"usertype",header:"用户类型",fillspace:1},
+	    {id:"rolename",header:"角色",fillspace:1},
+	    {id:"roletype",header:"角色类型",fillspace:1},
+	    {id:"roledesc",header:"角色描述",fillspace:1},
 	 ],
 	 onClick:{
 					webix_icon:function(e,id,node){
@@ -130,24 +130,21 @@ var grid_roleuser ={
 							text:"你将删除本条记录.<br/>确定吗?", ok:"确定", cancel:"取消",
 							callback:function(res){
 								if(res){
-									webix.$$("dt_roleuser").remove(id);
+									webix.$$("dt_userrole").remove(id);
 								}
 							}
 						});
 					}
 				},
-	pager:"para_pagerA"
 }
-
-
 	var layout = {
 		type: "clean",
 		rows:[
 			titleBar,
-			grid_role,
-			{view:"resizer"},
-			grid_roleuser,
+			grid_party,
 			pager,
+			{view:"resizer"},
+			grid_relation
 		]
 
 	};
@@ -156,8 +153,8 @@ var grid_roleuser ={
 	return {
 		$ui: layout,
 		$oninit:function(){
-			$$("dt_role").clearAll();
-			$$("dt_role").parse(roleobject.getRoleList());//			$$("dt_party").parse(partyobject.getSysPara());
+			$$("dt_user").clearAll();
+			$$("dt_user").parse(userobject.getUserList());//			$$("dt_party").parse(partyobject.getSysPara());
 
 			
 //			webix.dp.$$("dt_party").attachEvent('onBeforeDataSend', function(obj){obj.data.DSSuffix = _DSSuffix;});

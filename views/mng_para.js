@@ -1,6 +1,6 @@
 define([
 	"data/paraobject",
-	"views/modules/mng_para/modaladd_para",
+	"views/modules/modaladd/addpara",
 	"views/menus/export"
 	],
 function(paraobject,modaladd,exports){
@@ -48,7 +48,9 @@ var grid;
 				view:"datatable", 
 				editable:true,
 				select:"row",
-				headerRowHeight:35,
+				leftSplit:3,
+				rowHeight:_RowHeight+5,
+				headerRowHeight:_HeaderRowHeight,
 					dragColumn:true,
 					headermenu:{
 					    width:250,
@@ -60,18 +62,18 @@ var grid;
 				columns:[
 					{id:"deletebutton", header:"&nbsp;",hidden:false, width:35, template:"<span  style='color:#777777; cursor:pointer;' class='webix_icon fa-trash-o'></span>"},
 					{id:"_identify", header:"#", width:30},
-					{id:"name", header:"参数名", editor:"text", sort:"string",width:150},
+					{id:"name", header:"参数名", editor:"text", sort:"string",width:200},
 					{id:"type", header:"参数类型", editor:"combo",sort:"string",
-					collection:['VInteger','VFloat','VDate',"VBool","VString","VText"],fillspace:0.7},
+					collection:['VInteger','VFloat','VDate',"VBool","VString","VText"],width:100},
 					
-					{id:"vinteger", header:"整型值",editor:"text", sort:"string",fillspace:0.5},
-					{id:"vfloat", header:"浮点值", editor:"text",sort:"string", format:webix.i18n.numberFormat,fillspace:0.5},
-					{id:"vdate", header:"日期值", editor:"date",sort:"string",stringResult:true, format:"%Y-%m-%d",fillspace:0.7},
-					{id:"vbool", header:"布尔值", template:"{common.checkbox()}",fillspace:0.5,disabled:true,sort:"string",format:webix.i18n.numberFormat},
+					{id:"vinteger", header:"整型值",editor:"text", sort:"string",width:90},
+					{id:"vfloat", header:"浮点值", editor:"text",sort:"string", format:webix.i18n.numberFormat,width:90},
+					{id:"vdate", header:"日期值", editor:"date",sort:"string",stringResult:true, format:"%Y-%m-%d",width:100},
+					{id:"vbool", header:"布尔值", template:"{common.checkbox()}",width:70,disabled:true,sort:"string",format:webix.i18n.numberFormat},
 
-					{id:"vstring", header:"字符串",editor:"popup", sort:"string", fillspace:1.5},
-					{id:"vtext", header:"文本值", editor:"popup",sort:"string" ,fillspace:1.5,hidden:true},					
-					{id:"desc", header:"备注", editor:"popup", sort:"string",fillspace:1}
+					{id:"vstring", header:"字符串",editor:"popup", sort:"string", width:100},
+					{id:"vtext", header:"文本值", editor:"popup",sort:"string" ,width:1.5,hidden:true},					
+					{id:"desc", header:"备注", editor:"popup", sort:"string",width:100}
 				],
 				on: {
 					onAfterLoad: function(){

@@ -1,7 +1,7 @@
 define([
-	"data/paraObject",
+	"data/paraobject",
 	],
-function(paraObject){
+function(paraobject){
 
 checkauthorization(false);
 
@@ -16,7 +16,7 @@ checkauthorization(false);
 			{  view: "button", type: "iconButton", icon: "refresh", label: "刷新",hidden:false, width: 80, 
 			click: function(){
 				$$("dt_debugrecord").clearAll();
-				$$("dt_debugrecord").parse(paraObject.getDebugRecord());
+				$$("dt_debugrecord").parse(paraobject.getDebugRecord());
 				}},
 			{},
 			{},
@@ -29,7 +29,8 @@ checkauthorization(false);
 			{
 				id:"dt_debugrecord",
 				view:"datatable", 
-				headerRowHeight:35,
+				rowHeight:_RowHeight,
+				headerRowHeight:_HeaderRowHeight,
 				select:"row",
 				editable:true,
 					dragColumn:true,
@@ -38,21 +39,15 @@ checkauthorization(false);
 					    autoheight:false,
 					    scroll:true
 					},				
-				save:urlstr+"/WBCURDMng/saveDebugRecord/DSSuffix/"+_DSSuffix,
 				columns:[
-					{id:"deletebutton", header:"&nbsp;",hidden:false, width:35, template:"<span  style='color:#777777; cursor:pointer;' class='webix_icon fa-trash-o'></span>"},
-					{id:"_identify", header:"#", sort:"int",width:70},
-					{id:"label", header:"label",width:200},
-					{id:"time", header:"time", width:200},
-					{id:"context", name:"sqlcode",header:"sqlcode",width:100,hidden:true}			
+					{id:"usercode", header:[{content:"selectFilter"},"usercode"],width:100},
+					{id:"recordlabel", header:[{content:"textFilter"},"recordlabel"], width:200},
+					{id:"modulename", header:[{content:"selectFilter"},"modulename"], width:200},
+					{id:"moduledesc", header:"moduledesc", width:200},
+					{id:"recordvalue", header:"recordvalue", width:200},
+					{id:"recorddate", header:"recorddate", width:100},
+					{id:"recordtime", header:"recordtime", width:100},
 				],
-				on: {
-					onAfterLoad: function(){
-						this.select(1);		
-					},
-
-				},
-				onClick:{webix_icon:function(e,id,node){webix.$$("dt_debugrecord").remove(id);}},
 				pager:"para_pagerA"
 			}
 		]
@@ -74,24 +69,14 @@ checkauthorization(false);
 						}]
 					};
 					
-	var detailform = {
-		view:"form",
-		id:"detailform",	
-		autowidth:true,
-		elements:[	
-			{view:"textarea",name:"context",	id:"context",	paddingX:5,	paddingY:5, }
-		]
-
-	};
 	
 							
 	var layout = {
 		type: "clean",
 		rows:[
 			toolbar,
-			{
-				cols:[{rows:[grid,page]},detailform]
-			}
+			grid,
+			page
 		]
 
 	};
@@ -100,10 +85,7 @@ checkauthorization(false);
 	return {
 		$ui: layout,
 		$oninit:function(){
-			$$("dt_debugrecord").parse(paraObject.getDebugRecord());
-			$$("detailform").bind($$("dt_debugrecord"));	
-			
-			webix.dp.$$("dt_debugrecord").attachEvent('onBeforeDataSend', function(obj){obj.data.DSSuffix = _DSSuffix;});
+			$$("dt_debugrecord").parse(paraobject.getDebugRecord());
 		}
 	};
 
