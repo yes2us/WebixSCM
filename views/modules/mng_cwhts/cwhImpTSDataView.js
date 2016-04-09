@@ -64,16 +64,14 @@ checkauthorization(false);
 		margin:10,
 		rows:[
 			{
-				id:"dt_cwh_loadedData",
 				view:"datatable",
+				id:"dt_cwh_loadedData",
 				rowHeight:_RowHeight,
 				headerRowHeight:_HeaderRowHeight,
+				headermenu:{width:250,autoheight:false,scroll:true},
+				resizeColumn:true,
+				leftSplit:4,
 				select:true,
-					headermenu:{
-					    width:250,
-					    autoheight:false,
-					    scroll:true
-					},
 				columns:[					
 				    	{id:"checked", header:"#",fillspace:0.5,template:"{common.checkbox()}"},
 					{id:"partycode", header:"仓库编号", sort:"string", fillspace:1},

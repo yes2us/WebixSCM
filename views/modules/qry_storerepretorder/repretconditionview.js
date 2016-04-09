@@ -1,8 +1,8 @@
 define(
 [
-"data/stockobject"
+"data/billobject"
 ],
-function(stockobject){
+function(billobject){
 
     var regioncode = null;
     var startdate,enddate;
@@ -14,7 +14,7 @@ function(stockobject){
 
 		$$("dt_repretorder").clearAll();
 		$$("dt_repretorderitem").clearAll();
-		var prezRepRetData = stockobject.getRepRetOrder(_postData);
+		var prezRepRetData = billobject.getRepRetOrder(_postData);
 		$$("dt_repretorder").parse(prezRepRetData);
     };
     

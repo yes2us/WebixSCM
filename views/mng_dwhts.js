@@ -1,11 +1,13 @@
 define([
 	"data/stockobject",
+	"data/billobject",
 	"views/modules/mng_dwhts/dwhListView",
 	"views/modules/mng_dwhts/dwhTSView",
 	"views/modules/mng_dwhts/dwhAdjRecView",
 	"views/modules/mng_dwhts/dwhImpTSDataView"
 ], function(
 	stockobject,
+	billobject,
 	dwhListView,
 	dwhTSView,
 	dwhAdjRecView,
@@ -68,19 +70,13 @@ return {
 
 			//显示目标库存
 			$$("dt_dwhts").clearAll();
+			$$("dt_dwhts").showOverlay("正在加载......");
 			$$("dt_dwhts").parse(promzTSData);
-			
-//			//显示建议补货量
-//			$$("table_dwhsugrepplan").clearAll();
-//			$$("table_dwhsugrepplan").parse(promzTSData);
-//			
-//			//显示建议退货量
-//			$$("table_dwhsugretplan").clearAll();
-//			$$("table_dwhsugretplan").parse(promzTSData);
 
 			//显示最近调整记录
-			var promzAdjRecData = stockobject.getPartyAdjRec({WHCode:dwhcode,EndDate:'2016-01-01'});
+			var promzAdjRecData = billobject.getPartyAdjRec({WHCode:dwhcode,EndDate:'2016-01-01'});
 			$$("dt_dwhadjrec").clearAll();
+			$$("dt_dwhadjrec").showOverlay("正在加载......");
 			$$("dt_dwhadjrec").parse(promzAdjRecData);
 			
 			});

@@ -55,27 +55,24 @@ define(function(){
    
 	var gridTree = {
 		view:"treetable",
-		headerRowHeight:_HeaderRowHeight,
-		leftSplit:3,
-		rowHeight:_RowHeight,
 		id:"dt_dwhadjrec",
-		dragColumn:true,
-				headermenu:{
-				    width:250,
-				    autoheight:false,
-				    scroll:true
-		},
+		rowHeight:_RowHeight,
+		headerRowHeight:_HeaderRowHeight,
+		headermenu:{width:250,autoheight:false,scroll:true},
+		resizeColumn:true,
+		editable:true,
+		leftSplit:2,
 		columns:[
 			{ id:"skucode",	header:"SKU", sort:"string",fillspace:2},
 			{ id:"partycode",header:"#",hidden:true},
-			{ id:"recorddate",	header:"调整日期", sort:"string",fillspace:1.5},
-			{ id:"oldtargetqty",	header:"原目标库存", sort:"string",fillspace:1},
-			{ id:"sugtargetqty",	header:"建议目标库存", sort:"string",fillspace:1},
-			
-			{ id:"adjustreason",	header:"调整原因", sort:"string",fillspace:3},
-			{ id:"operator",	header:"操作人", sort:"string",fillspace:1}
+			{ id:"recorddate",	header:"调整日期", sort:"string",width:100},
+			{ id:"oldtargetqty",	header:"原目标库存", sort:"string",width:90},
+			{ id:"sugtargetqty",	header:"建议目标库存", sort:"string",width:90},
+			{ id:"adjustreason",	header:"调整原因", sort:"string",fillspace:1},
+			{ id:"operator",	header:"操作人", sort:"string",width:70}
 		],
 		on:{
+			onAfterLoad:function(){this.hideOverlay();  if(!this.count()) this.showOverlay("没有可以加载的数据");},
 			onSelectChange:function(){
 					var row = this.getSelectedItem();
 					if(row)

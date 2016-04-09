@@ -2,16 +2,13 @@ define(function(){
 
 	var gridTree = {
 		view:"datatable",
-		headerRowHeight:_HeaderRowHeight,
 		id:"dt_cwhsugrepplan",
-		dragColumn:true,
-		leftSplit:3,
 		rowHeight:_RowHeight,
-				headermenu:{
-				    width:250,
-				    autoheight:false,
-				    scroll:true
-		},
+		headerRowHeight:_HeaderRowHeight,
+		headermenu:{width:250,autoheight:false,scroll:true},
+		resizeColumn:true,
+		leftSplit:3,
+		select: true,
 		columns:[
 			{ id:"_identify",header:"#",width:35,hidden:true},
 			{ id:"skucode",	header:"SKU", sort:"string",fillspace:2},
@@ -29,7 +26,6 @@ define(function(){
 			{ id:"stockqty",	header:"实际库存",sort:"int", fillspace:1},
 			{ id:"repretqty",	header:"建议补货",sort:"int",align:"right", fillspace:1}
 		],
-		select: true,
 		on:{
 			onAfterLoad:function(){
 			$$("dt_cwhsugrepplan").filter(function(obj){

@@ -1,5 +1,6 @@
 define([
 	"data/stockobject",
+	"data/billobject",
 	"data/partyobject",
 	"views/modules/mng_dwhmov/dwhMovListView",
 	"views/modules/mng_dwhmov/dwhMovBySKCView",
@@ -7,6 +8,7 @@ define([
 	"views/modules/mng_dwhmov/dwhMovPlanView"
 ], function(
 	stockobject,
+	billobject,
 	partyobject,
 	dwhMovListView,
 	dwhMovBySKCView,
@@ -61,16 +63,16 @@ return {
 			if(id==1 || !this.getItem(id)) return;	
 			
 			var dwhcode = this.getItem(id).id;
-			var promzTSData = stockobject.getWHSKCInfo({WHCode:dwhcode});
-			var promzStockStructData = stockobject.getPartyIndex({ParentCode:dwhcode});
 
 			//显示分仓目标库存
 			$$("dt_dwhmovskc").clearAll();
-			$$("dt_dwhmovskc").parse(promzTSData);
+			$$("dt_dwhmovskc").showOverlay("正在加载......");
+			$$("dt_dwhmovskc").parse(stockobject.getWHSKCInfo({WHCode:dwhcode}));
 			
 			//显示门店库存结构
 			$$("dt_dwhmovstorestockstruct").clearAll();
-			$$("dt_dwhmovstorestockstruct").parse(promzStockStructData);
+			$$("dt_dwhmovstorestockstruct").showOverlay("正在加载......");
+			$$("dt_dwhmovstorestockstruct").parse(stockobject.getPartyIndex({ParentCode:dwhcode}));
 			$$("popupid2").clearAll();
 			$$("popupid2").parse(partyobject.getRelPartyList({
 				RegionCode:dwhcode,RelationType:"补货关系",
@@ -88,7 +90,8 @@ return {
 			});
 			//显示调拨计划
 			$$("dt_dwhMovPlan").clearAll();
-			$$("dt_dwhMovPlan").parse(stockobject.getMovSKCPlan({ParentCode:dwhcode}));
+			$$("dt_dwhMovPlan").showOverlay("正在加载......");
+			$$("dt_dwhMovPlan").parse(billobject.getMovSKCPlan({ParentCode:dwhcode}));
 			
 			});
 	}

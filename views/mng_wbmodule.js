@@ -36,26 +36,23 @@ function(moduleobject,modaladd,exports){
 		]
 	};
 	
-	var grid_party = {
+	var grid_wbmodule = {
 		margin:10,
 		rows:[
 			{
-				id:"dt_wbmodule",
 				view:"datatable", 
+				id:"dt_wbmodule",
+				rowHeight:_RowHeight,
+				headerRowHeight:_HeaderRowHeight,
+				headermenu:{width:250,autoheight:false,scroll:true},
+				resizeColumn:true,
 				editable:true,
 				select:true,
-				rowHeight:_RowHeight+5,
-				headerRowHeight:_HeaderRowHeight,
-				headermenu:{
-					    width:250,
-					    autoheight:false,
-					    scroll:true
-					},
 				updateFromResponse:true,
 				save:urlstr+"/WBCURDMng/saveModule",
 				columns:[
 					  	{id:"_identify",header:"",hidden:true,width:30},
-					    {id:"parentmoduleid",header:"父级模块ID",width:200,editor:"text"},
+					    {id:"parentmoduleid",header:"父级模块ID",width:200,sort:"string",editor:"text"},
 					    	{id:"modulelevel",header:["模块级别",{content:"textFilter"}],width:100,editor:"text"},
 					    {id:"moduleid",header:"模块ID",width:200,editor:"text"},
 					    {id:"modulename",header:"模块名称",width:100,editor:"text"},
@@ -84,7 +81,7 @@ function(moduleobject,modaladd,exports){
 						});
 					}
 				},
-				pager:"para_pagerA"
+//				pager:"para_pagerA"
 			}
 		]
 
@@ -109,17 +106,14 @@ var pager = 	{
 var grid_relation ={
 		margin:10,
 	 rows:[{
-	 view:"datatable",
-	 id:"dt_subwbmodule",
-	 editable:true,
-	select:true,
-	rowHeight:_RowHeight+5,
-	headerRowHeight:_HeaderRowHeight,
-	headermenu:{
-					    width:250,
-					    autoheight:false,
-					    scroll:true
-					},
+				view:"datatable",
+				id:"dt_subwbmodule",
+	 			rowHeight:_RowHeight,
+				headerRowHeight:_HeaderRowHeight,
+				headermenu:{width:250,autoheight:false,scroll:true},
+				resizeColumn:true,
+				editable:true,
+				select:true,
 	 columns:[
 	    	{id:"deletebutton", header:"&nbsp;",hidden:false, width:60, template:"<span  style='color:#777777; cursor:pointer;' class='webix_icon fa-trash-o'></span>"},
 	    {id:"_identify",header:"",hidden:true,width:30},
@@ -146,7 +140,7 @@ var grid_relation ={
 		type: "clean",
 		rows:[
 			titleBar,
-			grid_party,
+			grid_wbmodule,
 			pager,
 			{view:"resizer"},
 			grid_relation

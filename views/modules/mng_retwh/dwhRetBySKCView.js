@@ -9,19 +9,16 @@ define([
 	var grid_storestockstruct = {
 		view:"datatable",
 		id:"dt_storestockstruct",
-		leftSplit:3,
 		rowHeight:_RowHeight,
 		headerRowHeight:_HeaderRowHeight,
-		headermenu:{
-			  width:250,
-			  autoheight:false,
-			 scroll:true
-		},
+		headermenu:{width:250,autoheight:false,scroll:true},
+		resizeColumn:true,
+		leftSplit:3,
 		columns:[
-				     { id:"partycode",name:"partycode",	header:"门店编号", hidden:true,css:"rank", fillspace:1},
-				    { id:"partyname",name:"partyname",	header:"门店", css:"rank", width:100},
-				    { id:"yearname",name:"yearname",	header:"年份", css:"rank", width:60},
-					{ id:"seasonname",name:"seasonname",	header:"季节", css:"rank",width:60},
+				     { id:"partycode",name:"partycode",	header:"门店编号", hidden:true,css:"bgcolor2", fillspace:1},
+				    { id:"partyname",name:"partyname",	header:"门店", css:"bgcolor2", width:100},
+				    { id:"yearname",name:"yearname",	header:"年份", css:"bgcolor2", width:60},
+					{ id:"seasonname",name:"seasonname",header:"季节",width:60},
 					{ id:"seriesname",name:"seriesname",	header:"系列",width:200,width:100},
 					{ id:"skcnum",name:"skcnum",header:[{text:"款色结构", colspan:3},"款色数"] ,width:70},
 					{ id:"frskcnuminparty",name:"frskcnuminparty",header:[null,"畅销款色"],width:85},
@@ -34,6 +31,7 @@ define([
 		],
 		select: true,
 		on:{
+			onAfterLoad:function(){this.hideOverlay();  if(!this.count()) this.showOverlay("没有可以加载的数据");},
 			onSelectChange:function(){
 						var selRow = this.getSelectedItem();
 						if(selRow)
@@ -42,6 +40,9 @@ define([
 							var presStoreTSData = stockobject.getFGWarehouseTSInfo(selRow.partycode);
 							$$("dt_dwhRetStoreTSInfo").clearAll();
 							$$("dt_dwhRetStoreTSInfo").parse(presStoreTSData);
+							
+						var _urlstr = urlstr+"/WBStockMng/getMovPlanRESTful/PlanType/人工退货/SrcPartyCode/"+selRow.partycode.trim();
+			    			$$("dt_retPlanOrder2").load(_urlstr);
 						}
 			}
 		}
@@ -50,34 +51,33 @@ define([
 
    var grid_dwhRetStoreTSInfo = {
 		view:"datatable",
-		rowHeight:_RowHeight+5,
 		id:"dt_dwhRetStoreTSInfo",
+		rowHeight:_RowHeight,
 		headerRowHeight:_HeaderRowHeight,
+		headermenu:{width:250,autoheight:false,scroll:true},
+		resizeColumn:true,
+		leftSplit:4,
 		editable:true,
-		headermenu:{
-			width:250,
-			autoheight:false,
-			scroll:true
-		},
 		rules:{"targetqty":webix.rules.isNumber,"operateret":webix.rules.isNumber},
 		columns:[
 			{ id:"_identify",header:"#",width:35,hidden:true},
 			{ id:"partycode",header:"门店编号",width:35,hidden:true},
 			{ id:"partyname",header:"门店",width:35,hidden:true},
-			{ id:"skucode",header:"SKU", sort:"string",fillspace:2},
+			{ id:"skucode",header:"SKU", sort:"string",width:100,css:"bgcolor2"},
 			
-			{ id:"yearname",	header:"年份", sort:"string",fillspace:1,hidden:true},
-			{ id:"seasonname",	header:"季节", sort:"string",fillspace:1},
-			{ id:"maintypename",	header:"大类", sort:"string",fillspace:1.5},
-			{ id:"subtypename",	header:"小类", sort:"string",fillspace:1.5},
+			{ id:"yearname",	header:"年份", sort:"string",width:70},
+			{ id:"seasonname",	header:"季节", sort:"string",width:70},
+			{ id:"maintypename",	header:"大类", sort:"string",width:100},
+			{ id:"subtypename",	header:"小类", sort:"string",width:100},
 			
-			{ id:"saletype",	header:"销售分类", sort:"string",fillspace:1},
-			{ id:"isdeadskc",	header:"死货", sort:"int",fillspace:1},
-			{ id:"targetqty",	header:"目标库存",sort:"int", fillspace:1,editor:"text",invalidMessage:"必须输入数字",css:'bgcolor1'},
-			{ id:"stockqty",	header:"实际库存",sort:"int", fillspace:1},
-			{ id:"sugretqty",	header:"超额库存",sort:"int",align:"right", fillspace:1,template:function(obj){return (obj.stockqty>obj.targetqty)? obj.stockqty-obj.targetqty:"";}},
-			{ id:"operateret",	header:"退货",sort:"int",align:"right", fillspace:1,editor:"text",invalidMessage:"必须输入数字",css:'bgcolor1'}
+			{ id:"saletype",	header:"销售分类", sort:"string",width:85},
+			{ id:"isdeadskc",	header:"死货", sort:"int",width:70},
+			{ id:"targetqty",	header:"目标库存",sort:"int", width:85,editor:"text",invalidMessage:"必须输入数字",css:'bgcolor1'},
+			{ id:"stockqty",	header:"实际库存",sort:"int", width:85},
+			{ id:"sugretqty",	header:"超额库存",sort:"int",width:85,template:function(obj){return (obj.stockqty>obj.targetqty)? obj.stockqty-obj.targetqty:"";}},
+			{ id:"operateret",header:"退货",sort:"int",width:70,editor:"text",invalidMessage:"必须输入数字",css:'bgcolor1'}
 		],
+		on:{onAfterLoad:function(){this.hideOverlay();  if(!this.count()) this.showOverlay("没有可以加载的数据");}},
 	};
 	
 	var grid_retplanorder2 = {
@@ -100,7 +100,7 @@ define([
 			{ id:"partycode",	header:"门店编号", sort:"string",hidden:true,fillspace:2},
 			{ id:"partyname",	header:"退货门店",sort:"int", fillspace:1},
 			{ id:"skucode",	header:"SKU", sort:"string",hidden:true,fillspace:2},
-			{ id:"orderqty",	header:"退货量",sort:"int",align:"right", fillspace:1}
+			{ id:"orderqty",	header:"退货量",sort:"int",align:"right", fillspace:1,css:"bgcolor1"}
 		],
 		on:{
 				onClick:{
@@ -164,11 +164,11 @@ define([
 		$ui: layout,
 	 	$oninit:function(){
 	    		webix.dp.$$("dt_retPlanOrder2").attachEvent('onBeforeDataSend', function(obj){
-	    			obj.data.MakeDate = (new Date()).toString('yyyy/MM/dd');
-	    			obj.data.OrderCode = obj.data.partycode+"@"+(new Date()).toString('yyyy-MM-dd');
-	    			obj.data.OrderType = "人工退货";
-	    			obj.data.Operator = _UserCode+'@'+_UserName;
-	    			obj.data.DealState = -1;
+	    			obj.data.makedate = (new Date()).toString('yyyy/MM/dd');
+	    			obj.data.ordercode = obj.data.partycode+"@"+(new Date()).toString('yyyy-MM-dd');
+	    			obj.data.ordertype = "人工退货";
+	    			obj.data.operator = _UserCode+'@'+_UserName;
+	    			obj.data.dealstate = -1;
 	    		});
 	    }
 	};

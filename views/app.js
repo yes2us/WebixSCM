@@ -1,42 +1,30 @@
 define([
-//	"views/menus/search",
-//	"views/menus/mail",
-//	"views/menus/message",
 	"views/menus/profile",
-	"views/menus/sidebar",
-//	"views/webix/icon",
-//	"views/webix/menutree"
-//],function(search, mail, message, profile, menu){
+	"views/menus/sysmenu"
 ],function(profile, menu){
-
-var _UserObject = webix.storage.local.get('UserObject');
-//var _UserObject = JSON.parse(webix.storage.local.get('UserObject'));
-var UserName = null;
-if(_UserObject>"")
-{
-	_UserObject = JSON.parse(_UserObject);
-	UserName = _UserObject['mybasic'][0]['staffname'];
-}
+	
+		var _UserObject = webix.storage.local.get('UserObject');
+		if(_UserObject)
+		{_UserObject = JSON.parse(_UserObject);
+		_UserCode = _UserObject['MyBasic'][0]['usercode'];
+		_UserName = _UserObject['MyBasic'][0]['usertruename'];
+		}
+		
 	//Top toolbar
 	var mainToolbar = {
 		view: "toolbar",
-
+		maxHeight:40,
 		elements:[
-			{view: "label", label: "<a href='#'><img  src='assets/imgs/logo.png' height='40' /></a>", width: 200},
-			{},
-			{ height:46, id: "person_template", css: "header_person", borderless:true, width: 180, data: {id:3,name: UserName},
+//			{view: "label", label: "<a href='#'><img  src='assets/imgs/logo.png' height='30' /></a>", width: 150},
+//			{},
+			{ height:30, id: "person_template", css: "header_person", borderless:true, width: 150, data: {id:3,name: _UserName},
 				template: function(obj){
-					var html = 	"<div style='height:100%;width:100%;' onclick='webix.$$(\"profilePopup\").show(this)'>";
+					var html = 	"<div style='height:70%;width:70%;' onclick='webix.$$(\"profilePopup\").show(this)'>";
 					html += "<img class='photo' src='assets/imgs/photos/"+obj.id+".png' /><span class='name'>"+obj.name+"</span>";
 					html += "<span class='webix_icon fa-angle-down'></span></div>";
 					return html;
 				}
 			}
-			
-// 			Ricky: 以下被注释的行显示搜索，mail,message
-//			{view: "icon", icon: "search",  width: 45, popup: "searchPopup"},
-//			{view: "icon", icon: "envelope-o", value: 3, width: 45, popup: "mailPopup"},
-//			{view: "icon", icon: "comments-o", value: 5, width: 45, popup: "messagePopup"}
 		]
 	};
 
@@ -51,23 +39,26 @@ if(_UserObject>"")
 	};
 
 	var layout = {
-//		type:"line",
-		rows:[
+		type:"line",
+		cols:[
+			{rows:[mainToolbar,menu]},
+			body]
+//		rows:[
 //			mainToolbar,
-			{
-				cols:[
-					menu,
-					body
-				]
-			}
-		]
+//			{
+//				cols:[
+//					menu,
+//					body
+//				]
+//			}
+//		]
 	};
 
 
 
 	return {
 		$ui:layout,
-		$menu:"app:menu",
+		$menu:"sysmenu",
 		$oninit:function(view, scope){
 //			scope.ui(search.$ui);
 //			scope.ui(mail.$ui);

@@ -29,20 +29,17 @@ checkauthorization(false);
 			{
 				id:"dt_debugrecord",
 				view:"datatable", 
-				rowHeight:_RowHeight,
+				rowHeight:_RowHeight+5,
 				headerRowHeight:_HeaderRowHeight,
-				select:"row",
+				headermenu:{width:250,autoheight:false,scroll:true},
+				resizeColumn:true,
+				leftSplit:4,
 				editable:true,
-					dragColumn:true,
-					headermenu:{
-					    width:250,
-					    autoheight:false,
-					    scroll:true
-					},				
+				select:"row",
 				columns:[
-					{id:"usercode", header:[{content:"selectFilter"},"usercode"],width:100},
-					{id:"recordlabel", header:[{content:"textFilter"},"recordlabel"], width:200},
-					{id:"modulename", header:[{content:"selectFilter"},"modulename"], width:200},
+					{id:"usercode", header:["usercode",{content:"selectFilter"}],width:100},
+					{id:"recordlabel", header:["recordlabel",{content:"textFilter"}], width:200},
+					{id:"modulename", header:["modulename",{content:"selectFilter"}], width:200},
 					{id:"moduledesc", header:"moduledesc", width:200},
 					{id:"recordvalue", header:"recordvalue", width:200},
 					{id:"recorddate", header:"recorddate", width:100},

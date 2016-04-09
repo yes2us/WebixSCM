@@ -62,26 +62,21 @@
 			
 
 			_UserCode = _RawUserCode.substring(0, _RawUserCode.indexOf('@', 0));
-			_DSSuffix = _RawUserCode.substring(_UserCode.length + 1, _RawUserCode.length);
 			_UserCode = _UserCode.toLowerCase();
-			_DSSuffix = _DSSuffix.toLowerCase();
 			
-			
-			checkUser(_DSSuffix,_UserCode,_PWD);	
+			checkUser(_UserCode,_PWD);	
   	}
   		
-  		function checkUser(_DSSuffix,_UserCode,_PWD)
+  		function checkUser(_UserCode,_PWD)
   		{
-  			webix.ajax().post(urlstr+"/WBStaffMng/getRawUrl", {DSSuffix: _DSSuffix},
+  			webix.ajax().post(urlstr+"/WBUserMng/getRawUrl", {},
   			function(text, xml,xhr) {
   							
 				if (text) {
 
-					webix.ajax().post(urlstr + "/WBStaffMng/checkUserPWD", {DSSuffix: _DSSuffix,UserID: _UserCode,PWD: _PWD},
+					webix.ajax().post(urlstr + "/WBUserMng/checkUserPWD", {UserCode: _UserCode,PWD: _PWD},
 						function(text1, xml1,xhr1) {
-							if (text1.indexOf("OK")>0) {	
-								
-								webix.message('登陆成功');
+							if (text1.indexOf("OK")>0) {
 								
 								webix.storage.local.clear();
  								webix.storage.local.put('_UserCode',_UserCode);
@@ -98,9 +93,17 @@
  									webix.storage.local.put('_PWD');									
  								}
  								
-// 								getUserInfo(_UserCode);
- 								loadWBMenu(_DSSuffix,_UserCode);
-  			 					window.location.href= "http://"+window.location.host+"/WebixSCM/index.html#!/app/mng_storets";
+   								var premzUserInfo = webix.ajax().post(urlstr + "/WBUserMng/getUserInfo", {UserCode: _UserCode});
+   								premzUserInfo.then(
+									function(response) {			
+										webix.message('登陆成功');
+					   					webix.storage.local.put('UserObject',response.text()); 
+					   					window.location.href= "http://"+window.location.host+"/WebixSCM/index.html#!/app/mng_storets";
+									});
+				
+
+ 								//loadWBMenu(_UserCode);
+  			 					//window.location.href= "http://"+window.location.host+"/WebixSCM/index.html#!/app/mng_storets";
 
  								
 							} else {
@@ -112,26 +115,14 @@
 			});
   		}
   		
-  		  function loadWBMenu(_DSSuffix,_UserCode)
+  		  function loadWBMenu(_UserCode)
   		  {
   //		  	 var premizObj = webix.ajax().post(urlstr+"/WBParaMng/getWBMenu",{DSSuffix:_DSSuffix,UserCode:_UserCode});
 //		  	  $$("app:menu").clearAll();
 //			  $$("app:menu").parse(premizObj);
   		  }
   		  
-  		  function getUserInfo(_UserCode)
-  		{
 
-					webix.ajax().post(urlstr + "/WBStaffMng/getUserInfo", {DSSuffix:_DSSuffix,StaffCode: _UserCode},
-						function(text, xml,xhr) {							
-   							webix.storage.local.put('UserObject',text); 
-   							if(text)
-   							{
-   								 webix.storage.local.put('_DSSuffix',JSON.parse(text)['mybasic'][0]['dssuffix']); 								
-   							}
-   							window.location.href= "http://"+window.location.host+"/WebixSCM/index.html#!/app/mng_para";
-						});
-  		}
 			
 			
 		</script>

@@ -1,13 +1,13 @@
 define([
 	"data/stockobject",
-	"libs/pivot",
+	"data/billobject",
 	"views/modules/mng_storets/storeListView",
 	"views/modules/mng_storets/storeStockStructView",	
 	"views/modules/mng_storets/storeTSView",
 	"views/modules/mng_storets/storeAdjRecView",
 	"views/modules/mng_storets/storeImpTSDataView"
 ], function(stockobject,
-	pivot,
+	billobject,
 	storeListView,
 	storeStockStructView,
 	storeTSView,
@@ -67,17 +67,19 @@ return {
 			var promzStoreTSStructData = stockobject.getFGWarehouseTSInfo(storecode);
 			
 			//显示库存结构-大类
-			$$("dt_stockstruct").parse(stockobject.getPartyIndex({StoreCode:storecode}));
 			$$("dt_stockstruct").clearAll();
-			
-			
+			$$("dt_stockstruct").showOverlay("正在加载......");
+			$$("dt_stockstruct").parse(stockobject.getPartyIndex({StoreCode:storecode}));
+
 			//显示目标库存
 			$$("dt_storets").clearAll();
+			$$("dt_storets").showOverlay("正在加载......");
 			$$("dt_storets").parse(promzStoreTSStructData);	
 
 			//显示最近调整记录
-			var prezAdjRecData = stockobject.getPartyAdjRec({WHCode:storecode,EndDate:'2016-01-01'});
+			var prezAdjRecData = billobject.getPartyAdjRec({WHCode:storecode,EndDate:'2016-01-01'});
 			$$("dt_storeadjrec").clearAll();
+			$$("dt_storeadjrec").showOverlay("正在加载......");
 			$$("dt_storeadjrec").parse(prezAdjRecData);
 			
 			});

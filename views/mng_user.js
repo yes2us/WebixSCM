@@ -36,24 +36,20 @@ function(userobject,modaladd,exports){
 		]
 	};
 	
-	var grid_party = {
+	var grid_user = {
 		margin:10,
 		rows:[
 			{
-				id:"dt_user",
 				view:"datatable", 
+				id:"dt_user",
+				rowHeight:_RowHeight,
+				headerRowHeight:_HeaderRowHeight,
+				headermenu:{width:250,autoheight:false,scroll:true},
+				resizeColumn:true,
 				editable:true,
 				select:true,
-				rowHeight:_RowHeight+5,
-				headerRowHeight:_HeaderRowHeight,
 				save:urlstr+"/WBCURDMng/saveUser",
-				headermenu:{
-					    width:250,
-					    autoheight:false,
-					    scroll:true
-					},
 				updateFromResponse:true,
-//				save:urlstr+"/WBCURDMng/saveParameter",
 				columns:[
 
 					{id:"deletebutton", header:"&nbsp;",hidden:false, width:35, template:"<span  style='color:#777777; cursor:pointer;' class='webix_icon fa-trash-o'></span>"},
@@ -106,17 +102,14 @@ var pager = 	{
 					};
 					
 var grid_relation ={
-	 view:"datatable",
-	 id:"dt_userrole",
-	 editable:true,
-	 select:"row",
-	 rowHeight:_RowHeight+5,
-	 headRowHeight:_HeaderRowHeight,
-	 headermenu:{
-					    width:250,
-					    autoheight:false,
-					    scroll:true
-					},
+		 view:"datatable",
+		 id:"dt_userrole",
+		rowHeight:_RowHeight,
+		headerRowHeight:_HeaderRowHeight,
+		headermenu:{width:250,autoheight:false,scroll:true},
+		resizeColumn:true,
+		editable:true,
+		select:true,
 	 columns:[
 	    	{id:"deletebutton", header:"&nbsp;",hidden:false, width:60, template:"<span  style='color:#777777; cursor:pointer;' class='webix_icon fa-trash-o'></span>"},
 	    {id:"_identify",header:"",hidden:true,width:30},
@@ -141,7 +134,7 @@ var grid_relation ={
 		type: "clean",
 		rows:[
 			titleBar,
-			grid_party,
+			grid_user,
 			pager,
 			{view:"resizer"},
 			grid_relation

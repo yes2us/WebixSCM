@@ -3,14 +3,12 @@ define(function(){
 	var gridTree = {
 		view:"datatable",
 		id:"dt_dwhRefrPlan",
-		leftSplit:5,
 		rowHeight:_RowHeight,
 		headerRowHeight:_HeaderRowHeight,
-		headermenu:{
-			   width:250,
-			   autoheight:false,
-			   scroll:true
-		},
+		headermenu:{width:250,autoheight:false,scroll:true},
+		resizeColumn:true,
+		leftSplit:5,
+		select: true,
 		columns:[
 			{ id:"_identify",header:"#",width:35,hidden:true},
 			{ id:"makedate",header:["日期",{content:"selectFilter"}],width:100},
@@ -28,7 +26,7 @@ define(function(){
 			{ id:"dealstate",header:["状态",{content:"selectFilter"}], sort:"string",width:80},
 			{ id:"movqty",header:["数量",{content:"numberFilter"}],sort:"int",width:90}
 		],
-		select: true
+		on:{onAfterLoad:function(){this.hideOverlay();  if(!this.count()) this.showOverlay("没有可以加载的数据");}}
 	};
 
 	var layout = {

@@ -1,6 +1,6 @@
 define(function(){
 	
- var chart=	{view:"chart", type:"area",id:"chartid",
+ var chart=	{view:"chart", type:"area",id:"chartid2",
             						xAxis:{ template:"#date#"},
             						legend:{
                 						values:[{text:"绿区",color:"#66cc00"},{text:"黄区",color:"#e9df40"},
@@ -46,38 +46,38 @@ define(function(){
 				
 //				console.log(JSON.stringify(rtObject))
 				
-				$$("chartid").clearAll();
-				$$("chartid").define("yAxis",{ start:0, step:1, end: yValueLimit});
-				$$("chartid").refresh();
-				$$("chartid").parse(rtObject.imgData);
+				$$("chartid2").clearAll();
+				$$("chartid2").define("yAxis",{ start:0, step:1, end: yValueLimit});
+				$$("chartid2").refresh();
+				$$("chartid2").parse(rtObject.imgData);
 			});
 	}
 						
 	var gridTree = {
 		view:"treetable",
-		headerRowHeight:_HeaderRowHeight,
-		leftSplit:3,
-		rowHeight:_RowHeight+5,
 		id:"dt_cwhadjrec",
-		dragColumn:true,
-				headermenu:{
-				    width:250,
-				    autoheight:false,
-				    scroll:true
-		},
-		columns:[
-			{id:"refusechked", header:"拒绝",fillspace:0.5,template:"{common.checkbox()}"},
-			{id:"passchked", header:"通过",fillspace:0.5,template:"{common.checkbox()}"},
-			{ id:"skucode",header:"SKU", sort:"string",fillspace:2},
-			{ id:"recorddate",header:"调整日期", sort:"string",fillspace:1.5},
-			{ id:"oldtargetqty",header:"原目标库存", sort:"string",fillspace:1},
-			{ id:"sugtargetqty",	header:"建议目标库存", sort:"string",fillspace:1},
-			
-			{ id:"adjustreason",	header:"调整原因", sort:"string",fillspace:3},
-			{ id:"operator",header:"操作人", sort:"string",fillspace:1}
-		],
+		rowHeight:_RowHeight,
+		headerRowHeight:_HeaderRowHeight,
+		headermenu:{width:250,autoheight:false,scroll:true},
+		resizeColumn:true,
+		leftSplit:4,
 		select: true,
+		editable:true,
+		save:urlstr+"/WBCURDMng/saveBMRecord",
+		columns:[
+			{id:"refusechked", header:"拒绝",width:70,template:"{common.checkbox()}",css:"bgcolor1"},
+			{id:"passchked", header:"通过",width:70,template:"{common.checkbox()}",css:"bgcolor1"},
+			{ id:"_identify",header:"ID", sort:"string",css:'bgcolor2'},
+			{ id:"skucode",header:"SKU", sort:"string",width:120,css:'bgcolor2'},
+			{ id:"recorddate",header:"调整日期", sort:"string",width:100},
+			{ id:"oldtargetqty",header:"原目标库存", sort:"string",width:90},
+			{ id:"sugtargetqty",	header:"建议目标库存", sort:"string",width:90,editor:"text",css:"bgcolor1"},
+			
+			{ id:"adjustreason",	header:"调整原因", sort:"string",fillspace:1},
+			{ id:"operator",header:"操作人", sort:"string",width:70}
+		],
 			on:{
+			onAfterLoad:function(){this.hideOverlay();  if(!this.count()) this.showOverlay("没有可以加载的数据");},
 			onSelectChange:function(){
 					var row = this.getSelectedItem();
 					if(row)

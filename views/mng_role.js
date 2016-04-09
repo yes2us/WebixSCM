@@ -40,18 +40,15 @@ function(roleobject,modaladd,exports){
 		margin:10,
 		rows:[
 			{
-				id:"dt_role",
 				view:"datatable", 
+				id:"dt_role",
+				maxHeight:250,
+				rowHeight:_RowHeight,
+				headerRowHeight:_HeaderRowHeight,
+				headermenu:{width:250,autoheight:false,scroll:true},
+				resizeColumn:true,
 				editable:true,
 				select:true,
-				maxHeight:250,
-				rowHeight:_RowHeight+5,
-				headerRowHeight:_HeaderRowHeight,
-				headermenu:{
-					    width:250,
-					    autoheight:false,
-					    scroll:true
-					},
 				updateFromResponse:true,
 				save:urlstr+"/WBCURDMng/saveRole",
 				columns:[
@@ -108,15 +105,12 @@ var pager = 	{
 var grid_roleuser ={
 	 view:"datatable",
 	 id:"dt_roleuser",
+	rowHeight:_RowHeight,
+	headerRowHeight:_HeaderRowHeight,
+	headermenu:{width:250,autoheight:false,scroll:true},
+	resizeColumn:true,
 	editable:true,
 	select:true,
-	rowHeight:_RowHeight+5,
-	headerRowHeight:_HeaderRowHeight,
-	headermenu:{
-					    width:250,
-					    autoheight:false,
-					    scroll:true
-					},
 	 columns:[
 	    	{id:"deletebutton", header:"&nbsp;",hidden:false, width:60, template:"<span  style='color:#777777; cursor:pointer;' class='webix_icon fa-trash-o'></span>"},
 	    {id:"_identify",header:"",hidden:true,width:30},

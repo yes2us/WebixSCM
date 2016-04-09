@@ -2,16 +2,17 @@ define(function(){
 
 	var gridTree = {
 		view:"treetable",
-		headerRowHeight:_HeaderRowHeight,
-		leftSplit:3,
-		rowHeight:_RowHeight,
 		id:"dt_storeadjrec",
-		dragColumn:true,
-				headermenu:{
+		headerRowHeight:_HeaderRowHeight,
+		rowHeight:_RowHeight,
+		headermenu:{
 				    width:250,
 				    autoheight:false,
 				    scroll:true
 		},
+		leftSplit:1,
+		resizeColumn:true,
+		select: true,
 		columns:[
 			{ id:"skucode",	header:"SKU", sort:"string",fillspace:2},
 			
@@ -22,7 +23,7 @@ define(function(){
 			{ id:"adjustreason",	header:"调整原因", sort:"string",fillspace:3},
 			{ id:"operator",	header:"操作人", sort:"string",fillspace:1}
 		],
-		select: true
+		on:{onAfterLoad:function(){this.hideOverlay();  if(!this.count()) this.showOverlay("没有可以加载的数据");}}
 	};
 
 	var layout = {

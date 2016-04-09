@@ -46,17 +46,13 @@ var grid;
 			{
 				id:"dt_para",
 				view:"datatable", 
+				rowHeight:_RowHeight,
+				headerRowHeight:_HeaderRowHeight,
+				headermenu:{width:250,autoheight:false,scroll:true},
+				resizeColumn:true,
+				leftSplit:3,
 				editable:true,
 				select:"row",
-				leftSplit:3,
-				rowHeight:_RowHeight+5,
-				headerRowHeight:_HeaderRowHeight,
-					dragColumn:true,
-					headermenu:{
-					    width:250,
-					    autoheight:false,
-					    scroll:true
-					},
 				updateFromResponse:true,
 				save:urlstr+"/WBCURDMng/saveParameter/DSSuffix/"+_DSSuffix,
 				columns:[

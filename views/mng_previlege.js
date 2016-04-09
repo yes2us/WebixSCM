@@ -24,18 +24,15 @@ function(roleobject,moduleobject){
 							]
 				},
 			{
-				id:"dt_role",
 				view:"datatable", 
-				editable:false,
-				select:true,
+				id:"dt_role",
 				maxHeight:250,
-				rowHeight:_RowHeight+5,
+				rowHeight:_RowHeight,
 				headerRowHeight:_HeaderRowHeight,
-				headermenu:{
-					    width:250,
-					    autoheight:false,
-					    scroll:true
-					},
+				headermenu:{width:250,autoheight:false,scroll:true},
+				resizeColumn:true,
+				editable:false,
+				select:"row",
 				columns:[
 					{id:"roleenabled", header:"启用", template:"{common.checkbox()}", sort:"string",fillspace:1,enabled:false},
 					{id:"rolename", header:"角色", sort:"string",fillspace:1},
@@ -130,19 +127,17 @@ var grid_module={
 var grid_rolepreviledge ={
 	 view:"datatable",
 	 id:"dt_roleprevilege",
-	editable:true,
-	select:true,
-	rowHeight:_RowHeight+5,
+	rowHeight:_RowHeight,
 	headerRowHeight:_HeaderRowHeight,
-	headermenu:{
-					    width:250,
-					    autoheight:false,
-					    scroll:true
-					},
+	headermenu:{width:250,autoheight:false,scroll:true},
+	resizeColumn:true,
+	editable:true,
+	select:"row",
 	save:urlstr+"/WBCURDMng/savePrevilege",
 	 columns:[
 						{id:"_identify",header:"",hidden:true,width:30},
-					    {id:"rolename",header:"角色",width:150},
+//					    {id:"rolename",header:"角色",width:150},
+					    {id:"modulelevel",header:"模块级别",width:90},
 					    {id:"moduleid",header:"模块ID",width:150},
 					    {id:"modulename",header:"模块名称",width:200},
 					    	{id:"moduledesc",header:"模块描述",width:200},

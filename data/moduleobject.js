@@ -10,5 +10,9 @@ define([], function() {
 		{ParentModuleID:parentmoduleid});
 	}
 
+	moduleObject.getMyMenuTree = function(usercode) {
+		return webix.ajax().post(urlstr+"/WBModuleMng/getMyMenuTree",
+		{UserCode:usercode});
+	}
 	return moduleObject;
 });

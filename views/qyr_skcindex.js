@@ -5,7 +5,6 @@ function(prodobject){
 	
 	checkauthorization(false);
 
-
 	var titleBar = {
 			view:"toolbar",
 			css: "highlighted_header header5",
@@ -43,22 +42,19 @@ function(prodobject){
 			{
 				id:"dt_dimskc",
 				view:"datatable", 
-				editable:false,
-				select:true,
-				leftSplit:3,
 				rowHeight:_RowHeight,
 				headerRowHeight:_HeaderRowHeight,
-					headermenu:{
-					    width:250,
-					    autoheight:false,
-					    scroll:true
-					},
+				headermenu:{width:250,autoheight:false,scroll:true},
+				resizeColumn:true,
+				leftSplit:2,
+				editable:true,
+				select:"row",
 				columns:[
 					{ id:"skccode",	header:"款色", sort:"string",width:100,css:'bgcolor2'},
 					{ id:"yearname",	header:["年份 ",{content:"selectFilter"}], sort:"string",width:60,css:'bgcolor2'},
-					{ id:"seasonname",	header:["季节 ",{content:"selectFilter"}], sort:"string",width:60,css:'bgcolor2'},
-					{ id:"maintypename",header:["大类 ",{content:"selectFilter"}], sort:"string",width:60,css:'bgcolor2'},
-					{ id:"subtypename",header:["小类 ",{content:"selectFilter"}],width:60,css:'bgcolor2'},
+					{ id:"seasonname",	header:["季节 ",{content:"selectFilter"}], sort:"string",width:60},
+					{ id:"maintypename",header:["大类 ",{content:"selectFilter"}], sort:"string",width:60},
+					{ id:"subtypename",header:["小类 ",{content:"selectFilter"}],width:60},
 					
 					{ id:"saletotal",header:[{text:"销量",colspan:6},"总销量"],sort:"int",width:70},
 					{ id:"sale14days",header:[null,"14天销量"],sort:"int",width:85},
@@ -115,20 +111,16 @@ function(prodobject){
 	};
 	
 	var grid_skcregion={
-				id:"dt_skcregionitem",
 				view:"datatable", 
+				id:"dt_skcregionitem",
+				rowHeight:_RowHeight,
+				headerRowHeight:_HeaderRowHeight,
+				headermenu:{width:250,autoheight:false,scroll:true},
 				editable:false,
 				select:true,
 				leftSplit:1,
-				rowHeight:_RowHeight,
-				headerRowHeight:_HeaderRowHeight,
-					headermenu:{
-					    width:250,
-					    autoheight:false,
-					    scroll:true
-					},
 				columns:[
-								{ id:"regionname",header:"区域",sort:"name",width:100},
+								{ id:"regionname",header:"区域",sort:"name",width:150,css:'bgcolor2'},
 								
 								{ id:"saletotal",header:[{text:"销量",colspan:6},"总销量"],sort:"int",width:70},
 								{ id:"sale14days",header:[null,"14天销量"],sort:"int",width:85},
@@ -169,36 +161,8 @@ function(prodobject){
 		rows:[
 				titleBar,
 				grid_skc,
-//					{
-//						view: "toolbar",
-//						css: "highlighted_header header6",
-//						paddingX:2,
-//						paddingY:2,
-//						height:30,
-//						cols:[{
-//							view:"pager", id:"skc_pagerA",
-//							template:"{common.first()}{common.prev()}&nbsp; {common.pages()}&nbsp; {common.next()}{common.last()}",
-//							autosize:true,
-//							height: 30,
-//							group:5
-//						}]
-//					},
-					{view:"resizer"},
-					grid_skcregion,
-//					{
-//						view: "toolbar",
-//						css: "highlighted_header header6",
-//						paddingX:2,
-//						paddingY:2,
-//						height:30,
-//						cols:[{
-//							view:"pager", id:"skcregion_pagerA",
-//							template:"{common.first()}{common.prev()}&nbsp; {common.pages()}&nbsp; {common.next()}{common.last()}",
-//							autosize:true,
-//							height: 30,
-//							group:5
-//						}]
-//					},
+				{view:"resizer"},
+				grid_skcregion,
 			]
 	};
 	

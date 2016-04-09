@@ -1,87 +1,62 @@
 define([
-	"data/stockobject"
+	"data/stockobject",
+	"data/billobject"
 ],
-	function(stockobject){
-	    
+	function(stockobject,billobject){
+	   var parentcode;
+	   var storecode;
      
 	var grid_storeexistsskc = {
 		view:"datatable",
 		id:"dt_dwhrefrstoreskc",
-		leftSplit:3,
-		rowHeight:_RowHeight+5,
+		rowHeight:_RowHeight,
 		headerRowHeight:_HeaderRowHeight,
-		headermenu:{
-			  width:250,
-			  autoheight:false,
-			 scroll:true
-		},
+		headermenu:{width:250,autoheight:false,scroll:true},
+		resizeColumn:true,
+		leftSplit:1,
+		select: true,
 		columns:[
 //			{ id:"_identify",header:"#",width:35,hidden:true},
+			{ id:"skccode",header:["款色",{content:"textFilter"}], sort:"string",width:100,css:'bgcolor2'},
 			{ id:"partycode",header:"#",width:35,hidden:true},
 			
 			{ id:"yearname",	header:["年份",{content:"selectFilter"}], sort:"string",fillspace:1,hidden:true},
-			{ id:"seasonname",	header:["季节",{content:"selectFilter"}], sort:"string",fillspace:1},
-			{ id:"maintypename",header:["大类",{content:"selectFilter"}], sort:"string",fillspace:1.5},
-			{ id:"subtypename",header:["小类",{content:"selectFilter"}], sort:"string",fillspace:1.5},
+			{ id:"seasonname",	header:["季节",{content:"selectFilter"}], sort:"string",width:70},
+			{ id:"maintypename",header:["大类",{content:"selectFilter"}], sort:"string",width:100},
+			{ id:"subtypename",header:["小类",{content:"selectFilter"}], sort:"string",width:100},
 			
-			{ id:"skccode",header:["款色",{content:"textFilter"}], sort:"string",fillspace:1.5},
 //			{ id:"colorname",header:"颜色", sort:"string",fillspace:1},
-			{ id:"saletype",	header:["销售分类",{content:"selectFilter"}], sort:"string",fillspace:1.5},
-			{ id:"onshelfdays",header:"上货天数", sort:"string",fillspace:1},
-			{ id:"stockqty",	header:"实际库存",sort:"int", fillspace:1},
-			{ id:"sale30qty",header:"30天销量",sort:"int", fillspace:1},
-			{ id:"saletotalqty",header:"累计销量",sort:"int", fillspace:1},
-			{ id:"outcheckbox",header:"退出",sort:"int",width:60,template:"{common.checkbox()}",value:0}
+			{ id:"saletype",	header:["销售分类",{content:"selectFilter"}], sort:"string",width:85},
+			{ id:"onshelfdays",header:"上货天数", sort:"string",width:85},
+			{ id:"stockqty",	header:"实际库存",sort:"int", width:85},
+			{ id:"sale30qty",header:"30天销量",sort:"int", width:85},
+			{ id:"saletotalqty",header:"累计销量",sort:"int", width:85},
+			{ id:"check",header:"退出",sort:"int",width:60,template:"{common.checkbox()}"}
 		],
-		select: true,
+			on:{
+				onCheck:function(id,e,node){
+					var row = this.getItem(id);
+//					console.log(JSON.stringify(id));
+//					console.log(JSON.stringify(node));
+					$$("dt_refrplan_outskc").add({
+						srcpartycode:storecode,
+						trgpartycode:parentcode,
+						skccode:row.skccode,
+						movqty:row.stockqty
+					});
+				},
+				onAfterLoad:function(){this.hideOverlay();  if(!this.count()) this.showOverlay("没有可以加载的数据");},
+			}
 	};
 
-
-  					
-   var grid_storenewskc = {
-		view:"datatable",
-		rowHeight:_RowHeight+5,
-		id:"dt_dwhStoreNewSKC",
-		headerRowHeight:_HeaderRowHeight,
-		editable:true,
-		headermenu:{
-			width:250,
-			autoheight:false,
-			scroll:true
-		},
-		rules:{"targetqty":webix.rules.isNumber,"operatemov":webix.rules.isNumber},
-		columns:[
-			{ id:"_identify",header:"#",width:35,hidden:true},
-			
-			{ id:"partycode",	header:"上级编号", sort:"string",hidden:true,fillspace:2},
-			{ id:"partyname",header:"上级名称", sort:"string",hidden:true,fillspace:2},
-			
-			{ id:"yearname",	header:["年份",{content:"selectFilter"}], sort:"string",fillspace:1,hidden:true},
-			{ id:"seasonname",	header:["季节",{content:"selectFilter"}], sort:"string",fillspace:1},
-			{ id:"maintypename",header:["大类",{content:"selectFilter"}], sort:"string",fillspace:1.5},
-			{ id:"subtypename",header:["小类",{content:"selectFilter"}], sort:"string",fillspace:1.5},
-			
-			{ id:"skccode",header:["SKC",{content:"textFilter"}], sort:"string",fillspace:1.5},
-			{ id:"saletype",header:["销售分类",{content:"selectFilter"}], sort:"string",fillspace:1},
-			{ id:"onshelfdays",header:"上货天数", sort:"string",fillspace:1},
-			{ id:"stockqty",header:"实际库存",sort:"int", fillspace:1},
-			{ id:"sale30qty",header:"30天销量",sort:"int", fillspace:1},
-			{ id:"saletotalqty",header:"累计销量",sort:"int", fillspace:1},
-			{ id:"incheckbox",header:"补入",sort:"int", width:60,template:"{common.checkbox()}",value:0}
-		],
-	};
-	
-		var grid_refrplan_outskc = {
+	var grid_refrplan_outskc = {
 		view:"datatable",
 		id:"dt_refrplan_outskc",
-		headerRowHeight:_HeaderRowHeight,
-		rowHeight:_RowHeight+5,
 		maxWidth:200,
-		headermenu:{
-			width:200,
-			autoheight:false,
-			scroll:true
-		},
+		rowHeight:_RowHeight,
+		headerRowHeight:_HeaderRowHeight,
+		headermenu:{width:250,autoheight:false,scroll:true},
+		select:true,
 		editable:true,
 		save:urlstr+"/WBCURDMng/saveMovSKCPlan",
 		columns:[
@@ -109,19 +84,60 @@ define([
 				},
 		}
 	};
+  					
+   var grid_storenewskc = {
+		view:"datatable",
+		id:"dt_dwhStoreNewSKC",
+		rowHeight:_RowHeight,
+		headerRowHeight:_HeaderRowHeight,
+		headermenu:{width:250,autoheight:false,scroll:true},
+		editable:true,
+		select:true,
+		leftSplit:4,
+		rules:{"targetqty":webix.rules.isNumber,"operatemov":webix.rules.isNumber},
+		columns:[
+			{ id:"_identify",header:"#",width:35,hidden:true},
+			
+			{ id:"partycode",	header:"上级编号", sort:"string",hidden:true},
+			{ id:"partyname",header:"上级名称", sort:"string",hidden:true},
+			{ id:"skccode",header:["SKC",{content:"textFilter"}], sort:"string",width:100,css:"bgcolor2"},
+			{ id:"yearname",	header:["年份",{content:"selectFilter"}], sort:"string",width:70,hidden:true},
+			{ id:"seasonname",	header:["季节",{content:"selectFilter"}], sort:"string",width:70},
+			{ id:"maintypename",header:["大类",{content:"selectFilter"}], sort:"string",width:100},
+			{ id:"subtypename",header:["小类",{content:"selectFilter"}], sort:"string",width:100},
+			
+			{ id:"saletype",header:["销售分类",{content:"selectFilter"}], sort:"string",width:85},
+			{ id:"onshelfdays",header:"上货天数", sort:"string",width:85},
+			{ id:"stockqty",header:"实际库存",sort:"int", width:85},
+			{ id:"sale30qty",header:"30天销量",sort:"int", width:85},
+			{ id:"saletotalqty",header:"累计销量",sort:"int", width:85},
+			{ id:"check",header:"补入",sort:"int", width:60,template:"{common.checkbox()}",value:0}
+		],
+			on:{
+				onCheck:function(id,e,node){
+					var row = this.getItem(id);
+					$$("dt_refrplan_inskc").add({
+						srcpartycode:parentcode,
+						trgpartycode:storecode,
+						skccode:row.skccode,
+						movqty:5
+					});
+				},
+				onAfterLoad:function(){this.hideOverlay();  if(!this.count()) this.showOverlay("没有可以加载的数据");},
+			}
+	};
+	
+	
 	
 	var grid_refrplan_inskc = {
 		view:"datatable",
 		id:"dt_refrplan_inskc",
-		headerRowHeight:_HeaderRowHeight,
-		rowHeight:_RowHeight+5,
 		maxWidth:200,
-		headermenu:{
-			width:200,
-			autoheight:false,
-			scroll:true
-		},
+		rowHeight:_RowHeight,
+		headerRowHeight:_HeaderRowHeight,
+		headermenu:{width:250,autoheight:false,scroll:true},
 		editable:true,
+		select:true,
 		save:urlstr+"/WBCURDMng/saveMovSKCPlan",
 		columns:[
 			{ id:"_identify",header:"#",width:35,hidden:true},
@@ -198,6 +214,23 @@ define([
 	};
 
    
-	return { $ui: layout };
+	return { 
+		$ui: layout ,
+		setParties:function(_parentcode,_storecode){parentcode=_parentcode;storecode=_storecode;},
+		$oninit:function(){
+		   webix.dp.$$("dt_refrplan_outskc").attachEvent('onBeforeDataSend', function(obj){
+	    			obj.data.makedate = (new Date()).toString('yyyy/MM/dd');
+	    			obj.data.plantype = "人工换款";
+	    			obj.data.operator = _UserCode+'@'+_UserName;
+	    			obj.data.dealstate = "未处理";
+	    		});
+			  webix.dp.$$("dt_refrplan_inskc").attachEvent('onBeforeDataSend', function(obj){
+	    			obj.data.makedate = (new Date()).toString('yyyy/MM/dd');
+	    			obj.data.plantype = "人工换款";
+	    			obj.data.operator = _UserCode+'@'+_UserName;
+	    			obj.data.dealstate = "未处理";
+	    		});
+		}
+	};
 
 });

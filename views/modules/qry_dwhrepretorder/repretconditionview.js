@@ -1,6 +1,6 @@
 define(
-["data/stockobject"],
-function(stockobject){
+["data/billobject"],
+function(billobject){
 
     var startdate,enddate;
     var ordertype="Rep";
@@ -12,7 +12,7 @@ function(stockobject){
     		$$("dt_dwhrepretorderitem").clearAll();
 		$$("dt_dwhrepretorder").clearAll();
 		
-		var prezRepRetData = stockobject.getRepRetOrder(_postData);
+		var prezRepRetData = billobject.getRepRetOrder(_postData);
 		$$("dt_dwhrepretorder").parse(prezRepRetData);
     };
     

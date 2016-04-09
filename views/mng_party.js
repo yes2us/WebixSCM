@@ -42,15 +42,13 @@ function(partyobject,modaladd,exports){
 			{
 				id:"dt_party",
 				view:"datatable", 
-				editable:true,
-				select:true,
-				rowHeight:_RowHeight+5,
+				rowHeight:_RowHeight,
 				headerRowHeight:_HeaderRowHeight,
-				headermenu:{
-					    width:250,
-					    autoheight:false,
-					    scroll:true
-					},
+				headermenu:{width:250,autoheight:false,scroll:true},
+				resizeColumn:true,
+				leftSplit:3,
+				editable:true,
+				select:"row",
 				updateFromResponse:true,
 				save:urlstr+"/WBCURDMng/saveParty",
 				columns:[
@@ -135,15 +133,12 @@ var pager = 	{
 var grid_relation ={
 	 view:"datatable",
 	 id:"dt_partyrelation",
-	 editable:true,
-	 select:"row",
 	 rowHeight:_RowHeight+5,
-	 headRowHeight:_HeaderRowHeight,
-	 headermenu:{
-					    width:250,
-					    autoheight:false,
-					    scroll:true
-					},
+	 headerRowHeight:_HeaderRowHeight,
+	headermenu:{width:250,autoheight:false,scroll:true},
+	resizeColumn:true,
+	editable:true,
+	select:"row",
 	 columns:[
 	    	{id:"deletebutton", header:"&nbsp;",hidden:false, width:60, template:"<span  style='color:#777777; cursor:pointer;' class='webix_icon fa-trash-o'></span>"},
 	    {id:"parentcode",header:"上级编号",hidden:true,width:30},
