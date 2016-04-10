@@ -149,7 +149,7 @@ var grid_rolepreviledge ={
 
 
 	var layout = {
-		type: "clean",
+		type: "line",
 		cols:[grid_module,{view:"resizer"},
 		{rows:[grid_role,{view:"resizer"},grid_rolepreviledge]}]
 

@@ -14,9 +14,9 @@ define(["data/moduleobject"],function(moduleobject){
 			}
 		},
 		$ui:{
-			width: 150,
-			rows:[
-				{
+			width: 130,
+//			rows:[
+//				{
 					view: "tree",
 					id: "sysmenu",
 					type: "menuTree2",
@@ -41,8 +41,8 @@ define(["data/moduleobject"],function(moduleobject){
 						}
 					}
 				}
-			]
-		}
+//			]
+//		}
 	};
 
 });

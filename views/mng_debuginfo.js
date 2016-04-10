@@ -69,7 +69,7 @@ checkauthorization(false);
 	
 							
 	var layout = {
-		type: "clean",
+		type: "line",
 		rows:[
 			toolbar,
 			grid,

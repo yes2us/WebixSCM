@@ -22,7 +22,7 @@ function(billobject){
 		getOrderType:function(){return ordertype;},
 		$ui:{
 			width:_ListWidth,
-			type: "clean",
+			type: "line",
 			css: "highlighted_header header5",
 			header:"查询条件",
 			body:{

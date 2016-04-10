@@ -17,7 +17,7 @@ define([
 		elements:[
 //			{view: "label", label: "<a href='#'><img  src='assets/imgs/logo.png' height='30' /></a>", width: 150},
 //			{},
-			{ height:30, id: "person_template", css: "header_person", borderless:true, width: 150, data: {id:3,name: _UserName},
+			{ height:30, id: "person_template", css: "header_person", borderless:true, width: 130, data: {id:3,name: _UserName},
 				template: function(obj){
 					var html = 	"<div style='height:70%;width:70%;' onclick='webix.$$(\"profilePopup\").show(this)'>";
 					html += "<img class='photo' src='assets/imgs/photos/"+obj.id+".png' /><span class='name'>"+obj.name+"</span>";
@@ -40,9 +40,15 @@ define([
 
 	var layout = {
 		type:"line",
+//		cols:[
+//			{view:"accordion",multi:true,borderless:true,
+//				cols:[{ header:"下属店的库存结构", body:menu, height:200}]
+//			},body]
+			
 		cols:[
 			{rows:[mainToolbar,menu]},
 			body]
+		
 //		rows:[
 //			mainToolbar,
 //			{

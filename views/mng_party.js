@@ -160,7 +160,7 @@ var grid_relation ={
 				},
 }
 	var layout = {
-		type: "clean",
+		type: "line",
 		rows:[
 			titleBar,
 			grid_party,

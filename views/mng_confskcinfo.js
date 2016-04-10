@@ -86,7 +86,7 @@ function(prodobject){
 	};
 
 	var layout = {
-		type: "clean",
+		type: "line",
 		rows:[
 			titleBar,
 			{

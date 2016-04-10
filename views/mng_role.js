@@ -135,7 +135,7 @@ var grid_roleuser ={
 
 
 	var layout = {
-		type: "clean",
+		type: "line",
 		rows:[
 			titleBar,
 			grid_role,

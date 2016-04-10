@@ -115,7 +115,7 @@ function(stockobject){
 	};
 
 	var layout = {
-		type: "clean",
+		type: "line",
 		rows:[
 			titleBar,
 			{

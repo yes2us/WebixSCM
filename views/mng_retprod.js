@@ -17,10 +17,8 @@ define([
 checkauthorization(false);
 
 var layout = {
-	type: "clean",
-	rows:[
-		{
-				type: "wide",
+
+				type: "line",
 				cols:[
 					dwhRetListView,
 					{view:"resizer",width:1},
@@ -47,7 +45,6 @@ var layout = {
 							}
 						]
 			}
-		]}
 
 
 	]

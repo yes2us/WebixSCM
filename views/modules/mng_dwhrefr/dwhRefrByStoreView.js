@@ -36,14 +36,23 @@ define([
 			on:{
 				onCheck:function(id,e,node){
 					var row = this.getItem(id);
-//					console.log(JSON.stringify(id));
-//					console.log(JSON.stringify(node));
-					$$("dt_refrplan_outskc").add({
-						srcpartycode:storecode,
-						trgpartycode:parentcode,
-						skccode:row.skccode,
-						movqty:row.stockqty
-					});
+
+					var matchRow = $$("dt_refrplan_outskc").find(function(obj){
+						return obj.skccode.trim()==row.skccode.trim();});
+						if(row.check && !matchRow.length)
+						{
+								$$("dt_refrplan_outskc").add({
+									srcpartycode:storecode,
+									trgpartycode:parentcode,
+									skccode:row.skccode,
+									movqty:row.stockqty
+								});
+						}
+						
+						if(!row.check && matchRow.length)
+						{
+							$$("dt_refrplan_outskc").remove(matchRow[0].id);
+						}
 				},
 				onAfterLoad:function(){this.hideOverlay();  if(!this.count()) this.showOverlay("没有可以加载的数据");},
 			}
@@ -60,8 +69,8 @@ define([
 		editable:true,
 		save:urlstr+"/WBCURDMng/saveMovSKCPlan",
 		columns:[
-			{ id:"_identify",header:"#",width:35,hidden:true},
-			{ id:"delete",header:"&nbsp;", width:35,template:"<span  style='color:#777777; cursor:pointer;' class='webix_icon fa-trash-o'></span>"},
+			{ id:"_identify",header:"id",width:35,hidden:true},
+//			{ id:"delete",header:"&nbsp;", width:35,template:"<span  style='color:#777777; cursor:pointer;' class='webix_icon fa-trash-o'></span>"},
 			{ id:"srcpartycode",	header:"调出门店编号",hidden:true,fillspace:2},
 			{ id:"srcpartyname",header:"调出门店",hidden:true, fillspace:1},
 			{ id:"trgpartycode",	header:"调入门店编号",hidden:true,hidden:true,fillspace:2},
@@ -69,20 +78,18 @@ define([
 			{ id:"skccode",header:"退出款色", sort:"string",fillspace:2},
 			{ id:"movqty",header:"退出数量",sort:"int",fillspace:1}
 		],
-		on:{
-				onClick:{
-					webix_icon:function(e,id,node){
-						webix.confirm({
-							text:"你将删除本条记录.<br/>确定吗?", ok:"确定", cancel:"取消",
-							callback:function(res){
-								if(res){
-									webix.$$("dt_refrplan_outskc").remove(id);
-								}
-							}
-						});
-					}
-				},
-		}
+//				onClick:{
+//					webix_icon:function(e,id,node){
+//						var row = $$("dt_refrplan_outskc").getItem(id);
+//						var matchRow=$$("dt_dwhrefrstoreskc").find(function(obj)
+//						{
+//							return  (obj.skccode.trim()==row.skccode.trim());
+//						},true);
+//						if(matchRow) matchRow.check = false;
+//						$$("dt_dwhrefrstoreskc").refresh();
+//						webix.$$("dt_refrplan_outskc").remove(id);
+//					}
+//				},
 	};
   					
    var grid_storenewskc = {
@@ -116,12 +123,23 @@ define([
 			on:{
 				onCheck:function(id,e,node){
 					var row = this.getItem(id);
-					$$("dt_refrplan_inskc").add({
-						srcpartycode:parentcode,
-						trgpartycode:storecode,
-						skccode:row.skccode,
-						movqty:5
-					});
+
+						var matchRow = $$("dt_refrplan_inskc").find(function(obj){
+							return obj.skccode.trim()==row.skccode.trim();});
+						if(row.check && !matchRow.length)
+						{
+							$$("dt_refrplan_inskc").add({
+								srcpartycode:parentcode,
+								trgpartycode:storecode,
+								skccode:row.skccode,
+								movqty:5
+							});
+						}
+						
+					if(!row.check && matchRow.length)
+					{
+						$$("dt_refrplan_inskc").remove(matchRow[0].id);
+					}
 				},
 				onAfterLoad:function(){this.hideOverlay();  if(!this.count()) this.showOverlay("没有可以加载的数据");},
 			}
@@ -140,8 +158,8 @@ define([
 		select:true,
 		save:urlstr+"/WBCURDMng/saveMovSKCPlan",
 		columns:[
-			{ id:"_identify",header:"#",width:35,hidden:true},
-			{ id:"delete",header:"&nbsp;", width:35,template:"<span  style='color:#777777; cursor:pointer;' class='webix_icon fa-trash-o'></span>"},
+			{ id:"_identify",header:"id",width:35,hidden:true},
+//			{ id:"delete",header:"&nbsp;", width:35,template:"<span  style='color:#777777; cursor:pointer;' class='webix_icon fa-trash-o'></span>"},
 			{ id:"srcpartycode",	header:"调出门店编号",hidden:true,fillspace:2},
 			{ id:"srcpartyname",header:"调出门店",hidden:true, fillspace:1},
 			{ id:"trgpartycode",	header:"调入门店编号",hidden:true,hidden:true,fillspace:2},
@@ -149,20 +167,18 @@ define([
 			{ id:"skccode",header:"补入款色", sort:"string",fillspace:2},
 			{ id:"movqty",header:"补入数量",sort:"int",fillspace:1}
 		],
-		on:{
-				onClick:{
-					webix_icon:function(e,id,node){
-						webix.confirm({
-							text:"你将删除本条记录.<br/>确定吗?", ok:"确定", cancel:"取消",
-							callback:function(res){
-								if(res){
-									webix.$$("dt_refrplan_inskc").remove(id);
-								}
-							}
-						});
-					}
-				},
-		}
+//		onClick:{
+//					webix_icon:function(e,id,node){
+//						var row = $$("dt_refrplan_inskc").getItem(id);
+//						var matchRow=$$("dt_dwhStoreNewSKC").find(function(obj)
+//						{
+//							return  (obj.skccode.trim()==row.skccode.trim());
+//						},true);
+//						if(matchRow) matchRow.check = false;
+//						$$("dt_dwhStoreNewSKC").refresh();
+//						webix.$$("dt_refrplan_inskc").remove(id);
+//						}
+//		},
 	};
 	
 	var grid_storeoutskc={ 

@@ -17,7 +17,7 @@ checkauthorization(false);
 
 
 var layout = {
-	type: "clean",
+	type: "line",
 	cols:[cwhListView,{view:"resizer"},
 	{rows:[
 		{view: "tabbar", multiview: true,optionWidth: 130,type: "wide", 

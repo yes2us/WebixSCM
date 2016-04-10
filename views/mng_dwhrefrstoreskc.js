@@ -15,10 +15,7 @@ define([
 checkauthorization(false);
 
 var layout = {
-	type: "clean",
-	rows:[
-		{
-				type: "wide",
+				type: "line",
 				cols:[
 					dwhRefrListView,
 					{view:"resizer",width:1},
@@ -38,11 +35,7 @@ var layout = {
 							}
 						]
 			}
-		]}
-
-
 	]
-
 };
 
 
@@ -104,13 +97,12 @@ return {
 			 });
 			 		   
 			 //显示换款计划
+			 dwhRefrPlanView.setParentCode(regioncode);
 			$$("dt_dwhRefrPlan").clearAll();
 			$$("dt_dwhRefrPlan").showOverlay("正在加载......");
 			$$("dt_dwhRefrPlan").parse(billobject.getRefrSKCPlan({WHCode:storecode}));
 			
-			    		
-			   
-			});
+		});
 	}
 };
 

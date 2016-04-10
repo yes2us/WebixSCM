@@ -80,10 +80,10 @@ function(billobject,repretconditionview){
 	};
 	
 	var layout = {
-		type: "clean",
+		type: "line",
 		cols:[
 			repretconditionview,
-			{view:"resizer"},
+			{view:"resizer",width:1},
 			{
 				rows:[
 					grid,

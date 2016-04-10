@@ -139,7 +139,7 @@ var pager = 	{
 		};
 							
 	var layout = {
-		type: "clean",
+		type: "line",
 		rows:[
 			titleBar,
 			{

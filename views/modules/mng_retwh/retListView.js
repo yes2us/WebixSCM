@@ -11,7 +11,7 @@ function(){
 			rows:[	
 				{					
 					view: "list",
-					id: "lt_dwhs",
+					id: "lt_RetWH_Regions",
 					select: true,
 				    template:"#id# - #value#",
 				    url:urlstr+'/WBPartyMng/getRegionList',

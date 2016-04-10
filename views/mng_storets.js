@@ -18,10 +18,7 @@ checkauthorization(false);
 
 
 var layout = {
-	type: "clean",
-	rows:[
-		{
-				type: "wide",
+				type: "line",
 				cols:[
 					storeListView,
 					{view:"resizer",width:1},
@@ -44,14 +41,8 @@ var layout = {
 								]
 							}
 						]
-
-
-
 			}
-		]}
-
-
-	]
+]
 
 };
 

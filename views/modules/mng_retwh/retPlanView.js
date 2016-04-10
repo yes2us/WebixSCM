@@ -2,7 +2,7 @@ define(function(){
 
 	var gridTree = {
 		view:"datatable",
-		id:"dt_dwhRetPlanOrder",
+		id:"dt_RetWHPlan",
 		rowHeight:_RowHeight,
 		headerRowHeight:_HeaderRowHeight,
 		headermenu:{width:250,autoheight:false,scroll:true},
@@ -12,9 +12,9 @@ define(function(){
 		columns:[
 			{ id:"_identify",header:"#",width:35,hidden:true},
 			{ id:"makedate",header:["日期",{content:"selectFilter"}],width:100},
-			{ id:"partycode",	header:"SKU", sort:"string",hidden:true,fillspace:1},
+			{ id:"partycode",	header:"门店编号", sort:"string",hidden:true,fillspace:1},
 			{ id:"partyname",header:["门店",{content:"selectFilter"}], sort:"string",width:120},
-			{ id:"skucode",header:"SKU", sort:"string",hidden:true,width:100},
+			{ id:"skucode",header:["SKU",{content:"textFilter"}], sort:"string",width:140},
 			{ id:"skccode",header:["款色",{content:"textFilter"}], sort:"string",width:120},
 			{ id:"sizename",	header:["尺码",{content:"selectFilter"}], sort:"string",width:60},
 			{ id:"yearname",	header:["年份",{content:"selectFilter"}], sort:"string",fillspace:0.5,hidden:true},
@@ -29,7 +29,7 @@ define(function(){
 
 	var layout = {
 		type: "clean",
-		id: "dwhRetPlanOrderView",
+		id: "retWHPlanView",
 		cols:[
 			gridTree,
 		]

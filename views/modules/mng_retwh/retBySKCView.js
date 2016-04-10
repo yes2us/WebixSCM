@@ -1,23 +1,25 @@
 define([
-	"data/stockobject"
+	"data/stockobject",
+	"data/billobject",
 ],
-	function(stockobject){
+	function(stockobject,billobject){
 		
     var selPartyName;
     var retTargetWHCode;
     
-	var grid_storestockstruct = {
+	var grid_RetWHBySKC_StoreStockStruct = {
 		view:"datatable",
-		id:"dt_storestockstruct",
+		id:"dt_RetWHBySKC_StoreStockStruct",
+		maxHeight:200,
 		rowHeight:_RowHeight,
 		headerRowHeight:_HeaderRowHeight,
 		headermenu:{width:250,autoheight:false,scroll:true},
 		resizeColumn:true,
-		leftSplit:3,
+		leftSplit:2,
 		columns:[
-				     { id:"partycode",name:"partycode",	header:"门店编号", hidden:true,css:"bgcolor2", fillspace:1},
+				     { id:"partycode",name:"partycode",	header:["门店编号",{content:"textFilter"}],css:"bgcolor2", width:85},
 				    { id:"partyname",name:"partyname",	header:"门店", css:"bgcolor2", width:100},
-				    { id:"yearname",name:"yearname",	header:"年份", css:"bgcolor2", width:60},
+				    { id:"yearname",name:"yearname",	header:"年份", width:60},
 					{ id:"seasonname",name:"seasonname",header:"季节",width:60},
 					{ id:"seriesname",name:"seriesname",	header:"系列",width:200,width:100},
 					{ id:"skcnum",name:"skcnum",header:[{text:"款色结构", colspan:3},"款色数"] ,width:70},
@@ -38,20 +40,20 @@ define([
 						{
 							selPartyName = selRow.partyname;
 							var presStoreTSData = stockobject.getFGWarehouseTSInfo(selRow.partycode);
-							$$("dt_dwhRetStoreTSInfo").clearAll();
-							$$("dt_dwhRetStoreTSInfo").parse(presStoreTSData);
+							$$("dt_RetWHBySKC_StoreTSInfo").clearAll();
+							$$("dt_RetWHBySKC_StoreTSInfo").parse(presStoreTSData);
 							
-						var _urlstr = urlstr+"/WBStockMng/getMovPlanRESTful/PlanType/人工退货/SrcPartyCode/"+selRow.partycode.trim();
-			    			$$("dt_retPlanOrder2").load(_urlstr);
+						var _urlstr = urlstr+"/WBBillMng/getMovPlanRESTful/PlanType/人工退货/SrcPartyCode/"+selRow.partycode.trim();
+			    			$$("dt_RetWHBySKCPlan").load(_urlstr);
 						}
 			}
 		}
 	};
 
 
-   var grid_dwhRetStoreTSInfo = {
+   var grid_RetWHBySKC_StoreTSInfo = {
 		view:"datatable",
-		id:"dt_dwhRetStoreTSInfo",
+		id:"dt_RetWHBySKC_StoreTSInfo",
 		rowHeight:_RowHeight,
 		headerRowHeight:_HeaderRowHeight,
 		headermenu:{width:250,autoheight:false,scroll:true},
@@ -60,10 +62,10 @@ define([
 		editable:true,
 		rules:{"targetqty":webix.rules.isNumber,"operateret":webix.rules.isNumber},
 		columns:[
-			{ id:"_identify",header:"#",width:35,hidden:true},
+			{ id:"_identify",header:"ID",width:35,hidden:true},
 			{ id:"partycode",header:"门店编号",width:35,hidden:true},
 			{ id:"partyname",header:"门店",width:35,hidden:true},
-			{ id:"skucode",header:"SKU", sort:"string",width:100,css:"bgcolor2"},
+			{ id:"skccode",header:"款色", sort:"string",width:100,css:"bgcolor2"},
 			
 			{ id:"yearname",	header:"年份", sort:"string",width:70},
 			{ id:"seasonname",	header:"季节", sort:"string",width:70},
@@ -80,9 +82,9 @@ define([
 		on:{onAfterLoad:function(){this.hideOverlay();  if(!this.count()) this.showOverlay("没有可以加载的数据");}},
 	};
 	
-	var grid_retplanorder2 = {
+	var grid_RetWHBySKCPlan = {
 		view:"datatable",
-		id:"dt_retPlanOrder2",
+		id:"dt_RetWHBySKCPlan",
 		headerRowHeight:_HeaderRowHeight,
 		rowHeight:_RowHeight+5,
 		maxWidth:300,
@@ -94,12 +96,12 @@ define([
 		editable:true,
 		save:urlstr+"/WBCURDMng/saveRetOrder",
 		columns:[
-			{ id:"_identify",header:"#",width:35,hidden:true},
+			{ id:"_identify",header:"ID",width:35,hidden:true},
 			{ id:"delete",header:"&nbsp;", width:35,template:"<span  style='color:#777777; cursor:pointer;' class='webix_icon fa-trash-o'></span>"},
 			{ id:"parentcode",	header:"上级编号", sort:"string",hidden:true,fillspace:2},
 			{ id:"partycode",	header:"门店编号", sort:"string",hidden:true,fillspace:2},
 			{ id:"partyname",	header:"退货门店",sort:"int", fillspace:1},
-			{ id:"skucode",	header:"SKU", sort:"string",hidden:true,fillspace:2},
+			{ id:"skccode",	header:"款色", sort:"string",hidden:true,fillspace:2},
 			{ id:"orderqty",	header:"退货量",sort:"int",align:"right", fillspace:1,css:"bgcolor1"}
 		],
 		on:{
@@ -109,7 +111,7 @@ define([
 							text:"你将删除本条记录.<br/>确定吗?", ok:"确定", cancel:"取消",
 							callback:function(res){
 								if(res){
-									webix.$$("dt_retPlanOrder2").remove(id);
+									webix.$$("dt_RetWHBySKCPlan").remove(id);
 								}
 							}
 						});
@@ -118,29 +120,21 @@ define([
 		}
 	};
 	
-	var layout = {
-		type: "clean",
-		id: "dwhRetByStoreView",
-		rows:[
-			{container:"data_container",
-			    cols:[
-				grid_storestockstruct,
-				{view:"resizer"},
-				{ 
-					view:"form",height:300, width:300, scroll:false,type: "clean",
+	var form_RetWHBySKCPlan={ 
+					view:"form",width:300, scroll:false,type: "clean",
 					elements:[
 					{ view:"button", label:"退货", type:"next", height:30, width:100, align:"left",
 					click:function(){
-						$$("dt_dwhRetStoreTSInfo").eachRow(function(rowId){
-							var row = $$("dt_dwhRetStoreTSInfo").getItem(rowId);
+						$$("dt_RetWHBySKC_StoreTSInfo").eachRow(function(rowId){
+							var row = $$("dt_RetWHBySKC_StoreTSInfo").getItem(rowId);
 							if(row.operateret>0)
 							{
-								var sameArray = $$("dt_retPlanOrder2").find(function(obj){
+								var sameArray = $$("dt_RetWHBySKCPlan").find(function(obj){
 								    return obj.partycode===row.partycode && obj.skucode === row.skucode;
 								});
 								
 								if(sameArray.length<1)
-								$$("dt_retPlanOrder2").add({
+								$$("dt_RetWHBySKCPlan").add({
 									parentcode:retTargetWHCode,
 									partycode:row.partycode,
 									partyname:selPartyName,
@@ -149,12 +143,20 @@ define([
 							}
 						});
 					}},
-					grid_retplanorder2
+					grid_RetWHBySKCPlan
 					]
-				}
-			]},
+				};
+				
+	var layout = {
+		type: "clean",
+		id: "retWHBySKCView",
+		rows:[
+			{
+				view:"accordion",multi:true,borderless:true,
+				rows:[{ header:"下属店的库存结构", body:grid_RetWHBySKC_StoreStockStruct, height:200}]
+			},
 			{view:"resizer"},
-			grid_dwhRetStoreTSInfo
+			{cols:[grid_RetWHBySKC_StoreTSInfo,{view:"resizer"},form_RetWHBySKCPlan]}
 		]
 	};
 
@@ -163,12 +165,12 @@ define([
 		setRetTargetWH:function(targetWHCode){retTargetWHCode=targetWHCode;},
 		$ui: layout,
 	 	$oninit:function(){
-	    		webix.dp.$$("dt_retPlanOrder2").attachEvent('onBeforeDataSend', function(obj){
+	    		webix.dp.$$("dt_RetWHBySKCPlan").attachEvent('onBeforeDataSend', function(obj){
 	    			obj.data.makedate = (new Date()).toString('yyyy/MM/dd');
 	    			obj.data.ordercode = obj.data.partycode+"@"+(new Date()).toString('yyyy-MM-dd');
 	    			obj.data.ordertype = "人工退货";
 	    			obj.data.operator = _UserCode+'@'+_UserName;
-	    			obj.data.dealstate = -1;
+	    			obj.data.dealstate = "未处理";
 	    		});
 	    }
 	};

@@ -1,5 +1,6 @@
 define(function(){
-
+	var parentcode;
+	
 	var gridTree = {
 		view:"datatable",
 		id:"dt_dwhRefrPlan",
@@ -12,10 +13,12 @@ define(function(){
 		columns:[
 			{ id:"_identify",header:"#",width:35,hidden:true},
 			{ id:"makedate",header:["日期",{content:"selectFilter"}],width:100},
-			{ id:"srcpartycode",	header:"出货门店编号", sort:"string",hidden:true,fillspace:1},
-			{ id:"srcpartyname",header:["出货门店",{content:"selectFilter"}], sort:"string",width:120},
-			{ id:"trgpartycode",	header:"进货门店编号", sort:"string",hidden:true,fillspace:1},
-			{ id:"trgpartyname",header:["进货门店",{content:"selectFilter"}], sort:"string",width:120},
+			{ id:"srcpartycode",	header:"出货方编号", sort:"string",hidden:true,fillspace:1},
+			{ id:"srcpartyname",header:["出货方",{content:"selectFilter"}], sort:"string",width:120,css:"center",
+			template:function(obj){return obj.srcpartycode.trim()==parentcode? "————>":obj.srcpartyname;}},
+			{ id:"trgpartycode",	header:"进货方编号", sort:"string",hidden:true,fillspace:1},
+			{ id:"trgpartyname",header:["进货方",{content:"selectFilter"}], sort:"string",width:120,css:"center",
+			template:function(obj){return obj.trgpartycode.trim()==parentcode? "<————":obj.trgpartyname;}},
 			
 			{ id:"skccode",header:["款色",{content:"textFilter"}], sort:"string",width:120},
 
@@ -38,6 +41,9 @@ define(function(){
 	};
 
 
-	return { $ui: layout };
+	return { 
+		$ui: layout,
+		setParentCode: function(_parentcode){parentcode = _parentcode;}
+		};
 
 });
