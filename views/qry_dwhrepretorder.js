@@ -24,26 +24,32 @@ function(billobject,repretconditionview){
 				select:true,
 				leftSplit:3,
 				columns:[
-					{id:"ordercode", header:"单号", sort:"string",fillspace:1.5},
-					{ id:"partyname",	header:["分仓",{content:"selectFilter"}], sort:"string",fillspace:1.5},
-					{ id:"parentname",	header:"中央仓", sort:"string",fillspace:1.5},
-					{ id:"makedate",	header:"日期", sort:"string",fillspace:1.5},
-					{ id:"orderqty",	header:"数量",sort:"int",fillspace:1},
+					{ id:"srcpartycode",	header:["出货仓库编号 ",{content:"textFilter"}], sort:"string",width:100},
+					{ id:"srcpartyname",header:["出货仓库",{content:"selectFilter"}], sort:"string",width:150},
+					{ id:"trgpartycode",	header:["收货仓库编号 ",{content:"textFilter"}], sort:"string",width:100},
+					{ id:"trgpartyname",header:["收货仓库",{content:"selectFilter"}], sort:"string",width:150},
+					{ id:"makedate",	header:"日期", sort:"string",width:100},
+					{ id:"movqty",header:"数量",fillspace:1},
 				],
 				export: true,
 				on: {
-					onAfterLoad: function(){
-						this.select(1);		
-					},
+					onAfterLoad:function(){this.hideOverlay();  if(!this.count()) this.showOverlay("没有可以加载的数据");},
 					onSelectChange:function()
 					{
 						var selRow = this.getSelectedItem();
 						if(selRow)
 						{
-						var ordertype = repretconditionview.getOrderType();
-						var prezRepItemData = billobject.getRepRetOrderItem({OrderType:ordertype,OrderCode:selRow.ordercode});
-						$$("dt_dwhrepretorderitem").clearAll();
-						$$("dt_dwhrepretorderitem").parse(prezRepItemData);
+							var plantype = repretconditionview.getPlanType();
+							var postData={
+								PlanType:plantype,
+								MakeDate:selRow.makedate,
+								SrcPartyCode:selRow.srcpartycode,
+								TrgPartyCode:selRow.trgpartycode,
+							};
+	
+							$$("dt_dwhrepretorderitem").clearAll();
+							$$("dt_dwhrepretorderitem").showOverlay("正在加载......");
+							$$("dt_dwhrepretorderitem").parse(billobject.getMovSKUPlanItem(postData));
 						}
 					}
 				},
@@ -76,6 +82,7 @@ function(billobject,repretconditionview){
 					{ id:"ordertype",	header:"类型", width:100},
 					{ id:"orderqty",header:"数量",width:100}
 				],
+				on:{onAfterLoad:function(){this.hideOverlay();  if(!this.count()) this.showOverlay("没有可以加载的数据");},},
 				pager:"dwhrepretitem_pagerA"
 	};
 	

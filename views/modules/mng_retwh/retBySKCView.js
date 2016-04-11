@@ -10,7 +10,7 @@ define([
 	var grid_RetWHBySKC_StoreStockStruct = {
 		view:"datatable",
 		id:"dt_RetWHBySKC_StoreStockStruct",
-		maxHeight:200,
+		maxHeight:300,
 		rowHeight:_RowHeight,
 		headerRowHeight:_HeaderRowHeight,
 		headermenu:{width:250,autoheight:false,scroll:true},
@@ -39,12 +39,17 @@ define([
 						if(selRow)
 						{
 							selPartyName = selRow.partyname;
-							var presStoreTSData = stockobject.getFGWarehouseTSInfo(selRow.partycode);
+							var presStoreTSData = stockobject.getWHSKCInfo(selRow.partycode);
 							$$("dt_RetWHBySKC_StoreTSInfo").clearAll();
 							$$("dt_RetWHBySKC_StoreTSInfo").parse(presStoreTSData);
 							
-						var _urlstr = urlstr+"/WBBillMng/getMovPlanRESTful/PlanType/人工退货/SrcPartyCode/"+selRow.partycode.trim();
-			    			$$("dt_RetWHBySKCPlan").load(_urlstr);
+				    			var premzSKCPlan = billobject.getMovSKCPlanItem({
+									PlanType:"人工退货",
+									DealState:"未处理",
+									SrcPartyCode:selRow.partycode,
+								});
+							$$("dt_RetWHBySKCPlan").clearAll();
+				    			$$("dt_RetWHBySKCPlan").parse(premzSKCPlan);
 						}
 			}
 		}
@@ -64,7 +69,7 @@ define([
 		columns:[
 			{ id:"_identify",header:"ID",width:35,hidden:true},
 			{ id:"partycode",header:"门店编号",width:35,hidden:true},
-			{ id:"partyname",header:"门店",width:35,hidden:true},
+			{ id:"partyname",header:"门店",width:120,hidden:true},
 			{ id:"skccode",header:"款色", sort:"string",width:100,css:"bgcolor2"},
 			
 			{ id:"yearname",	header:"年份", sort:"string",width:70},
@@ -76,7 +81,7 @@ define([
 			{ id:"isdeadskc",	header:"死货", sort:"int",width:70},
 			{ id:"targetqty",	header:"目标库存",sort:"int", width:85,editor:"text",invalidMessage:"必须输入数字",css:'bgcolor1'},
 			{ id:"stockqty",	header:"实际库存",sort:"int", width:85},
-			{ id:"sugretqty",	header:"超额库存",sort:"int",width:85,template:function(obj){return (obj.stockqty>obj.targetqty)? obj.stockqty-obj.targetqty:"";}},
+			{ id:"sugretqty",	header:"超额库存",sort:"int",width:85,template:function(obj){return (obj.stockqty>obj.targetqty)? obj.stockqty-obj.targetqty:0;}},
 			{ id:"operateret",header:"退货",sort:"int",width:70,editor:"text",invalidMessage:"必须输入数字",css:'bgcolor1'}
 		],
 		on:{onAfterLoad:function(){this.hideOverlay();  if(!this.count()) this.showOverlay("没有可以加载的数据");}},
@@ -94,17 +99,17 @@ define([
 			scroll:true
 		},
 		editable:true,
-		save:urlstr+"/WBCURDMng/saveRetOrder",
+		save:urlstr+"/WBCURDMng/saveMovSKCPlan",
 		columns:[
 			{ id:"_identify",header:"ID",width:35,hidden:true},
 			{ id:"delete",header:"&nbsp;", width:35,template:"<span  style='color:#777777; cursor:pointer;' class='webix_icon fa-trash-o'></span>"},
-			{ id:"parentcode",	header:"上级编号", sort:"string",hidden:true,fillspace:2},
-			{ id:"partycode",	header:"门店编号", sort:"string",hidden:true,fillspace:2},
-			{ id:"partyname",	header:"退货门店",sort:"int", fillspace:1},
-			{ id:"skccode",	header:"款色", sort:"string",hidden:true,fillspace:2},
-			{ id:"orderqty",	header:"退货量",sort:"int",align:"right", fillspace:1,css:"bgcolor1"}
+			{ id:"srcpartycode",	header:"出货仓库编号", sort:"string",hidden:true,fillspace:2},
+			{ id:"srcpartyname",header:"出货仓库", sort:"string",hidden:true,fillspace:2},
+			{ id:"trgpartycode",	header:"收货仓库编号", sort:"string",hidden:true,fillspace:2},
+			{ id:"trgpartyname",header:"收货仓库", sort:"string",hidden:true,fillspace:2},
+			{ id:"skccode",header:"款色", sort:"string",fillspace:2},
+			{ id:"movqty",header:"数量",sort:"int",align:"right", fillspace:1,css:"bgcolor1"}
 		],
-		on:{
 				onClick:{
 					webix_icon:function(e,id,node){
 						webix.confirm({
@@ -117,7 +122,6 @@ define([
 						});
 					}
 				},
-		}
 	};
 	
 	var form_RetWHBySKCPlan={ 
@@ -130,16 +134,16 @@ define([
 							if(row.operateret>0)
 							{
 								var sameArray = $$("dt_RetWHBySKCPlan").find(function(obj){
-								    return obj.partycode===row.partycode && obj.skucode === row.skucode;
+								    return obj.srcpartycode===row.partycode && obj.skccode === row.skccode;
 								});
 								
 								if(sameArray.length<1)
 								$$("dt_RetWHBySKCPlan").add({
-									parentcode:retTargetWHCode,
-									partycode:row.partycode,
-									partyname:selPartyName,
-									skucode:row.skucode,
-									orderqty:row.operateret});
+									srcpartycode:row.partycode,
+									srcpartyname:row.partyname,
+									trgpartycode:retTargetWHCode,
+									skccode:row.skccode,
+									movqty:row.operateret});
 							}
 						});
 					}},
@@ -153,7 +157,7 @@ define([
 		rows:[
 			{
 				view:"accordion",multi:true,borderless:true,
-				rows:[{ header:"下属店的库存结构", body:grid_RetWHBySKC_StoreStockStruct, height:200}]
+				rows:[{ header:"下属店的库存结构", body:grid_RetWHBySKC_StoreStockStruct, height:300}]
 			},
 			{view:"resizer"},
 			{cols:[grid_RetWHBySKC_StoreTSInfo,{view:"resizer"},form_RetWHBySKCPlan]}
@@ -167,11 +171,16 @@ define([
 	 	$oninit:function(){
 	    		webix.dp.$$("dt_RetWHBySKCPlan").attachEvent('onBeforeDataSend', function(obj){
 	    			obj.data.makedate = (new Date()).toString('yyyy/MM/dd');
-	    			obj.data.ordercode = obj.data.partycode+"@"+(new Date()).toString('yyyy-MM-dd');
-	    			obj.data.ordertype = "人工退货";
+//	    			obj.data.ordercode = obj.data.partycode+"@"+(new Date()).toString('yyyy-MM-dd');
+	    			obj.data.plantype = "人工退货";
 	    			obj.data.operator = _UserCode+'@'+_UserName;
 	    			obj.data.dealstate = "未处理";
 	    		});
+	    		
+	    		webix.dp.$$("dt_RetWHBySKCPlan").attachEvent("onAfterInsert", function(response, id, object){
+			    $$("dt_RetWHBySKCPlan").getItem(id)._identify = response;
+				$$("dt_RetWHBySKCPlan").refresh();   
+			});
 	    }
 	};
 

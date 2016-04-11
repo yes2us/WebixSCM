@@ -156,14 +156,12 @@ var pager = 	{
 		$ui: layout,
 		$oninit:function(){
 			$$("dt_para").parse(paraobject.getSysPara());
-			$$("vtextform").bind($$("dt_para"));
+			$$("vtextform").bind($$("dt_para"));			
 			
-			webix.dp.$$("dt_para").attachEvent('onBeforeDataSend', function(obj){obj.data.DSSuffix = _DSSuffix;});
-			
-//			$$('dt_para').attachEvent('onSelectChange',function(id){
-//				if(id==1 || !this.getItem(id)) return;	
-//				var vipcode = this.getItem(id).customercode;
-//			});
+			webix.dp.$$("dt_para").attachEvent("onAfterInsert", function(response, id, object){
+			    $$("dt_para").getItem(id)._identify = response;
+				$$("dt_para").refresh();   
+			}); 
 		}
 	};
 

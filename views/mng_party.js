@@ -46,13 +46,14 @@ function(partyobject,modaladd,exports){
 				headerRowHeight:_HeaderRowHeight,
 				headermenu:{width:250,autoheight:false,scroll:true},
 				resizeColumn:true,
-				leftSplit:3,
+				leftSplit:4,
 				editable:true,
 				select:"row",
 				updateFromResponse:true,
 				save:urlstr+"/WBCURDMng/saveParty",
 				columns:[
 					{id:"deletebutton", header:"&nbsp;",hidden:false, width:35, template:"<span  style='color:#777777; cursor:pointer;' class='webix_icon fa-trash-o'></span>"},
+					{id:"_identify", header:"ID",hidden:true, sort:"string",width:60},
 					{id:"partyenabled", header:"启用", template:"{common.checkbox()}", sort:"string",width:60},
 					{id:"partycode", header:"仓库编号", sort:"string",width:100},
 					{id:"partyname", header:"仓库名", editor:"text", sort:"string",width:150},
@@ -139,8 +140,10 @@ var grid_relation ={
 	resizeColumn:true,
 	editable:true,
 	select:"row",
+	save:urlstr+"/WBCURDMng/saveParty2PartyRelation",
 	 columns:[
 	    	{id:"deletebutton", header:"&nbsp;",hidden:false, width:60, template:"<span  style='color:#777777; cursor:pointer;' class='webix_icon fa-trash-o'></span>"},
+	    {id:"_identify",header:"ID",hidden:true,width:30},
 	    {id:"parentcode",header:"上级编号",hidden:true,width:30},
 	    {id:"parentname",header:"上级",fillspace:1},
 	    {id:"relationtype",header:"关系类型",fillspace:1},
@@ -176,11 +179,17 @@ var grid_relation ={
 		$ui: layout,
 		$oninit:function(){
 			$$("dt_party").clearAll();
-			$$("dt_party").parse(partyobject.getPartyList());//			$$("dt_party").parse(partyobject.getSysPara());
-
+			$$("dt_party").parse(partyobject.getPartyList());
 			
-//			webix.dp.$$("dt_party").attachEvent('onBeforeDataSend', function(obj){obj.data.DSSuffix = _DSSuffix;});
+			webix.dp.$$("dt_party").attachEvent("onAfterInsert", function(response, id, object){
+			    $$("dt_party").getItem(id)._identify = response;
+				$$("dt_party").refresh();   
+			}); 
 
+			webix.dp.$$("dt_partyrelation").attachEvent("onAfterInsert", function(response, id, object){
+			    $$("dt_partyrelation").getItem(id)._identify = response;
+				$$("dt_partyrelation").refresh();   
+			}); 
 		}
 	};
 

@@ -28,7 +28,7 @@ function(){
 			
 			{ id:"targetqty",	header:"目标库存",sort:"int", width:100,editor:"text",css:"bgcolor1"},
 			{ id:"stockqty",	header:"实际库存",sort:"int", width:100},
-			{ id:"repretqty",	header:["理论补退",{content:"numberFilter"}],sort:"int",align:"right", width:100}
+			{ id:"sugrepqty",	header:["理论补退",{content:"numberFilter"}],sort:"int",align:"right", width:100}
 		],
 		on:{onAfterLoad:function(){this.hideOverlay();  if(!this.count()) this.showOverlay("没有可以加载的数据");}}
 	};

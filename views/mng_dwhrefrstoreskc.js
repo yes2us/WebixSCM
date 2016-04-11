@@ -60,7 +60,7 @@ return {
 
 			stockobject.getWHSKCInfo({WHCode:storecode}).then(function(response){
 				$$("dt_dwhrefrstoreskc").parse(response.json());
-				return billobject.getMovSKCPlan({PlanType:"人工换款",DealState:"未处理",SrcPartyCode:storecode});
+				return billobject.getMovSKCPlanItem({PlanType:"人工换款",DealState:"未处理",SrcPartyCode:storecode});
 			}).then(function(reponse){
 				$$("dt_refrplan_outskc").parse(reponse.json());
 				$$("dt_refrplan_outskc").eachRow(function(rowid){
@@ -79,10 +79,10 @@ return {
 //			$$("dt_dwhStoreNewSKC").parse(presWHSKCInfoData);
 			//载入此门店的调出计划：未处理的
 			$$("dt_refrplan_inskc").clearAll();
-//			$$("dt_refrplan_inskc").parse(billobject.getMovSKCPlan({PlanType:"人工换款",DealState:"未处理",TrgPartyCode:storecode}));
+//			$$("dt_refrplan_inskc").parse(billobject.getMovSKCPlanItem({PlanType:"人工换款",DealState:"未处理",TrgPartyCode:storecode}));
 			 stockobject.getWHSKCInfoNewSKC({WHCode:storecode,ParentCode:regioncode}).then(function(response){
 			 	$$("dt_dwhStoreNewSKC").parse(response.json());
-			 	return billobject.getMovSKCPlan({PlanType:"人工换款",DealState:"未处理",TrgPartyCode:storecode});
+			 	return billobject.getMovSKCPlanItem({PlanType:"人工换款",DealState:"未处理",TrgPartyCode:storecode});
 			 }).then(function(response){
 			 	 $$("dt_refrplan_inskc").parse(response.json());
 			 	 $$("dt_refrplan_inskc").eachRow(function(rowid){
@@ -100,7 +100,7 @@ return {
 			 dwhRefrPlanView.setParentCode(regioncode);
 			$$("dt_dwhRefrPlan").clearAll();
 			$$("dt_dwhRefrPlan").showOverlay("正在加载......");
-			$$("dt_dwhRefrPlan").parse(billobject.getRefrSKCPlan({WHCode:storecode}));
+			$$("dt_dwhRefrPlan").parse(billobject.getMovSKCPlanItem({WHCode:storecode}));
 			
 		});
 	}

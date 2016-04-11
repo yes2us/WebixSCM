@@ -52,7 +52,7 @@ function(roleobject,modaladd,exports){
 				updateFromResponse:true,
 				save:urlstr+"/WBCURDMng/saveRole",
 				columns:[
-
+	    				{id:"_identify",header:"ID",hidden:true,width:30},
 					{id:"deletebutton", header:"&nbsp;",hidden:false, width:35, template:"<span  style='color:#777777; cursor:pointer;' class='webix_icon fa-trash-o'></span>"},
 					{id:"roleenabled", header:"启用", template:"{common.checkbox()}", sort:"string",fillspace:1},
 					{id:"rolename", header:"角色", sort:"string",fillspace:1},
@@ -111,9 +111,10 @@ var grid_roleuser ={
 	resizeColumn:true,
 	editable:true,
 	select:true,
+	save:urlstr+"/WBCURDMng/saveRoleUser",
 	 columns:[
 	    	{id:"deletebutton", header:"&nbsp;",hidden:false, width:60, template:"<span  style='color:#777777; cursor:pointer;' class='webix_icon fa-trash-o'></span>"},
-	    {id:"_identify",header:"",hidden:true,width:30},
+	    {id:"_identify",header:"ID",hidden:true,width:30},
 	    {id:"usercode",header:"用户编号",fillspace:1},
 	    {id:"usertruename",header:"用户名",fillspace:1},
 	    {id:"usertype",header:"用户类型",fillspace:1},
@@ -151,11 +152,17 @@ var grid_roleuser ={
 		$ui: layout,
 		$oninit:function(){
 			$$("dt_role").clearAll();
-			$$("dt_role").parse(roleobject.getRoleList());//			$$("dt_party").parse(partyobject.getSysPara());
-
+			$$("dt_role").parse(roleobject.getRoleList());
 			
-//			webix.dp.$$("dt_party").attachEvent('onBeforeDataSend', function(obj){obj.data.DSSuffix = _DSSuffix;});
+		webix.dp.$$("dt_role").attachEvent("onAfterInsert", function(response, id, object){
+			    $$("dt_role").getItem(id)._identify = response;
+				$$("dt_role").refresh();   
+			}); 
 
+		webix.dp.$$("dt_roleuser").attachEvent("onAfterInsert", function(response, id, object){
+			    $$("dt_roleuser").getItem(id)._identify = response;
+				$$("dt_roleuser").refresh();   
+			}); 
 		}
 	};
 

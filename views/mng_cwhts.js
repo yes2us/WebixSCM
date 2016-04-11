@@ -3,14 +3,14 @@ define([
 	"data/billobject",
 	"views/modules/mng_cwhts/cwhListView",
 	"views/modules/mng_cwhts/cwhTSView",
-	"views/modules/mng_cwhts/cwhAdjRecView",
+	"views/modules/mng_cwhts/cwhBMRecordView",
 	"views/modules/mng_cwhts/cwhImpTSDataView"
 ], function(
 	stockobject,
 	billobject,
 	cwhListView,
 	cwhTSView,
-	cwhAdjRecView,
+	cwhBMRecordView,
 	cwhImpTSDataView){
 
 checkauthorization(false);
@@ -24,14 +24,14 @@ var layout = {
 			options:[
 				{id: "cwhTSView", value: "目标库存"},
 //				{id: "cwhSugRepPlanView", value: "理论补货"},
-				{id: "cwhAdjRecView", value: "缓冲调整"},
+				{id: "cwhBMRecordView", value: "缓冲调整"},
 				{id: "cwhImpTSDataView", value: "导入目标库存"}
 			]
 		},
 		{
 			cells:[
 			    cwhTSView,
-				cwhAdjRecView,
+				cwhBMRecordView,
 				cwhImpTSDataView
 			]
 		}
@@ -55,10 +55,10 @@ return {
 
 
 			//显示最近调整记录
-			var promzAdjRecData = billobject.getPartyAdjRec({WHCode:cwhcode,EndDate:'2016-01-01'});
-			$$("dt_cwhadjrec").showOverlay("正在加载......");
-			$$("dt_cwhadjrec").clearAll();
-			$$("dt_cwhadjrec").parse(promzAdjRecData);
+			var promzBMData = billobject.getPartyBMRecord({WHCode:cwhcode,EndDate:'2016-01-01'});
+			$$("dt_cwhbmrecord").showOverlay("正在加载......");
+			$$("dt_cwhbmrecord").clearAll();
+			$$("dt_cwhbmrecord").parse(promzBMData);
 			
 	}
 };

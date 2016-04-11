@@ -66,10 +66,21 @@ return {
 			$$("dt_RetWHBySKC_StoreStockStruct").showOverlay("正在加载......");
 			$$("dt_RetWHBySKC_StoreStockStruct").parse(promzStockStructData);			
 	
+			$$("dt_RetWHBySKU_StoreTSInfo").clearAll();
+			$$("dt_RetWHBySKUPlan").clearAll();
+			$$("dt_RetWHBySKU_StoreTSInfo").clearAll();
+			$$("dt_RetWHBySKUPlan").clearAll();
+			
 			//显示区域退货计划:退码和退款
 			$$("dt_RetWHPlan").clearAll();
 			$$("dt_RetWHPlan").showOverlay("正在加载......");
-			$$("dt_RetWHPlan").parse(billobject.getRetPlanOrder({RetTargetWHCode:regionCode}));
+			billobject.getMovSKUPlanItem({TrgPartyCode:regionCode,PlanType:"人工退货",DealState:"未处理"}).then(function(response1){
+				var skuPlanData = response1.json();
+				billobject.getMovSKCPlanItem({TrgPartyCode:regionCode,PlanType:"人工退货",DealState:"未处理"}).then(function(response2){
+					var skcPlanData = response2.json();
+				$$("dt_RetWHPlan").parse(skcPlanData.concat(skuPlanData));
+				});
+			});
 			
 			});
 	}

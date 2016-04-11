@@ -55,7 +55,7 @@ define(function(){
 						
 	var gridTree = {
 		view:"treetable",
-		id:"dt_cwhadjrec",
+		id:"dt_cwhbmrecord",
 		rowHeight:_RowHeight,
 		headerRowHeight:_HeaderRowHeight,
 		headermenu:{width:250,autoheight:false,scroll:true},
@@ -73,7 +73,7 @@ define(function(){
 			{ id:"oldtargetqty",header:"原目标库存", sort:"string",width:90},
 			{ id:"sugtargetqty",	header:"建议目标库存", sort:"string",width:90,editor:"text",css:"bgcolor1"},
 			
-			{ id:"adjustreason",	header:"调整原因", sort:"string",fillspace:1},
+			{ id:"bmreason",	header:"调整原因", sort:"string",fillspace:1},
 			{ id:"operator",header:"操作人", sort:"string",width:70}
 		],
 			on:{
@@ -90,7 +90,7 @@ define(function(){
 
 	var layout = {
 		type: "clean",
-		id: "cwhAdjRecView",
+		id: "cwhBMRecordView",
 		rows:[
 			gridTree,
 			chart

@@ -69,7 +69,7 @@ define([
 							ParentCode:selRow.partycode,
 							SKCCode:selRow.skccode};
 						$$("dt_movPlan").clearAll();
-						$$("dt_movPlan").parse(billobject.getMovSKCPlan(postData));
+						$$("dt_movPlan").parse(billobject.getMovSKCPlanItem(postData));
 						
 						//载入有此SKC的门店信息表
 						postData={ParentWHCode:selRow.partycode,
@@ -227,6 +227,12 @@ define([
 	    			obj.data.operator = _UserCode+'@'+_UserName;
 	    			obj.data.dealstate = "未处理";
 	    		});
+	    		
+	    		webix.dp.$$("dt_movPlan").attachEvent("onAfterInsert", function(response, id, object){
+			    $$("dt_movPlan").getItem(id)._identify = response;
+				$$("dt_movPlan").refresh();   
+			});
+			
 	    }
 	};
 

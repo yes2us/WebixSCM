@@ -85,7 +85,7 @@ return {
 			//显示调拨计划
 			$$("dt_dwhMovPlan").clearAll();
 			$$("dt_dwhMovPlan").showOverlay("正在加载......");
-			$$("dt_dwhMovPlan").parse(billobject.getMovSKCPlan({ParentCode:dwhcode,PlanType:"人工调拨"}));
+			$$("dt_dwhMovPlan").parse(billobject.getMovSKCPlanItem({ParentCode:dwhcode,PlanType:"人工调拨"}));
 			
 			});
 	}

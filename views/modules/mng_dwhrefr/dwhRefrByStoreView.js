@@ -240,12 +240,21 @@ define([
 	    			obj.data.operator = _UserCode+'@'+_UserName;
 	    			obj.data.dealstate = "未处理";
 	    		});
+	    		 webix.dp.$$("dt_refrplan_outskc").attachEvent("onAfterInsert", function(response, id, object){
+			    $$("dt_refrplan_outskc").getItem(id)._identify = response;
+				$$("dt_refrplan_outskc").refresh();   
+			});
+			
 			  webix.dp.$$("dt_refrplan_inskc").attachEvent('onBeforeDataSend', function(obj){
 	    			obj.data.makedate = (new Date()).toString('yyyy/MM/dd');
 	    			obj.data.plantype = "人工换款";
 	    			obj.data.operator = _UserCode+'@'+_UserName;
 	    			obj.data.dealstate = "未处理";
 	    		});
+		    	 webix.dp.$$("dt_refrplan_inskc").attachEvent("onAfterInsert", function(response, id, object){
+			    $$("dt_refrplan_inskc").getItem(id)._identify = response;
+				$$("dt_refrplan_inskc").refresh();   
+			});    		
 		}
 	};
 

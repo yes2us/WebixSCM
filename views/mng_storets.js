@@ -4,14 +4,14 @@ define([
 	"views/modules/mng_storets/storeListView",
 	"views/modules/mng_storets/storeStockStructView",	
 	"views/modules/mng_storets/storeTSView",
-	"views/modules/mng_storets/storeAdjRecView",
+	"views/modules/mng_storets/storeBMRecordView",
 	"views/modules/mng_storets/storeImpTSDataView"
 ], function(stockobject,
 	billobject,
 	storeListView,
 	storeStockStructView,
 	storeTSView,
-	storeAdjRecView,
+	storeBMRecordView,
 	storeImpTSDataView){
 
 checkauthorization(false);
@@ -28,7 +28,7 @@ var layout = {
 								options:[
 									{id: "storeStockStructView", value: "库存结构"},
 									{id: "storeTSView", value: "目标库存"},
-									{id: "storeAdjRecView", value: "缓冲调整"},
+									{id: "storeBMRecordView", value: "缓冲调整"},
 									{id: "storeImpTSDataView", value: "导入目标库存"}
 								]
 							},
@@ -36,7 +36,7 @@ var layout = {
 								cells:[
 									storeStockStructView,
 								    storeTSView,
-									storeAdjRecView,
+									storeBMRecordView,
 									storeImpTSDataView
 								]
 							}
@@ -68,10 +68,10 @@ return {
 			$$("dt_storets").parse(promzStoreTSStructData);	
 
 			//显示最近调整记录
-			var prezAdjRecData = billobject.getPartyAdjRec({WHCode:storecode,EndDate:'2016-01-01'});
-			$$("dt_storeadjrec").clearAll();
-			$$("dt_storeadjrec").showOverlay("正在加载......");
-			$$("dt_storeadjrec").parse(prezAdjRecData);
+			var promzBMData = billobject.getPartyBMRecord({WHCode:storecode,EndDate:'2016-01-01'});
+			$$("dt_storebmrecord").clearAll();
+			$$("dt_storebmrecord").showOverlay("正在加载......");
+			$$("dt_storebmrecord").parse(promzBMData);
 			
 			});
 	}

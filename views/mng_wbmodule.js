@@ -51,6 +51,7 @@ function(moduleobject,modaladd,exports){
 				updateFromResponse:true,
 				save:urlstr+"/WBCURDMng/saveModule",
 				columns:[
+						{id:"deletebutton", header:"&nbsp;",hidden:false, width:35, template:"<span  style='color:#777777; cursor:pointer;' class='webix_icon fa-trash-o'></span>"},
 					  	{id:"_identify",header:"",hidden:true,width:30},
 					    {id:"parentmoduleid",header:"父级模块ID",width:200,sort:"string",editor:"text"},
 					    	{id:"modulelevel",header:["模块级别",{content:"textFilter"}],width:100,editor:"text"},
@@ -153,11 +154,12 @@ var grid_relation ={
 		$ui: layout,
 		$oninit:function(){
 			$$("dt_wbmodule").clearAll();
-			$$("dt_wbmodule").parse(moduleobject.getModuleList());//			$$("dt_party").parse(partyobject.getSysPara());
-
+			$$("dt_wbmodule").parse(moduleobject.getModuleList());
 			
-//			webix.dp.$$("dt_party").attachEvent('onBeforeDataSend', function(obj){obj.data.DSSuffix = _DSSuffix;});
-
+			webix.dp.$$("dt_wbmodule").attachEvent("onAfterInsert", function(response, id, object){
+			    $$("dt_wbmodule").getItem(id)._identify = response;
+				$$("dt_wbmodule").refresh();   
+			}); 
 		}
 	};
 

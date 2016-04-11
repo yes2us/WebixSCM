@@ -51,7 +51,7 @@ function(userobject,modaladd,exports){
 				save:urlstr+"/WBCURDMng/saveUser",
 				updateFromResponse:true,
 				columns:[
-
+	    				{id:"_identify",header:"ID",hidden:true,width:30},
 					{id:"deletebutton", header:"&nbsp;",hidden:false, width:35, template:"<span  style='color:#777777; cursor:pointer;' class='webix_icon fa-trash-o'></span>"},
 					{id:"userenabled", header:"启用", template:"{common.checkbox()}", sort:"string",fillspace:1},
 					{id:"usercode", header:"用户编号", sort:"string",fillspace:1},
@@ -110,6 +110,7 @@ var grid_relation ={
 		resizeColumn:true,
 		editable:true,
 		select:true,
+		save:urlstr+"/WBCURDMng/saveRoleUser",
 	 columns:[
 	    	{id:"deletebutton", header:"&nbsp;",hidden:false, width:60, template:"<span  style='color:#777777; cursor:pointer;' class='webix_icon fa-trash-o'></span>"},
 	    {id:"_identify",header:"",hidden:true,width:30},
@@ -147,11 +148,17 @@ var grid_relation ={
 		$ui: layout,
 		$oninit:function(){
 			$$("dt_user").clearAll();
-			$$("dt_user").parse(userobject.getUserList());//			$$("dt_party").parse(partyobject.getSysPara());
-
+			$$("dt_user").parse(userobject.getUserList());
 			
-//			webix.dp.$$("dt_party").attachEvent('onBeforeDataSend', function(obj){obj.data.DSSuffix = _DSSuffix;});
+			webix.dp.$$("dt_user").attachEvent("onAfterInsert", function(response, id, object){
+			    $$("dt_user").getItem(id)._identify = response;
+				$$("dt_user").refresh();   
+			}); 
 
+			webix.dp.$$("dt_userrole").attachEvent("onAfterInsert", function(response, id, object){
+			    $$("dt_userrole").getItem(id)._identify = response;
+				$$("dt_userrole").refresh();   
+			}); 
 		}
 	};
 

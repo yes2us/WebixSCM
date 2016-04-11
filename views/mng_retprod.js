@@ -1,46 +1,40 @@
 define([
 	"data/stockobject",
-	"views/modules/mng_dwhret/dwhRetListView",
-	"views/modules/mng_dwhret/dwhRetBySKView",
-	"views/modules/mng_dwhret/dwhRetBySKCView",
-	"views/modules/mng_dwhret/dwhRetByStoreView",
-	"views/modules/mng_dwhret/dwhRetPlanOrderView"
+	"data/billobject",
+	"views/modules/mng_retprod/retListView",
+	"views/modules/mng_retprod/retBySKUView",
+	"views/modules/mng_retprod/retBySKCView",
+	"views/modules/mng_retprod/retPlanView"
 ], function(
 	stockobject,
-	dwhRetListView,
-	dwhRetBySKUView,
-	dwhRetBySKCView,
-	dwhRetByStoreView,
-	dwhRetPlanOrderView
+	billobject,
+	retListView,
+	retBySKUView,
+	retBySKCView,
+	retPlanView
 ){
 
 checkauthorization(false);
 
 var layout = {
-
 				type: "line",
 				cols:[
-					dwhRetListView,
+					retListView,
 					{view:"resizer",width:1},
 					{
 						rows:[
 							{view: "tabbar", multiview: true,optionWidth: 130,
 								options:[
-									{id: "dwhProdRetBySKUView", value: "产品退货-按SKU"},
-									{id: "dwhStoreRetBySKUView", value: "门店退货-按SKU"},
-									{id: "dwhRetPlanBySKUView", value: "退货计划-按SKU"},
-																				
-									{id: "dwhProdRetBySKCView", value: "产品退货-按SKC"},
-									{id: "dwhStoreRetBySKCView", value: "门店退货-按SKC"},
-									{id: "dwhRetPlanBySKCView", value: "退货计划-按SKC"},
+									{id: "retProdBySKUView", value: "按SKU退货"},
+									{id: "retProdBySKCView", value: "按款色退货"},
+									{id: "retProdPlanView", value: "退货计划"},																			
 								]
 							},
 							{
 								cells:[
-								    dwhRetBySKUView,
-								    dwhRetBySKCView,
-									dwhRetByStoreView,	
-									dwhRetPlanOrderView
+								    retBySKUView,
+								    retBySKCView,
+									retPlanView
 								]
 							}
 						]
@@ -56,29 +50,34 @@ return {
 	$ui:layout,
 	$oninit:function(){
 		
-		$$("lt_dwhs").attachEvent("onSelectChange",function(id){
+		$$("lt_RetProd_Regions").attachEvent("onSelectChange",function(id){
 			if(id==1 || !this.getItem(id)) return;	
 			
-			var dwhcode = this.getItem(id).id;
-			var promzTSData = stockobject.getFGWarehouseTSInfo(dwhcode);
-			var promzStockStructData = stockobject.getPartyIndex({ParentCode:dwhcode,RelationType:"退货关系"});
+			var regionCode = this.getItem(id).id;
 
-			//显示分仓skc
-			$$("dt_dwhskc").clearAll();
-			$$("dt_dwhskc").showOverlay("正在加载......");
-			$$("dt_dwhskc").parse(promzTSData);
+			//显示分仓sku
+			$$("dt_RetProdBySKU_DWHSKU").clearAll();
+			$$("dt_RetProdBySKU_DWHSKU").showOverlay("正在加载......");
+			$$("dt_RetProdBySKU_DWHSKU").parse(stockobject.getFGWarehouseTSInfo(regionCode));
 			
-			//显示门店库存结构
-			dwhRetByStoreView.setRetTargetWH(dwhcode);
-			$$("dt_storestockstruct").clearAll();
-			$$("dt_storestockstruct").showOverlay("正在加载......");
-			$$("dt_storestockstruct").parse(promzStockStructData);
+			//显示分仓skc
+			$$("dt_RetProdBySKC_DWHSKC").clearAll();
+			$$("dt_RetProdBySKC_DWHSKC").showOverlay("正在加载......");
+			$$("dt_RetProdBySKC_DWHSKC").parse(stockobject.getWHSKCInfo({WHCode:regionCode}));
+			
 			
 	
 			//显示区域退货计划:退码和退款
-			$$("dt_dwhRetPlanOrder").clearAll();
-			$$("dt_dwhRetPlanOrder").showOverlay("正在加载......");
-			$$("dt_dwhRetPlanOrder").parse(stockobject.getRetPlanOrder({RetTargetWHCode:dwhcode}));
+			$$("dt_RetProdPlan").clearAll();
+			$$("dt_RetProdPlan").showOverlay("正在加载......");
+//			$$("dt_RetProdPlan").parse(billobject.getMovSKUPlanItem({TrgPartyCode:regionCode,PlanType:"人工退货",DealState:"未处理"}));
+			billobject.getMovSKUPlanItem({TrgPartyCode:regionCode,PlanType:"人工退货",DealState:"未处理"}).then(function(response1){
+				var skuPlanData = response1.json();
+				billobject.getMovSKCPlanItem({TrgPartyCode:regionCode,PlanType:"人工退货",DealState:"未处理"}).then(function(response2){
+					var skcPlanData = response2.json();
+				$$("dt_RetProdPlan").parse(skcPlanData.concat(skuPlanData));
+				});
+			});
 			
 			});
 	}

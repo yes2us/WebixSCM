@@ -2,7 +2,7 @@ define(function(){
 
 	var gridTree = {
 		view:"treetable",
-		id:"dt_storeadjrec",
+		id:"dt_storebmrecord",
 		headerRowHeight:_HeaderRowHeight,
 		rowHeight:_RowHeight,
 		headermenu:{
@@ -20,7 +20,7 @@ define(function(){
 			{ id:"oldtargetqty",	header:"原目标库存", sort:"string",fillspace:1},
 			{ id:"sugtargetqty",	header:"建议目标库存", sort:"string",fillspace:1},
 			
-			{ id:"adjustreason",	header:"调整原因", sort:"string",fillspace:3},
+			{ id:"bmreason",	header:"调整原因", sort:"string",fillspace:3},
 			{ id:"operator",	header:"操作人", sort:"string",fillspace:1}
 		],
 		on:{onAfterLoad:function(){this.hideOverlay();  if(!this.count()) this.showOverlay("没有可以加载的数据");}}
@@ -28,7 +28,7 @@ define(function(){
 
 	var layout = {
 		type: "clean",
-		id: "storeAdjRecView",
+		id: "storeBMRecordView",
 		cols:[
 			gridTree,
 		]

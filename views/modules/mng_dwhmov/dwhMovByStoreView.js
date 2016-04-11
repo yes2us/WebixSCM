@@ -92,7 +92,7 @@ define([
 							DealState:"未处理",
 							SrcPartyCode:selRow.partycode};
 						$$("dt_movPlan2").clearAll();
-						$$("dt_movPlan2").parse(billobject.getMovSKCPlan(postData));
+						$$("dt_movPlan2").parse(billobject.getMovSKCPlanItem(postData));
 
 
 						//载入一个门店的SKC信息
@@ -229,6 +229,11 @@ define([
 	    			obj.data.operator = _UserCode+'@'+_UserName;
 	    			obj.data.dealstate = "未处理";
 	    		});
+	    		
+	    	 webix.dp.$$("dt_movPlan2").attachEvent("onAfterInsert", function(response, id, object){
+			    $$("dt_movPlan2").getItem(id)._identify = response;
+				$$("dt_movPlan2").refresh();   
+			});
 	    }
 	};
 

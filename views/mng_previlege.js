@@ -165,12 +165,11 @@ var grid_rolepreviledge ={
 			moduleobject.getModuleList().then(function(response){
 				moduleList = response.json();
 			});
-//			
-//			$$("tt_module").clearAll();
-//			$$("tt_module").parse(moduleobject.getModuleList());
-			//			$$("dt_party").parse(partyobject.getSysPara());
-//			webix.dp.$$("dt_party").attachEvent('onBeforeDataSend', function(obj){obj.data.DSSuffix = _DSSuffix;});
-
+			
+			webix.dp.$$("dt_roleprevilege").attachEvent("onAfterInsert", function(response, id, object){
+			    $$("dt_roleprevilege").getItem(id)._identify = response;
+				$$("dt_roleprevilege").refresh();   
+			}); 
 		}
 	};
 

@@ -6,20 +6,26 @@ function(billobject){
 
     var regioncode = null;
     var startdate,enddate;
-    var ordertype="Rep";
+    var plantype="补货";
     
-    function loadData(_postData){
-    		_postData.OrderType = ordertype;
-    		_postData.WHType="门店";
-
-		$$("dt_repretorder").clearAll();
+    function loadData(){
+    		$$("dt_repretorder").clearAll();
 		$$("dt_repretorderitem").clearAll();
-		var prezRepRetData = billobject.getRepRetOrder(_postData);
-		$$("dt_repretorder").parse(prezRepRetData);
+		$$("dt_repretorder").showOverlay("正在加载......");
+					
+		var _postData={};
+		_postData.PlanType = plantype;
+		if(plantype=='补货')  _postData.SrcPartyCode  =regioncode;
+		if(plantype=='退货')  _postData.TrgPartyCode  =regioncode;
+
+		if(startdate) _postData.StartDate = startdate;
+		if(enddate) _postData.EndDate = enddate;
+					                  	
+		$$("dt_repretorder").parse(billobject.getMovSKUPlan(_postData));
     };
     
 	return {
-		getOrderType:function(){return ordertype;},
+		getPlanType:function(){return plantype;},
 		$ui:{
 			width:_ListWidth,
 			type: "line",
@@ -31,59 +37,34 @@ function(billobject){
                 view:"toolbar",
                 elements:[
 					{rows:[
-								 { view:"segmented", value:"Rep", label:"",inputWidth:_ListWidth-10, 
+								 { view:"segmented", value:"补货", label:"",inputWidth:_ListWidth-10, 
 										options:[
-											{ id:"Rep", value:"补货单"},
-											{ id:"Ret", value:"退货单"}],
+											{ id:"补货", value:"补货"},
+											{ id:"退货", value:"退货"}],
 											click:function(){
-												ordertype = this.getValue();
-											var postData = 
-											{
-												RegionCode:regioncode,
-											}
-											
-					                  	if(startdate) postData.StartDate = startdate;
-					                  	if(enddate) postData.EndDate = enddate;
-					                	     loadData(postData);
+												plantype = this.getValue();										
+					                	     		loadData();
 									 }
 									},
 								{view: "combo",label: "选择区域",//css:"fltr",
 									options:urlstr+'/WBPartyMng/getRegionList',
 									on:{
 										onChange:function(newregioncode, oldregioncode){
-											if(newregioncode!=oldregioncode)
-											{
-												regioncode = newregioncode;
-											}
-											var postData = 
-											{
-												RegionCode:regioncode,
-											}
-											
-					                  	if(startdate) postData.StartDate = startdate;
-					                  	if(enddate) postData.EndDate = enddate;
-					                	     loadData(postData);
+											if(newregioncode!=oldregioncode) regioncode = newregioncode;
+					                	     	loadData();
 										}
 									}},					                
 					                	{view:"datepicker", id:"startdate_input",label:"开始日期",
 					                  on:{onChange:function(newdate,olddate){
 					                  	startdate = newdate;
-					      
-					                  	var postData={RegionCode:regioncode};
-					                  	if(startdate) postData.StartDate = startdate;
-					                  	if(enddate) postData.EndDate = enddate;
-					                	     loadData(postData);
+					                	     loadData();
 					                  }
 					                  }},
 					             
 					             	{view:"datepicker", id:"enddate_input",label:"结束日期",
 					                  on:{onChange:function(newdate,olddate){
 											enddate = newdate;
-											
-											var postData={RegionCode:regioncode};
-						                  	if(startdate) postData.StartDate = startdate;
-						                  	if(enddate) postData.EndDate = enddate;
-						                  	loadData(postData);
+						                  	loadData();
 					                  }
 					                  }},
 					                  
