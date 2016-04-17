@@ -58,7 +58,7 @@ function(moduleobject,modaladd,exports){
 					    {id:"moduleid",header:"模块ID",width:200,editor:"text"},
 					    {id:"modulename",header:"模块名称",width:100,editor:"text"},
 					    {id:"moduleicon",header:"模块图标",width:150,editor:"text"},
-					    	{id:"moduedesc",header:"模块描述",fillspace:1,editor:"text"},
+					    	{id:"moduledesc",header:"模块描述",fillspace:1,editor:"text"},
 				],
 				on: {
 					onSelectChange:function(){
@@ -142,7 +142,7 @@ var grid_relation ={
 		rows:[
 			titleBar,
 			grid_wbmodule,
-			pager,
+//			pager,
 			{view:"resizer"},
 			grid_relation
 		]

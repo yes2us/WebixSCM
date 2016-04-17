@@ -56,12 +56,11 @@ function(prodobject){
 					{ id:"maintypename",header:["大类 ",{content:"selectFilter"}], sort:"string",width:60},
 					{ id:"subtypename",header:["小类 ",{content:"selectFilter"}],width:60},
 					
-					{ id:"saletotal",header:[{text:"销量",colspan:6},"总销量"],sort:"int",width:70},
+					{ id:"saletotal",header:[{text:"销量",colspan:5},"总销量"],sort:"int",width:70},
 					{ id:"sale14days",header:[null,"14天销量"],sort:"int",width:85},
 					{ id:"sale7days",header:[null,"7天销量"],sort:"int",width:85},
 					{ id:"saleyesterday",header:[null,"昨天销量"],sort:"int",width:85},
 					{ id:"saledailytdd",header:[null,"日均TDD"],sort:"int",width:85},
-					{ id:"salediscount",header:[null,"折扣"],sort:"int",width:60,format:function(value){return parseInt(100*value)+"%";}},
 					
 					{ id:"salenumeverin",header:[{text:"门店铺货",colspan:4},"曾铺店"],sort:"int",width:70},
 					{ id:"storenumcurin",header:[null,"现铺数"],sort:"int",width:70},
@@ -79,7 +78,9 @@ function(prodobject){
 					{ id:"stockinrgnqty",header:[null,"区域库存"],sort:"int",width:85},
 					{ id:"stockincwhqty",header:[null,"总仓库存"],sort:"int",width:85},
 					
-					{ id:"stadayofinventory",header:[{text:"分析数据",colspan:7},"库存天数"],sort:"int",width:85},
+					{ id:"stadayofinventory",header:[{text:"分析数据",colspan:9},"库存天数"],sort:"int",width:85},
+					{ id:"salediscount",header:[null,"总折扣"],sort:"int",width:70,format:function(value){return parseInt(100*value)+"%";}},
+					{ id:"sale14daydiscount",header:[null,"14天折扣"],sort:"int",width:85,format:function(value){return parseInt(100*value)+"%";}},
 					{ id:"stastoressellper",header:[null,"动销率"],sort:"int",width:70,format:function(value){return parseInt(100*value)+"%";}},
 					{ id:"stastorescoverper",header:[null,"铺货率"],sort:"int",width:70,format:function(value){return parseInt(100*value)+"%";}},
 					{ id:"stasellcompleteper",header:[null,"售罄率"],sort:"int",width:70,format:function(value){return parseInt(100*value)+"%";}},	

@@ -2,16 +2,17 @@ define([], function() {
 	var impObject = new Object();
 	
 		
-	impObject.getImportData = function(PageIndex,PageLen) {
-		return webix.ajax().post(urlstr+"/WBUpLoadFile/getImportData",{DSSuffix:_DSSuffix,PageIndex:PageIndex,PageLen:PageLen});
+	impObject.getImportData = function(TargetTable,PageIndex,PageLen) {
+		return webix.ajax().post(urlstr+"/WBUpLoadFile/getImportData",
+		{TargetTable:TargetTable,Page:PageIndex+","+PageLen});
 	}
 
-	impObject.clearImportData = function() {
-		return webix.ajax().post(urlstr+"/WBUpLoadFile/clearImportData",{DSSuffix:_DSSuffix});
+	impObject.clearImportData = function(TargetTable) {
+		return webix.ajax().post(urlstr+"/WBUpLoadFile/clearImportData",{TargetTable:TargetTable});
 	}
 	
-	impObject.saveImportData = function() {
-		return webix.ajax().post(urlstr+"/WBUpLoadFile/saveImportData",{DSSuffix:_DSSuffix});
+	impObject.saveImportData = function(TargetTable) {
+		return webix.ajax().post(urlstr+"/WBUpLoadFile/saveImportData",{TargetTable:TargetTable});
 	}
 		
 	return impObject;

@@ -3,11 +3,12 @@ define([
 	"views/menus/sysmenu"
 ],function(profile, menu){
 	
-		var _UserObject = webix.storage.local.get('UserObject');
-		if(_UserObject)
-		{_UserObject = JSON.parse(_UserObject);
-		_UserCode = _UserObject['MyBasic'][0]['usercode'];
-		_UserName = _UserObject['MyBasic'][0]['usertruename'];
+		var __UserObject = webix.storage.local.get('UserObject');
+		if(__UserObject)
+		{
+			_UserObject = JSON.parse(__UserObject);
+			_UserCode = _UserObject['MyBasic'][0]['usercode'];
+			_UserName = _UserObject['MyBasic'][0]['usertruename'];
 		}
 		
 	//Top toolbar
@@ -16,15 +17,22 @@ define([
 		maxHeight:40,
 		elements:[
 //			{view: "label", label: "<a href='#'><img  src='assets/imgs/logo.png' height='30' /></a>", width: 150},
-//			{},
-			{ height:30, id: "person_template", css: "header_person", borderless:true, width: 130, data: {id:3,name: _UserName},
+//			
+			{view: "button", type: "icon", icon: "bars",
+						width: 37, align: "left", css: "app_button", click: function(){
+							$$("sysmenu").toggle()
+						}
+			},
+			{},
+			{  id: "person_template", css: "header_person", borderless:true, data: {id:3,name: _UserName},
 				template: function(obj){
 					var html = 	"<div style='height:70%;width:70%;' onclick='webix.$$(\"profilePopup\").show(this)'>";
 					html += "<img class='photo' src='assets/imgs/photos/"+obj.id+".png' /><span class='name'>"+obj.name+"</span>";
 					html += "<span class='webix_icon fa-angle-down'></span></div>";
 					return html;
 				}
-			}
+		},
+
 		]
 	};
 

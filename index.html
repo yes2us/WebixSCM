@@ -6,66 +6,27 @@
 		<title></title>
 
 		<script type="text/javascript" src="codebase/webix.js"></script>
-		<script type="text/javascript" src="codebase/string.js"></script>
-		<script type="text/javascript" src="codebase/date.js"></script>
+		<script type="text/javascript" src="utility/string.js"></script>
+		<script type="text/javascript" src="utility/date.js"></script>
+		<script type="text/javascript"  src="utility/sidebar.js"></script>
+		<script type="text/javascript"  src="utility/declare.js"></script>
 		<script type="text/javascript"  src="views/checkauthorization.js"></script>
+		<script type="text/javascript" data-main="app" src="libs/require.js"></script>
+		<script type="text/javascript" src="libs/less.min.js"></script>
 				
 		<link rel="stylesheet" href="codebase/webix.css">
+		<link rel="stylesheet" href="utility/sidebar.css">
+		<link rel="stylesheet" href="utility/mycss.css">
 		<link rel="stylesheet/less" href="assets/theme.siberia.less">
-<style type="text/css">
-		.info{
-			width:40px;
-			text-align: center;
-			font-weight:bold;
-			float:right;
-			background-color:#444;
-			color:white;
-			border-radius:3px;
-		}
-	.fltr{
-        background-color: transparent;
-    	}
-    	.bgcolor1{
-			background-color:#DDFFDD;
-		}
-	.bgcolor2{
-			background-color:#DDDDFF;
-		}
-	.bgcolor3{
-			background-color:#EF6EEA;
-		}
-	.right{text-align:right;}
-	.center{text-align:center;}
-</style>		
-		<!-- The app's logic -->
-		<script type="text/javascript" data-main="app" src="libs/require.js"></script>
-		
-		<script type="text/javascript">
-		var urlstr;
-		var homestr;
-		var localhost;
-		var isDebug = false;
-		
-		var _UserCode;
-		var _UserName;
-		var _BelongDeptCode;
-		var _RawUserCode;
-		var _DSSuffix;
-		var _RowHeight = 20;
-		var _HeaderRowHeight = 20;
-		var _ListWidth=200;
-		
-			require.config({
-				paths: {
-					text: "libs/text"
-				}
-			});
-			//checkauthorization();
 
+	
+		<!-- The app's logic -->
+		<script type="text/javascript">
+		require.config({paths: {text: "libs/text"}});
 		</script>
 
 		<!-- Development only -->
-		<script type="text/javascript" src="libs/less.min.js"></script>
+
 	</head>
 
 	<body></body>

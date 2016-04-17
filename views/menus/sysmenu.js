@@ -14,13 +14,14 @@ define(["data/moduleobject"],function(moduleobject){
 			}
 		},
 		$ui:{
-			width: 130,
+			maxWidth: 70,
 //			rows:[
 //				{
-					view: "tree",
+//					view: "tree",
+					view:"sidebar",
 					id: "sysmenu",
-					type: "menuTree2",
-					css: "menu",
+//					type: "menuTree2",
+//					css: "menu",
 					activeTitle: true,
 					select: true,
 					tooltip: {
@@ -31,7 +32,7 @@ define(["data/moduleobject"],function(moduleobject){
 					on:{
 						onBeforeSelect:function(id){
 							if(this.getItem(id).$count){
-								debugger;
+//								debugger;
 								return false;
 							}
 							

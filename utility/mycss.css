@@ -1,0 +1,51 @@
+.info{
+			width:40px;
+			text-align: center;
+			font-weight:bold;
+			float:right;
+			background-color:#444;
+			color:white;
+			border-radius:3px;
+		}
+	.fltr{
+        background-color: transparent;
+    	}
+    	.bgcolor1{
+			background-color:#DDFFDD;
+		}
+	.bgcolor2{
+			background-color:#DDDDFF;
+		}
+	.bgcolor3{
+			background-color:#EF6EEA;
+		}
+	.right{text-align:right;}
+	.center{text-align:center;}
+	.app_button button{
+			padding:0;
+			text-align: center;
+		}
+		.header_person{
+	background: transparent !important;
+}
+.header_person .webix_template{
+	padding: 0;
+	line-height: 46px;
+}
+.header_person .photo{
+	width: 38px;
+	height: 38px;
+	float: left;
+	margin-top: 5px;
+	-moz-border-radius: 50%;
+	-ms-border-radius: 50%;
+	border-radius: 50%;
+}
+.header_person span{
+	color: #fff;
+	float: left;
+	padding-left: 7px;
+}
+.header_person .webix_icon{
+	line-height: inherit;
+}
