@@ -39,6 +39,7 @@ define([
 		resizeColumn:true,
 		leftSplit:2,
 		select: true,
+		navigation:true,
 		columns:[
 //			{ id:"_identify",header:"#",width:35,hidden:true},
 			{ id:"partycode",header:"#",width:35,hidden:true},
@@ -114,6 +115,8 @@ define([
 		resizeColumn:true,
 		leftSplit:4,
 		editable:true,
+		select:true,
+		navigation:true,
 		rules:{"targetqty":webix.rules.isNumber,"operatemov":webix.rules.isNumber},
 		columns:[
 			{ id:"_identify",header:"#",width:35,hidden:true},
@@ -148,6 +151,8 @@ define([
 		resizeColumn:true,
 		leftSplit:2,
 		editable:true,
+		select:true,
+		navigation:true,
 		save:urlstr+"/WBCURDMng/saveMovSKCPlan",
 		columns:[
 			{ id:"_identify",header:"#",width:35,hidden:true},

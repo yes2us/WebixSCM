@@ -52,6 +52,7 @@ var grid;
 				resizeColumn:true,
 				leftSplit:3,
 				editable:true,
+				navigation:true,
 				select:"row",
 				updateFromResponse:true,
 				save:urlstr+"/WBCURDMng/saveParameter/DSSuffix/"+_DSSuffix,

@@ -14,6 +14,7 @@ function(){
 					view: "list",
 					id: "lt_cwhs",
 					select: true,
+					navigation:true,
 				    template:"#id# - #value#",
 				    url:urlstr+'/WBPartyMng/getCWHList',
 					scheme:{

@@ -49,6 +49,7 @@ function(prodobject){
 				leftSplit:2,
 				editable:true,
 				select:"row",
+				navigation:true,
 				columns:[
 					{ id:"skccode",	header:"款色", sort:"string",width:100,css:'bgcolor2'},
 					{ id:"yearname",	header:["年份 ",{content:"selectFilter"}], sort:"string",width:60,css:'bgcolor2'},
@@ -119,6 +120,7 @@ function(prodobject){
 				headermenu:{width:250,autoheight:false,scroll:true},
 				editable:false,
 				select:true,
+				navigation:true,
 				leftSplit:1,
 				columns:[
 								{ id:"regionname",header:"区域",sort:"name",width:150,css:'bgcolor2'},

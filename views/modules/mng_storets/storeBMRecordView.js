@@ -12,6 +12,7 @@ define(function(){
 		},
 		leftSplit:1,
 		resizeColumn:true,
+		navigation:true,
 		select: true,
 		columns:[
 			{ id:"skucode",	header:"SKU", sort:"string",fillspace:2},

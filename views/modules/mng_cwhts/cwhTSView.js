@@ -10,6 +10,7 @@ define(function(){
 		resizeColumn:true,
 		leftSplit:2,
 		select: true,
+		navigation:true,
 		save:urlstr+"/WBCURDMng/saveStock",
 		columns:[
 			{ id:"_identify",header:"#",width:35,hidden:true},

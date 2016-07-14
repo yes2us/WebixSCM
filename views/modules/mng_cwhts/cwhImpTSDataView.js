@@ -23,7 +23,7 @@ checkauthorization(false);
 				  	label:"上传Excel",
 				  	link:"tsdata",
 				  	width:120,
-				  	upload:urlstr+"/WBUpLoadFile/importExcel2DB"
+				  	upload:urlstr+"/WBUpLoadFile/importExcel2DB/TargetTable/importstock"
 				 },
 			{view:"list",  id:"tsdata", type:"uploader",	autoheight:true, borderless:true,width:200},
 
@@ -34,7 +34,7 @@ checkauthorization(false);
 				 if(PageIndex<1) PageIndex = 1;
 				 
 				 $$("dt_cwh_loadedData").clearAll();
-				 $$("dt_cwh_loadedData").parse(impobject.getImportData(PageIndex,$$('pagelen').getValue()));
+				 $$("dt_cwh_loadedData").parse(impobject.getImportData("importstock",PageIndex,$$('pagelen').getValue()));
 			}},
 			{ view: "button", type: "iconButton", icon: "arrow-circle-right", label: "下一页", width: 100,
 			click: function(){
@@ -42,7 +42,7 @@ checkauthorization(false);
 				 if(PageIndex<1) PageIndex = 1;
 				 
 				 $$("dt_cwh_loadedData").clearAll();
-				 $$("dt_cwh_loadedData").parse(impobject.getImportData(PageIndex,$$('pagelen').getValue()));		 
+				 $$("dt_cwh_loadedData").parse(impobject.getImportData("importstock",PageIndex,$$('pagelen').getValue()));		 
 			}},
 			{},
 			{},
@@ -54,7 +54,7 @@ checkauthorization(false);
 			}},
 			{ view: "button", type: "iconButton", icon: "save", label: "保存", width: 70,
 				click: function(){
-				 impobject.saveImportData();
+				 impobject.saveImportData("importstock");
 				 webix.message("保存成功！");
 			}},
 		]
@@ -72,6 +72,7 @@ checkauthorization(false);
 				resizeColumn:true,
 				leftSplit:4,
 				select:true,
+				navigation:true,
 				columns:[					
 				    	{id:"checked", header:"#",fillspace:0.5,template:"{common.checkbox()}"},
 					{id:"partycode", header:"仓库编号", sort:"string", fillspace:1},
@@ -131,7 +132,7 @@ checkauthorization(false);
     			$$("dt_cwh_loadedData").showOverlay("正在载入导入的前200条数据...");
 			});
 			$$("dt_cwh_loadedData").clearAll();
-			$$("dt_cwh_loadedData").parse(impobject.getImportData(1,200));
+			$$("dt_cwh_loadedData").parse(impobject.getImportData("importstock",1,200));
 		}
 	};
 

@@ -16,6 +16,8 @@ define([
 		headermenu:{width:250,autoheight:false,scroll:true},
 		resizeColumn:true,
 		leftSplit:2,
+		select:true,
+		navigation:true,
 		columns:[
 				     { id:"partycode",name:"partycode",	header:["门店编号",{content:"textFilter"}],css:"bgcolor2", width:85},
 				    { id:"partyname",name:"partyname",	header:"门店", css:"bgcolor2", width:100},
@@ -31,7 +33,6 @@ define([
 					{ id:"stockoverinstores",name:"stockoverinstores",header:[null,"超额库存"] ,width:85},
 					{ id:"stockdeadqty",name:"stockdeadqty",header:[null,"死货库存"] ,width:85}
 		],
-		select: true,
 		on:{
 			onAfterLoad:function(){this.hideOverlay();  if(!this.count()) this.showOverlay("没有可以加载的数据");},
 			onSelectChange:function(){
@@ -78,7 +79,7 @@ define([
 			{ id:"subtypename",	header:"小类", sort:"string",width:100},
 			
 			{ id:"saletype",	header:"销售分类", sort:"string",width:85},
-			{ id:"isdeadskc",	header:"死货", sort:"int",width:70},
+			{ id:"isdeadproduct",	header:"死货", sort:"int",width:70},
 			{ id:"targetqty",	header:"目标库存",sort:"int", width:85,editor:"text",invalidMessage:"必须输入数字",css:'bgcolor1'},
 			{ id:"stockqty",	header:"实际库存",sort:"int", width:85},
 			{ id:"sugretqty",	header:"超额库存",sort:"int",width:85,template:function(obj){return (obj.stockqty>obj.targetqty)? obj.stockqty-obj.targetqty:0;}},

@@ -12,6 +12,7 @@ define([
 		headerRowHeight:_HeaderRowHeight,
 		headermenu:{width:250,autoheight:false,scroll:true},
 		select: true,
+		navigation:true,
 		resizeColumn:true,
 		leftSplit:3,
 		columns:[

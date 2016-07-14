@@ -8,6 +8,7 @@ define(function(){
 		headermenu:{width:250,autoheight:false,scroll:true},
 		resizeColumn:true,
 		editable:true,
+		navigation:true,
 		leftSplit:2,
 		save:urlstr+"/WBCURDMng/saveStock",
 		columns:[

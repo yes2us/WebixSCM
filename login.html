@@ -4,22 +4,15 @@
 		<meta charset="utf-8">
 		<link rel="stylesheet" href="codebase/webix.css" type="text/css" media="screen" charset="utf-8">
 		<script src="codebase/webix.js" type="text/javascript" charset="utf-8"></script>
+		<script src="utility/declare.js" type="text/javascript" charset="utf-8"></script>
 		<title>登陆</title>
 	</head>
 	<body>
 
 	
 		<script type="text/javascript" charset="utf-8">
-			
-		   var _RawUserCode = webix.storage.local.get('_RawUserCode');
-		   var _UserCode = webix.storage.local.get('_UserCode');
-		   var _PWD = webix.storage.local.get('_PWD');
-		   var _LastLoginTime = webix.storage.local.get('_LastLoginTime');
-		   var dayGap = (new Date()-new Date(_LastLoginTime))/1000/3600/24;
-		   var urlstr = "http://"+window.location.host+"/SCMAdmin/index.php/Home";
 
-
-		   
+	   
 		var form1 = [
 			{ view: "text", label: '帐号', name: "usercode",id:"usercode",required:true},
 		    { view: "text", label: '密码',type:"password", name: "password" ,id:"password",required:true},
@@ -57,23 +50,15 @@
 				return;
 			}
 			
- 			_RawUserCode = $$("usercode").getValue();
+ 			_UserCode = $$("usercode").getValue().toLowerCase();
 			_PWD = $$("password").getValue();
 			
-
-			_UserCode = _RawUserCode.substring(0, _RawUserCode.indexOf('@', 0));
-			_UserCode = _UserCode.toLowerCase();
 			
 			checkUser(_UserCode,_PWD);	
   	}
   		
   		function checkUser(_UserCode,_PWD)
   		{
-  			webix.ajax().post(urlstr+"/WBUserMng/getRawUrl", {},
-  			function(text, xml,xhr) {
-  							
-				if (text) {
-
 					webix.ajax().post(urlstr + "/WBUserMng/checkUserPWD", {UserCode: _UserCode,PWD: _PWD},
 						function(text1, xml1,xhr1) {
 							if (text1.indexOf("OK")>0) {
@@ -98,24 +83,17 @@
 									function(response) {			
 										webix.message('登陆成功');
 					   					webix.storage.local.put('UserObject',response.text()); 
-					   					window.location.href= "http://"+window.location.host+"/WebixSCM/index.html#!/app/mng_storets";
+					   					
+					   					console.log(homestr+"/index.html#!/app/mng_storets");
+					   					window.location.href= homestr+"/index.html#!/app/mng_storets";
 									});
  								
 							} else {
 								webix.message('帐号或密码错误');
 							}
 						});
-
-				}
-			});
   		}
-  		
-  		  function loadWBMenu(_UserCode)
-  		  {
-  //		  	 var premizObj = webix.ajax().post(urlstr+"/WBParaMng/getWBMenu",{DSSuffix:_DSSuffix,UserCode:_UserCode});
-//		  	  $$("app:menu").clearAll();
-//			  $$("app:menu").parse(premizObj);
-  		  }
+
   		  
 
 			

@@ -15,6 +15,7 @@ define([
 		resizeColumn:true,
 		leftSplit:1,
 		select: true,
+		navigation:true,
 		columns:[
 //			{ id:"_identify",header:"#",width:35,hidden:true},
 			{ id:"skccode",header:["款色",{content:"textFilter"}], sort:"string",width:100,css:'bgcolor2'},
@@ -66,6 +67,7 @@ define([
 		headerRowHeight:_HeaderRowHeight,
 		headermenu:{width:250,autoheight:false,scroll:true},
 		select:true,
+		navigation:true,
 		editable:true,
 		save:urlstr+"/WBCURDMng/saveMovSKCPlan",
 		columns:[
@@ -100,6 +102,7 @@ define([
 		headermenu:{width:250,autoheight:false,scroll:true},
 		editable:true,
 		select:true,
+		navigation:true,
 		leftSplit:4,
 		rules:{"targetqty":webix.rules.isNumber,"operatemov":webix.rules.isNumber},
 		columns:[

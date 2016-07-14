@@ -25,8 +25,9 @@ function(stockobject){
 							regioncode = newv;
 							webix.ajax().post(urlstr+"/WBPartyMng/getRelPartyList",{RegionCode:newv},function(response){
 								   if(response){
+								   	response = response.json();
 									var optionarray = [{id:'all',value:"所有"}];
-									JSON.parse(response).forEach(function(item){
+									response.forEach(function(item){
 										optionarray.push({id:item.partycode,value:item.partyname});
 									});
 									
@@ -42,11 +43,17 @@ function(stockobject){
 			    { view: "button", type: "iconButton", icon: "search", label: "查询", width: 70, 
 				    click: function(){
 				    	var values =this.getParentView().getValues();
-//				    	console.log(JSON.stringify(values));
-				    	   var postData = {ParentCode:regioncode,FieldStr:null};
+				    	   var postData = {};
 						if(values.storecode && values.storecode != 'all')
 						{
 							postData.StoreCode=values.storecode;
+						}
+						else
+						{
+							if(regioncode && regioncode != 'all')
+							{
+								postData.ParentCode=regioncode;
+							}
 						}
 						$$("dt_storeindicator").clearAll();
 						$$("dt_storeindicator").parse(stockobject.getPartyIndex(postData));
@@ -69,6 +76,7 @@ function(stockobject){
 				resizeColumn:true,
 				editable:false,
 				select:true,
+				navigation:true,
 				leftSplit:3,
 				export: true,
 				columns:[

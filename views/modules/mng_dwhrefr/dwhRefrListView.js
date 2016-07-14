@@ -51,6 +51,7 @@ function(partyobject){
 					view: "list",
 					id: "lt_refrstores",
 					select: true,
+					navigation:true,
 				    template:"#partycode# - #partyname#",
 					scheme:{
 					$init:function(obj){

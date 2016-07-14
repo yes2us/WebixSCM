@@ -9,6 +9,7 @@ define(function(){
 		resizeColumn:true,
 		leftSplit:3,
 		select: true,
+		navigation:true,
 		columns:[
 			{ id:"_identify",header:"#",width:35,hidden:true},
 			{ id:"skucode",	header:"SKU", sort:"string",fillspace:2},

@@ -11,8 +11,6 @@ define([
 ], function(core, menu, locale, theme, tracker){
 
 
-	//webix.codebase = "libs/webix/";
-	//CKEditor requires full path
 	webix.codebase = document.location.href.split("#")[0].replace("index.html","")+"libs/webix/";
 
 	if(!webix.env.touch && webix.ui.scrollSize && webix.CustomScroll)
@@ -84,14 +82,6 @@ webix.i18n.locales["zh-CN"]={   //"es-ES" - the locale name, the same as the fil
 webix.i18n.setLocale("zh-CN");
 
 	
-       urlstr = "http://"+window.location.host+"/SCMAdmin/index.php/Home";
-//	urlstr = "http://bmte.cn/POAAdmin/index.php/Home";
-
-    
-	homestr = "http://"+window.location.host+"/WebixSCM";
-//	homestr = "http://"+window.location.host;
-	
-	localhost = "http://"+window.location.host;
 
 	
 	return app;

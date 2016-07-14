@@ -18,5 +18,16 @@ define([], function() {
      prodObject.getSKCIndexItem = function(postData){
      	return webix.ajax().post(urlstr+"/WBProdMng/getSKCIndexItem",postData);
      }
+     
+     	prodObject.getSugSKUProdPlan = function(postData){
+		postData.UserCode = _UserCode;
+		return webix.ajax().post(urlstr+"/WBProdMng/getSugSKUProdPlan",postData);
+	}
+
+	prodObject.getSugSKCProdPlan = function(postData){
+		postData.UserCode = _UserCode;
+		return webix.ajax().post(urlstr+"/WBProdMng/getSugSKCProdPlan",postData);
+	}
+	
 	return prodObject;
 });

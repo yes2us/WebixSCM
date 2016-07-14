@@ -22,6 +22,7 @@ function(billobject,repretconditionview){
 				resizeColumn:true,
 				editable:true,
 				select:true,
+				navigation:true,
 				leftSplit:3,
 				columns:[
 					{ id:"srcpartycode",	header:["出货仓库编号 ",{content:"textFilter"}], sort:"string",width:100},
@@ -68,6 +69,7 @@ function(billobject,repretconditionview){
 				resizeColumn:true,
 				editable:true,
 				select:true,
+				navigation:true,
 				leftSplit:1,
 				export: true,
 				columns:[

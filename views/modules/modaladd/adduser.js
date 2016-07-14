@@ -3,7 +3,7 @@ define(function(){
 	return {
 		$ui:{
 			view:"window", modal:true, id:"modaladd-user", position:"center",
-			head:"增加仓库",
+			head:"增加用户",
 			body:{
 				view:"form", 
 				id:"user-form",
@@ -22,7 +22,7 @@ define(function(){
 								
 								if(!this.getFormView().validate()) {webix.message("请填充带红色*的内容");return;}
 								
-								$$("dt_party").add(this.getFormView().getValues());
+								$$("dt_user").add(this.getFormView().getValues());
 								webix.message('保存成功!');
 //								var values = this.getFormView().getValues();
 //								values.webix_operation = 'insert';

@@ -48,6 +48,7 @@ function(partyobject,modaladd,exports){
 				resizeColumn:true,
 				leftSplit:4,
 				editable:true,
+				navigation:true,
 				select:"row",
 				updateFromResponse:true,
 				save:urlstr+"/WBCURDMng/saveParty",

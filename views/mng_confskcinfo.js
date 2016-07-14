@@ -53,6 +53,7 @@ function(prodobject){
 				editable:true,
 				resizeColumn:true,
 				select:true,
+				navigation:true,
 				leftSplit:5,
 				columns:[
 					{ id:"_identify",header:"#", hidden:true},
@@ -61,7 +62,7 @@ function(prodobject){
 					{ id:"isstopanalyze",header:"停析", sort:"int",width:60,template:"{common.checkbox()}",css:"bgcolor1"},
 					{ id:"skccode",header:"款色", sort:"string",width:100,css:'bgcolor2'},
 					{ id:"skcname",header:"名称", sort:"string",width:150},
-					{ id:"productcode",header:"款式", sort:"string",width:100},
+					{ id:"stylecode",header:"款式", sort:"string",width:100},
 					{ id:"colorname",header:"颜色", sort:"string",width:80},
 					{ id:"yearname",header:"年份", sort:"string",width:70},
 					{ id:"seasonname",header:"季节", sort:"string",width:70},

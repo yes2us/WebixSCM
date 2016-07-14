@@ -13,7 +13,7 @@ define(function(){
 				elements:[
 					{ view:"text",id:"rolename",name:"rolename",label:"角色", required:true,width:500},
 					{ view:"text",id:"roleenabled",name:"roleenabled", label:"启用", required:true,width:500},
-					{ view:"text",id:"roletype",name:"roletype", label:"类型", required:true,width:500,template:"{common.checkbox()}"},
+					{ view:"text",id:"roletype",name:"roletype", label:"类型", required:true,width:500},
 					{ view:"text",id:"roledesc",name:"roledesc", label:"描述",width:500},
 					{
 						margin:10,

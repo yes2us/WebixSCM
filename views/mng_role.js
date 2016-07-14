@@ -49,6 +49,7 @@ function(roleobject,modaladd,exports){
 				resizeColumn:true,
 				editable:true,
 				select:true,
+				navigation:true,
 				updateFromResponse:true,
 				save:urlstr+"/WBCURDMng/saveRole",
 				columns:[
@@ -111,6 +112,7 @@ var grid_roleuser ={
 	resizeColumn:true,
 	editable:true,
 	select:true,
+	navigation:true,
 	save:urlstr+"/WBCURDMng/saveRoleUser",
 	 columns:[
 	    	{id:"deletebutton", header:"&nbsp;",hidden:false, width:60, template:"<span  style='color:#777777; cursor:pointer;' class='webix_icon fa-trash-o'></span>"},

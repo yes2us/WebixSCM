@@ -48,6 +48,7 @@ function(moduleobject,modaladd,exports){
 				resizeColumn:true,
 				editable:true,
 				select:true,
+				navigation:true,
 				updateFromResponse:true,
 				save:urlstr+"/WBCURDMng/saveModule",
 				columns:[
@@ -115,6 +116,7 @@ var grid_relation ={
 				resizeColumn:true,
 				editable:true,
 				select:true,
+				navigation:true,
 	 columns:[
 	    	{id:"deletebutton", header:"&nbsp;",hidden:false, width:60, template:"<span  style='color:#777777; cursor:pointer;' class='webix_icon fa-trash-o'></span>"},
 	    {id:"_identify",header:"",hidden:true,width:30},

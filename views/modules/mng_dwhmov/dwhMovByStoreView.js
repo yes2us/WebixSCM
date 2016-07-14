@@ -64,6 +64,8 @@ define([
 		headermenu:{width:250,autoheight:false,scroll:true},
 		resizeColumn:true,
 		leftSplit:3,
+		select: true,
+		navigation:true,
 		columns:[
 				    { id:"partycode",name:"partycode",	header:"门店编号", hidden:true,css:"bgcolor2", fillspace:1},
 				    { id:"partyname",name:"partyname",	header:"门店", css:"bgcolor2", width:100},
@@ -79,7 +81,6 @@ define([
 					{ id:"stockoverinstores",name:"stockoverinstores",header:[null,"超额库存"] ,width:85},
 					{ id:"stockdeadqty",name:"stockdeadqty",header:[null,"死货库存"] ,width:85}
 		],
-		select: true,
 		on:{
 			onAfterLoad:function(){this.hideOverlay();  if(!this.count()) this.showOverlay("没有可以加载的数据");},
 			onSelectChange:function(){
@@ -113,6 +114,8 @@ define([
 		resizeColumn:true,
 		leftSplit:4,
 		editable:true,
+		select:true,
+		navigation:true,
 		rules:{"targetqty":webix.rules.isNumber,"operatemov":webix.rules.isNumber},
 		columns:[
 			{ id:"_identify",header:"#",width:35,hidden:true},
@@ -152,6 +155,8 @@ define([
 			scroll:true
 		},
 		editable:true,
+		select:true,
+		navigation:true,
 		save:urlstr+"/WBCURDMng/saveMovSKCPlan",
 		columns:[
 			{ id:"_identify",header:"#",width:35,hidden:true},

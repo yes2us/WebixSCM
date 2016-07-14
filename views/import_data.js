@@ -104,6 +104,7 @@ checkauthorization(false);
 				rowHeight:_RowHeight,
 				headerRowHeight:_HeaderRowHeight,
 				select:true,
+				navigation:true,
 				headermenu:{width:250,autoheight:false,scroll:true},
 				columns:[					
 //				    	{id:"_identify", header:"#",fillspace:0.5},

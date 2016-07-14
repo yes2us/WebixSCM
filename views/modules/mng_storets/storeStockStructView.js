@@ -8,6 +8,7 @@ define([], function(){
 			  headermenu:{width:250,autoheight:false,scroll:true},
 			  select: true,
 			  resizeColumn:true,
+			  navigation:true,
 			  leftSplit:3,
 			  columns:[
 					{ id:"yearname",name:"yearname",	header:"年份", css:"bgcolor2", width:60},

@@ -62,6 +62,7 @@ define(function(){
 		resizeColumn:true,
 		editable:true,
 		leftSplit:2,
+		navigation:true,
 		columns:[
 			{ id:"skucode",	header:"SKU", sort:"string",fillspace:2},
 			{ id:"partycode",header:"#",hidden:true},

@@ -62,6 +62,7 @@ define(function(){
 		resizeColumn:true,
 		leftSplit:4,
 		select: true,
+		navigation:true,
 		editable:true,
 		save:urlstr+"/WBCURDMng/saveBMRecord",
 		columns:[

@@ -13,6 +13,7 @@ function(){
 					view: "list",
 					id: "lt_RetWH_Regions",
 					select: true,
+					navigation:true,
 				    template:"#id# - #value#",
 				    url:urlstr+'/WBPartyMng/getRegionList',
 					scheme:{

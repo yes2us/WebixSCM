@@ -22,6 +22,7 @@ function(billobject,repretconditionview){
 				resizeColumn:true,
 				editable:false,
 				select:true,
+				navigation:true,
 				leftSplit:2,
 				export: true,
 				columns:[
@@ -69,6 +70,7 @@ function(billobject,repretconditionview){
 				resizeColumn:true,
 				editable:false,
 				select:true,
+				navigation:true,
 				leftSplit:1,
 				export: true,
 				columns:[

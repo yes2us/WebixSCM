@@ -9,6 +9,7 @@ function(){
 		headerRowHeight:_HeaderRowHeight,
 		headermenu:{width:250,autoheight:false,scroll:true},
 		resizeColumn:true,
+		navigation:true,
 		leftSplit:2,
 		editable:true,
 		select: true,
@@ -35,7 +36,7 @@ function(){
 
 	var layout = {
 		type: "clean",
-		id: "storeTSView",
+		id: "storeTargetView",
 		cols:[
 			gridTree,
 		]

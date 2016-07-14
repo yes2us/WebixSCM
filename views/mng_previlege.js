@@ -33,6 +33,7 @@ function(roleobject,moduleobject){
 				resizeColumn:true,
 				editable:false,
 				select:"row",
+				navigation:true,
 				columns:[
 					{id:"roleenabled", header:"启用", template:"{common.checkbox()}", sort:"string",fillspace:1,enabled:false},
 					{id:"rolename", header:"角色", sort:"string",fillspace:1},

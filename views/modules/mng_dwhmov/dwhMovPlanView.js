@@ -9,6 +9,7 @@ define(function(){
 		resizeColumn:true,
 		leftSplit:4,
 		select: true,
+		navigation:true,
 		columns:[
 			{ id:"_identify",header:"#",width:35,hidden:true},
 			{ id:"makedate",header:["日期",{content:"selectFilter"}],width:100},

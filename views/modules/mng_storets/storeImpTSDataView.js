@@ -23,7 +23,7 @@ checkauthorization(false);
 				  	label:"上传Excel",
 				  	link:"tsdata",
 				  	width:120,
-				  	upload:urlstr+"/WBUpLoadFile/importExcel2DB"
+				  	upload:urlstr+"/WBUpLoadFile/importExcel2DB/TargetTable/importstock"
 				 },
 			{view:"list",  id:"tsdata", type:"uploader",	autoheight:true, borderless:true,width:200},
 
@@ -34,7 +34,7 @@ checkauthorization(false);
 				 if(PageIndex<1) PageIndex = 1;
 				 
 				 $$("dt_loadedData").clearAll();
-				 $$("dt_loadedData").parse(impobject.getImportData(PageIndex,$$('pagelen').getValue()));
+				 $$("dt_loadedData").parse(impobject.getImportData("importstock",PageIndex,$$('pagelen').getValue()));
 			}},
 			{ view: "button", type: "iconButton", icon: "arrow-circle-right", label: "下一页", width: 100,
 			click: function(){
@@ -42,19 +42,19 @@ checkauthorization(false);
 				 if(PageIndex<1) PageIndex = 1;
 				 
 				 $$("dt_loadedData").clearAll();
-				 $$("dt_loadedData").parse(impobject.getImportData(PageIndex,$$('pagelen').getValue()));		 
+				 $$("dt_loadedData").parse(impobject.getImportData("importstock",PageIndex,$$('pagelen').getValue()));		 
 			}},
 			{},
 			{},
 			{ view: "button", type: "iconButton", icon: "times", label: "请空", width: 70,
 			click: function(){
-				 impobject.clearImportData();
+				 impobject.clearImportData("importstock");
 				 $$("dt_loadedData").clearAll();
 				 webix.message("清空成功！");
 			}},
 			{ view: "button", type: "iconButton", icon: "save", label: "保存", width: 70,
 				click: function(){
-				 impobject.saveImportData();
+				 impobject.saveImportData("importstock");
 				 webix.message("保存成功！");
 			}},
 		]
@@ -69,6 +69,7 @@ checkauthorization(false);
 				rowHeight:_RowHeight,
 				headerRowHeight:_HeaderRowHeight,
 				select:true,
+				navigation:true,
 					headermenu:{
 					    width:250,
 					    autoheight:false,
@@ -133,7 +134,7 @@ checkauthorization(false);
     			$$("dt_loadedData").showOverlay("正在载入导入的前200条数据...");
 			});
 			$$("dt_loadedData").clearAll();
-			$$("dt_loadedData").parse(impobject.getImportData(1,200));
+			$$("dt_loadedData").parse(impobject.getImportData("importstock",1,200));
 		}
 	};
 
